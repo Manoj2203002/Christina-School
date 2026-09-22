@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — Christina School Admin</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/navigation.css">
+  <link rel="stylesheet" href="../css/modals.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar__header">
+        <h2>Christina School</h2>
+        <span>Admin Panel</span>
+      </div>
+      <nav class="admin-sidebar__nav">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="staff.html">👥 Staff</a>
+        <a href="announcements.html">📣 Announcements</a>
+        <a href="gallery.html">🖼️ Gallery</a>
+        <a href="events.html">📅 Events</a>
+        <a href="achievements.html">🏆 Achievements</a>
+        <a href="news.html">📰 News</a>
+        <a href="admissions.html">📝 Admissions</a>
+        <a href="settings.html" class="active">⚙️ Settings</a>
+        <hr>
+        <a href="../index.html">🔗 View Website</a>
+        <a href="login.html">🚪 Logout</a>
+      </nav>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="admin-topbar__search">
+          <!-- Search hidden in settings -->
+        </div>
+        <div class="admin-topbar__actions">
+          <span class="avatar avatar--sm"></span>
+        </div>
+      </header>
+      <div class="admin-content">
+        <div style="margin-bottom: var(--space-6);">
+          <h1 class="heading-3">School Settings</h1>
+        </div>
+
+        <div class="card" style="max-width: 800px; padding: var(--space-6);">
+          <form id="settingsForm" novalidate>
+            <h2 class="heading-4" style="margin-bottom: var(--space-4); border-bottom: 1px solid var(--gray-200); padding-bottom: var(--space-2);">General Information</h2>
+            
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">School Name <span class="required-star">*</span></label>
+                <input type="text" id="setSchoolName" class="form-input" data-required="true">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Tagline</label>
+                <input type="text" id="setTagline" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Logo URL</label>
+              <input type="url" id="setLogo" class="form-input">
+              <img id="logoPreview" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" style="max-height: 80px; margin-top: var(--space-2); object-fit: contain;">
+            </div>
+
+            <h2 class="heading-4" style="margin-bottom: var(--space-4); margin-top: var(--space-8); border-bottom: 1px solid var(--gray-200); padding-bottom: var(--space-2);">Contact Details</h2>
+            
+            <div class="form-group">
+              <label class="form-label">Address</label>
+              <textarea id="setAddress" class="form-textarea" rows="2"></textarea>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Phone <span class="required-star">*</span></label>
+                <input type="tel" id="setPhone" class="form-input" data-required="true">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Email <span class="required-star">*</span></label>
+                <input type="email" id="setEmail" class="form-input" data-required="true" data-type="email">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">School Timings</label>
+              <input type="text" id="setTimings" class="form-input">
+            </div>
+
+            <h2 class="heading-4" style="margin-bottom: var(--space-4); margin-top: var(--space-8); border-bottom: 1px solid var(--gray-200); padding-bottom: var(--space-2);">Social Media & Integration</h2>
+            
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Facebook URL</label>
+                <input type="url" id="setFacebook" class="form-input">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Instagram URL</label>
+                <input type="url" id="setInstagram" class="form-input">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Twitter URL</label>
+                <input type="url" id="setTwitter" class="form-input">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">YouTube URL</label>
+                <input type="url" id="setYoutube" class="form-input">
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">WhatsApp Number</label>
+              <input type="tel" id="setWhatsapp" class="form-input" placeholder="+1234567890">
+            </div>
+
+            <h2 class="heading-4" style="margin-bottom: var(--space-4); margin-top: var(--space-8); border-bottom: 1px solid var(--gray-200); padding-bottom: var(--space-2);">Administration</h2>
+            
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Admission Status</label>
+                <select id="setAdmissionStatus" class="form-select">
+                  <option value="open">Open</option>
+                  <option value="closed">Closed</option>
+                  <option value="waitlist">Waitlist</option>
+                </select>
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label class="form-label">Academic Year</label>
+                <input type="text" id="setAcademicYear" class="form-input">
+              </div>
+            </div>
+
+            <div class="form-actions" style="margin-top: var(--space-8); display: flex; gap: var(--space-4);">
+              <button type="button" class="btn btn--outline" id="btnResetSettings">Cancel / Reset</button>
+              <button type="submit" class="btn btn--primary" id="btnSaveSettings">Save Settings</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/data-store.js" defer></script>
+  <script src="../js/modals.js" defer></script>
+  <script src="../js/toast.js" defer></script>
+  <script src="../js/forms.js" defer></script>
+  <script src="../js/admin-settings.js" defer></script>
+</body>
+</html>

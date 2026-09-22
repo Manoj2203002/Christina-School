@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Christina School Admin</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/navigation.css">
+  <link rel="stylesheet" href="../css/modals.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar__header">
+        <h2>Christina School</h2>
+        <span>Admin Panel</span>
+      </div>
+      <nav class="admin-sidebar__nav">
+        <a href="dashboard.html" class="active">📊 Dashboard</a>
+        <a href="staff.html">👥 Staff</a>
+        <a href="announcements.html">📣 Announcements</a>
+        <a href="gallery.html">🖼️ Gallery</a>
+        <a href="events.html">📅 Events</a>
+        <a href="achievements.html">🏆 Achievements</a>
+        <a href="news.html">📰 News</a>
+        <a href="admissions.html">📝 Admissions</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <hr>
+        <a href="../index.html">🔗 View Website</a>
+        <a href="login.html">🚪 Logout</a>
+      </nav>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="admin-topbar__search">
+          <input type="text" class="form-input" placeholder="Search...">
+        </div>
+        <div class="admin-topbar__actions">
+          <span class="avatar avatar--sm"></span>
+        </div>
+      </header>
+      <div class="admin-content">
+        <div class="flex flex--between" style="margin-bottom: var(--space-8);">
+          <h1 class="heading-3">Dashboard</h1>
+          <div class="flex">
+            <a href="staff.html" class="btn btn--primary btn--sm">+ Add Staff</a>
+            <a href="announcements.html" class="btn btn--secondary btn--sm">+ Add Announcement</a>
+            <a href="events.html" class="btn btn--outline btn--sm">+ Add Event</a>
+          </div>
+        </div>
+
+        <div class="grid grid--3" style="margin-bottom: var(--space-8);" id="statsContainer">
+          <!-- Stats loaded via JS -->
+        </div>
+
+        <div class="grid grid--2">
+          <div class="card">
+            <div class="card__body">
+              <h2 class="heading-4">Recent Activity</h2>
+              <ul style="margin-top: var(--space-4);" id="recentActivity">
+                <li class="text-small" style="padding: var(--space-2) 0; border-bottom: 1px solid var(--gray-200);">New admission enquiry received from Sarah Davis</li>
+                <li class="text-small" style="padding: var(--space-2) 0; border-bottom: 1px solid var(--gray-200);">Staff member Emily Chen updated profile</li>
+                <li class="text-small" style="padding: var(--space-2) 0; border-bottom: 1px solid var(--gray-200);">Announcement "Fall Semester" pinned</li>
+                <li class="text-small" style="padding: var(--space-2) 0; border-bottom: 1px solid var(--gray-200);">Event "Science Fair" created</li>
+                <li class="text-small" style="padding: var(--space-2) 0;">Gallery image uploaded to "Campus Life"</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card__body">
+              <h2 class="heading-4">Admissions Overview</h2>
+              <div style="height: 200px; display: flex; align-items: flex-end; gap: 10px; margin-top: var(--space-4); border-bottom: 2px solid var(--gray-200); padding-bottom: 10px;">
+                <div style="flex: 1; background: var(--royal-600); height: 80%; border-radius: 4px 4px 0 0;" title="New"></div>
+                <div style="flex: 1; background: var(--warning-500); height: 40%; border-radius: 4px 4px 0 0;" title="Follow-up"></div>
+                <div style="flex: 1; background: var(--success-500); height: 60%; border-radius: 4px 4px 0 0;" title="Completed"></div>
+              </div>
+              <div class="flex flex--between text-caption" style="margin-top: 5px;">
+                <span>New</span>
+                <span>Follow-up</span>
+                <span>Completed</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="announcementPopup" class="announcement-popup modal" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 350px; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.2); border-radius: 8px; z-index: 1000; padding: 0;">
+    <div class="modal__header" style="background: var(--royal-600); color: white; padding: 15px; border-radius: 8px 8px 0 0;">
+      <h3 class="heading-4" style="margin: 0; font-size: 1.1rem; color: white;">Active Announcements</h3>
+      <button class="modal__close btn-dismiss" style="color: white; border: none; background: transparent; font-size: 1.5rem; cursor: pointer;">&times;</button>
+    </div>
+    <div class="modal__body" id="activeAnnouncementsList" style="padding: 15px; max-height: 300px; overflow-y: auto;">
+    </div>
+  </div>
+
+  <script src="../js/data-store.js" defer></script>
+  <script src="../js/modals.js" defer></script>
+  <script src="../js/toast.js" defer></script>
+  <script src="../js/forms.js" defer></script>
+  <script src="../js/admin-dashboard.js" defer></script>
+</body>
+</html>

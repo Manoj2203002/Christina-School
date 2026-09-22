@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — Christina School Admin</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/navigation.css">
+  <link rel="stylesheet" href="../css/modals.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+</head>
+<body class="admin-body">
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-sidebar__header">
+        <h2>Christina School</h2>
+        <span>Admin Panel</span>
+      </div>
+      <nav class="admin-sidebar__nav">
+        <a href="dashboard.html">📊 Dashboard</a>
+        <a href="staff.html">👥 Staff</a>
+        <a href="announcements.html">📣 Announcements</a>
+        <a href="gallery.html">🖼️ Gallery</a>
+        <a href="events.html" class="active">📅 Events</a>
+        <a href="achievements.html">🏆 Achievements</a>
+        <a href="news.html">📰 News</a>
+        <a href="admissions.html">📝 Admissions</a>
+        <a href="settings.html">⚙️ Settings</a>
+        <hr>
+        <a href="../index.html">🔗 View Website</a>
+        <a href="login.html">🚪 Logout</a>
+      </nav>
+    </aside>
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+        <div class="admin-topbar__search">
+          <input type="text" id="searchInput" class="form-input" placeholder="Search events...">
+        </div>
+        <div class="admin-topbar__actions">
+          <span class="avatar avatar--sm"></span>
+        </div>
+      </header>
+      <div class="admin-content">
+        <div class="flex flex--between" style="margin-bottom: var(--space-6);">
+          <h1 class="heading-3">Event Management</h1>
+          <button class="btn btn--primary" id="btnAddEvent">+ Add Event</button>
+        </div>
+        
+        <div class="card" style="margin-bottom: var(--space-6); padding: var(--space-4);">
+          <div class="flex">
+            <select id="filterCategory" class="form-select" style="max-width: 200px;">
+              <option value="">All Categories</option>
+              <option value="Academic">Academic</option>
+              <option value="Sports">Sports</option>
+              <option value="Cultural">Cultural</option>
+              <option value="Admissions">Admissions</option>
+              <option value="General">General</option>
+            </select>
+            <select id="filterStatus" class="form-select" style="max-width: 200px;">
+              <option value="">All Statuses</option>
+              <option value="upcoming">Upcoming</option>
+              <option value="ongoing">Ongoing</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="data-table--responsive">
+          <table class="data-table" id="eventsTable">
+            <thead>
+              <tr>
+                <th>Event</th>
+                <th>Date & Time</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="eventsTableBody">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+          <div id="emptyState" class="empty-state" style="display: none;">
+            <div class="empty-state__title">No events found</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal" id="eventModal">
+    <div class="modal__backdrop"></div>
+    <div class="modal__container">
+      <div class="modal__header">
+        <h3 class="heading-4" id="modalTitle">Add Event</h3>
+        <button class="modal__close">&times;</button>
+      </div>
+      <div class="modal__body">
+        <form id="eventForm" novalidate>
+          <input type="hidden" id="eventId">
+          <div class="form-group">
+            <label class="form-label">Event Name <span class="required-star">*</span></label>
+            <input type="text" id="eventName" class="form-input" data-required="true">
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Date <span class="required-star">*</span></label>
+              <input type="date" id="eventDate" class="form-input" data-required="true">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Start Time <span class="required-star">*</span></label>
+              <input type="time" id="eventStartTime" class="form-input" data-required="true">
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">End Time <span class="required-star">*</span></label>
+              <input type="time" id="eventEndTime" class="form-input" data-required="true">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Location <span class="required-star">*</span></label>
+            <input type="text" id="eventLocation" class="form-input" data-required="true">
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Category</label>
+              <select id="eventCategory" class="form-select">
+                <option value="Academic">Academic</option>
+                <option value="Sports">Sports</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Admissions">Admissions</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex: 1;">
+              <label class="form-label">Status</label>
+              <select id="eventStatus" class="form-select">
+                <option value="upcoming">Upcoming</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description <span class="required-star">*</span></label>
+            <textarea id="eventDescription" class="form-textarea" rows="3" data-required="true"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Image URL</label>
+            <input type="url" id="eventImage" class="form-input">
+          </div>
+        </form>
+      </div>
+      <div class="modal__footer flex flex--between">
+        <button class="btn btn--outline" id="btnCancelEvent">Cancel</button>
+        <button class="btn btn--primary" id="btnSaveEvent">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/data-store.js" defer></script>
+  <script src="../js/modals.js" defer></script>
+  <script src="../js/toast.js" defer></script>
+  <script src="../js/forms.js" defer></script>
+  <script src="../js/admin-events.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Christina Nursery & Primary School | Attur, Salem</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/modals.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <div class="container top-bar__container">
+      <div class="top-bar__contact">
+        <a href="tel:+914282240000">📞 +91 4282 240 000</a>
+        <a href="mailto:info@christinaschool.in">✉️ info@christinaschool.in</a>
+      </div>
+      <div class="top-bar__links">
+        <a href="#">WhatsApp</a>
+        <a href="#">Facebook</a>
+        <a href="admin/index.html">Admin Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header__container">
+      <a href="index.html" class="school-logo">
+        <span class="logo-monogram">C</span>
+        <span class="logo-text">
+          <strong>Christina</strong>
+          <small>Nursery & Primary School</small>
+        </span>
+      </a>
+      
+      <nav class="nav">
+        <ul class="nav__list">
+          <li class="nav__item active"><a href="index.html" class="nav__link">Home</a></li>
+          <li class="nav__item"><a href="pages/about.html" class="nav__link">About</a></li>
+          <li class="nav__item"><a href="pages/academics.html" class="nav__link">Academics</a></li>
+          <li class="nav__item nav__item--dropdown">
+            <a href="#" class="nav__link">Campus Life ▾</a>
+            <ul class="nav__dropdown-menu">
+              <li><a href="pages/student-life.html">Student Life</a></li>
+              <li><a href="pages/activities.html">Activities</a></li>
+              <li><a href="pages/sports.html">Sports</a></li>
+            </ul>
+          </li>
+          <li class="nav__item"><a href="pages/achievements.html" class="nav__link">Achievements</a></li>
+          <li class="nav__item"><a href="pages/admissions.html" class="nav__link">Admissions</a></li>
+          <li class="nav__item nav__item--dropdown">
+            <a href="#" class="nav__link">News & Events ▾</a>
+            <ul class="nav__dropdown-menu">
+              <li><a href="pages/news.html">News</a></li>
+              <li><a href="pages/announcements.html">Announcements</a></li>
+              <li><a href="pages/events.html">Events</a></li>
+            </ul>
+          </li>
+          <li class="nav__item"><a href="pages/gallery.html" class="nav__link">Gallery</a></li>
+          <li class="nav__item"><a href="pages/contact.html" class="nav__link">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="header__actions">
+        <a href="#enroll" class="btn btn--primary">Enroll Now</a>
+        <button class="hamburger">
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section id="home" class="hero hero--full hero--vibrant">
+      <img src="https://content.jdmagicbox.com/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-primary-school-attur-salem-salem-schools-m1wjrnw4er.jpg" alt="School Campus" class="hero__bg">
+      <div class="hero__mesh"></div>
+      
+      <div class="container">
+        <div class="hero__content">
+          <span class="hero__badge">Est. 1992 • Gopalapuram, Attur</span>
+          <h1 class="heading-display reveal-text">Where Every Child Shines</h1>
+          <p>Excellence in education from Pre-KG to 8th Standard. Fostering bright futures in a nurturing environment.</p>
+          <div class="hero__actions">
+            <a href="#enroll" class="btn btn--primary">Apply for 2026-27</a>
+            <a href="#campus" class="btn btn--outline">Explore Campus</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker">
+      <div class="ticker__content">
+        <span class="ticker__item">Admissions open for Pre-KG to 8th Std</span>
+        <span class="ticker__item">Science Exhibition on Oct 15th</span>
+        <span class="ticker__item">Annual Sports Meet Registration Open</span>
+        <span class="ticker__item">Parent-Teacher Meeting next Saturday</span>
+        <!-- Duplicated for seamless scrolling -->
+        <span class="ticker__item">Admissions open for Pre-KG to 8th Std</span>
+        <span class="ticker__item">Science Exhibition on Oct 15th</span>
+        <span class="ticker__item">Annual Sports Meet Registration Open</span>
+        <span class="ticker__item">Parent-Teacher Meeting next Saturday</span>
+      </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section section--light">
+      <div class="hero-split">
+        <div class="hero-split__image-wrapper" data-animate="slide-right">
+          <img src="https://content.jdmagicbox.com/v2/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-and-primary-school-attur-salem-salem-english-medium-schools-fucxy6zk0o.jpg" alt="School building" class="hero-split__image">
+          <div class="hero-split__floating-stat">
+            <div class="feature-icon-wrapper" style="width:48px;height:48px;margin:0;">🏆</div>
+            <div>
+              <strong>30+ Years</strong>
+              <small style="display:block;color:var(--gray-500)">of Excellence</small>
+            </div>
+          </div>
+        </div>
+        <div class="hero-split__content" data-animate="fade-up">
+          <h2 class="mb-4">Nurturing Leaders <br><span class="text-gradient">Since 1992</span></h2>
+          <div class="color-block color-block--orange mb-6" style="width: 80px;"></div>
+          <p class="mb-4">Located in the heart of Gopalapuram, Attur, Christina Nursery & Primary School has been a beacon of quality education in Salem district. We believe in providing a holistic learning experience that goes beyond textbooks.</p>
+          <p class="mb-6">Our dedicated faculty, modern teaching methods, and focus on extracurricular activities ensure that every child reaches their full potential in a safe, supportive environment.</p>
+          <a href="#about-more" class="btn btn--secondary">Discover Our History</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-band section--gradient">
+      <div class="container">
+        <div class="stats-grid" data-animate="stagger-up">
+          <div class="stat-item">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">Happy Students</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">50+</div>
+            <div class="stat-label">Expert Teachers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">Years Legacy</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Success Rate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY CHOOSE US -->
+    <section class="section section--light bg-pattern">
+      <div class="container">
+        <div class="text-center mb-12" data-animate="fade-up">
+          <h2 class="mb-4">The Christina <span class="text-gradient-accent">Advantage</span></h2>
+          <p style="margin:0 auto">Why parents in Salem trust us with their children's future.</p>
+        </div>
+        
+        <div class="features-grid" data-animate="stagger-up">
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">📚</div>
+            <h3 class="h5 mb-2">Modern Curriculum</h3>
+            <p>Our syllabus is designed to encourage critical thinking and practical application of knowledge, preparing students for the real world.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">👩‍🏫</div>
+            <h3 class="h5 mb-2">Dedicated Faculty</h3>
+            <p>Experienced and passionate teachers who provide individual attention to ensure no child is left behind in their learning journey.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon-wrapper">🎨</div>
+            <h3 class="h5 mb-2">Holistic Development</h3>
+            <p>We balance academics with sports, arts, and cultural activities to build well-rounded personalities and confident individuals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACADEMICS -->
+    <section id="academics" class="section section--gray">
+      <div class="container">
+        <div class="text-center mb-8" data-animate="fade-up">
+          <h2 class="mb-4">Academic Programs</h2>
+        </div>
+        
+        <div class="text-center mb-8" data-animate="fade-up">
+          <div style="display:inline-flex;gap:1rem;">
+            <button class="tag active">Pre-KG & Kindergarten</button>
+            <button class="tag">Primary (I - V)</button>
+            <button class="tag">Middle School (VI - VIII)</button>
+          </div>
+        </div>
+        
+        <div class="card card--bordered" data-animate="fade-up">
+          <div style="display:flex;flex-wrap:wrap;align-items:center;">
+            <div style="flex:1;min-width:300px;">
+              <img src="https://content.jdmagicbox.com/v2/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-and-primary-school-attur-salem-salem-english-medium-schools-li7s1whsns.jpg" alt="Academics" style="width:100%;height:100%;object-fit:cover;">
+            </div>
+            <div style="flex:1;padding:var(--space-8);min-width:300px;">
+              <h3 class="mb-4">Foundational Learning</h3>
+              <p class="mb-4">Our early childhood program focuses on play-way methods, developing motor skills, and building a strong foundation in languages and basic mathematics. We create a joyful environment where children love to learn.</p>
+              <ul style="list-style:none;padding:0;margin-bottom:var(--space-6);">
+                <li style="margin-bottom:var(--space-2);">✓ Phonics & Reading Skills</li>
+                <li style="margin-bottom:var(--space-2);">✓ Basic Numeracy</li>
+                <li style="margin-bottom:var(--space-2);">✓ Creative Arts & Crafts</li>
+              </ul>
+              <a href="#" class="btn btn--outline" style="color:var(--blue-600);border-color:var(--blue-600);">View Curriculum</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAMPUS GALLERY -->
+    <section id="campus" class="section section--light">
+      <div class="container">
+        <div class="text-center mb-12" data-animate="fade-up">
+          <h2>Our Beautiful Campus</h2>
+          <div class="color-block color-block--orange mb-6" style="width: 80px; margin: 1rem auto;"></div>
+        </div>
+        
+        <div class="gallery-grid" data-animate="stagger-up">
+          <div class="gallery-item gallery-item--large">
+            <img src="https://content.jdmagicbox.com/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-primary-school-attur-salem-salem-schools-m1wjrnw4er.jpg" class="gallery-item__img" alt="Campus">
+            <div class="gallery-item__overlay">
+              <h3 class="gallery-item__title">Main Building</h3>
+              <span class="badge badge--secondary">Facilities</span>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://content.jdmagicbox.com/v2/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-and-primary-school-attur-salem-salem-english-medium-schools-fucxy6zk0o.jpg" class="gallery-item__img" alt="Campus">
+            <div class="gallery-item__overlay">
+              <h3 class="gallery-item__title">Entrance</h3>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://content.jdmagicbox.com/v2/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-and-primary-school-attur-salem-salem-english-medium-schools-li7s1whsns.jpg" class="gallery-item__img" alt="Campus">
+            <div class="gallery-item__overlay">
+              <h3 class="gallery-item__title">Playground</h3>
+            </div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://content.jdmagicbox.com/v2/comp/salem/w2/0427px427.x427.100412142313.b2w2/catalogue/christina-nursery-and-primary-school-attur-salem-salem-english-medium-schools-7oihep7hfk.jpg" class="gallery-item__img" alt="Campus">
+            <div class="gallery-item__overlay">
+              <h3 class="gallery-item__title">Assembly Area</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section class="section section--dark">
+      <div class="container">
+        <h2 class="text-center mb-12" data-animate="fade-up">School Achievements</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;" data-animate="stagger-up">
+          <div class="card" style="background:var(--blue-900);border-color:rgba(255,255,255,0.1);">
+            <div class="card__content text-center">
+              <div class="feature-icon-wrapper" style="margin:0 auto 1rem;background:var(--orange-vivid);color:white;">🏅</div>
+              <h3 style="color:white;" class="mb-2">Best School Award</h3>
+              <p style="color:var(--gray-300);">Awarded best primary school in Attur educational district for 2024.</p>
+            </div>
+          </div>
+          <div class="card" style="background:var(--blue-900);border-color:rgba(255,255,255,0.1);">
+            <div class="card__content text-center">
+              <div class="feature-icon-wrapper" style="margin:0 auto 1rem;background:var(--orange-vivid);color:white;">🏃</div>
+              <h3 style="color:white;" class="mb-2">Zonal Sports Champions</h3>
+              <p style="color:var(--gray-300);">Under-14 athletics champions in Salem district sports meet.</p>
+            </div>
+          </div>
+          <div class="card" style="background:var(--blue-900);border-color:rgba(255,255,255,0.1);">
+            <div class="card__content text-center">
+              <div class="feature-icon-wrapper" style="margin:0 auto 1rem;background:var(--orange-vivid);color:white;">🔬</div>
+              <h3 style="color:white;" class="mb-2">Science Olympiad</h3>
+              <p style="color:var(--gray-300);">5 gold medals secured by our students in the National Science Olympiad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ANNOUNCEMENTS & EVENTS -->
+    <section class="section section--light">
+      <div class="container">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(400px,1fr));gap:4rem;">
+          
+          <div data-animate="fade-up">
+            <h2 class="mb-6">Latest Announcements</h2>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div class="announcement-card is-pinned">
+                <span class="badge badge--secondary mb-2">Admissions</span>
+                <h4 class="mb-1">Admissions Open for 2026-27</h4>
+                <p class="mb-0" style="font-size:var(--text-sm)">Admissions are now open for Pre-KG to 8th Standard. Visit the school office between 9 AM to 4 PM.</p>
+              </div>
+              <div class="announcement-card">
+                <span class="badge badge--primary mb-2">Academics</span>
+                <h4 class="mb-1">Term 2 Examination Schedule</h4>
+                <p class="mb-0" style="font-size:var(--text-sm)">Term 2 exams will commence from November 15th. Detailed timetable has been shared via WhatsApp.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div data-animate="fade-up">
+            <h2 class="mb-6">Upcoming Events</h2>
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+              <div class="event-card">
+                <div class="event-card__date">
+                  <span class="event-card__date-day">15</span>
+                  <span class="event-card__date-month">Oct</span>
+                </div>
+                <div class="event-card__info">
+                  <h4 class="mb-1">Science Exhibition</h4>
+                  <p class="mb-0" style="font-size:var(--text-sm);color:var(--gray-500)">School Auditorium • 10:00 AM</p>
+                </div>
+              </div>
+              <div class="event-card">
+                <div class="event-card__date">
+                  <span class="event-card__date-day">24</span>
+                  <span class="event-card__date-month">Nov</span>
+                </div>
+                <div class="event-card__info">
+                  <h4 class="mb-1">Annual Sports Day</h4>
+                  <p class="mb-0" style="font-size:var(--text-sm);color:var(--gray-500)">School Playground • 8:30 AM</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section section--gradient">
+      <div class="container text-center" data-animate="fade-up">
+        <h2 class="mb-12" style="color:white;">What Parents Say</h2>
+        
+        <div style="max-width:800px;margin:0 auto;" class="testimonial-card">
+          <p class="testimonial-card__content">"The dedication of the teachers at Christina is unmatched. My daughter has grown not just academically but also in confidence since she joined the school in 1st standard."</p>
+          <div style="font-weight:700;color:var(--blue-800);">— Mrs. Priya Ramesh</div>
+          <div style="font-size:var(--text-sm);color:var(--gray-600);">Parent of Class 5 Student</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="enroll" class="section section--orange-bold text-center">
+      <div class="container" data-animate="zoom-in">
+        <h2 style="font-size:var(--text-5xl);margin-bottom:var(--space-4);">Ready to shape your child's future?</h2>
+        <p style="font-size:var(--text-xl);margin:0 auto var(--space-8);color:rgba(255,255,255,0.9);">Join the Christina family today. Admissions open for the upcoming academic year.</p>
+        <button class="btn btn--secondary btn--pill" style="font-size:1.2rem;padding:1rem 2.5rem;background:var(--navy-900);">Enroll Now</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__col">
+          <a href="index.html" class="school-logo mb-6" style="color:white;filter:brightness(0) invert(1);">
+            <span class="logo-monogram" style="background:transparent;border-color:white;color:white;">C</span>
+            <span class="logo-text">
+              <strong style="color:white;">Christina</strong>
+              <small style="color:rgba(255,255,255,0.7);">Nursery & Primary School</small>
+            </span>
+          </a>
+          <p style="color:var(--gray-400);">Where every child shines. Providing quality education in Attur, Salem since 1992.</p>
+          <div class="social-icons mt-4">
+            <a href="#" class="social-icon">f</a>
+            <a href="#" class="social-icon">in</a>
+            <a href="#" class="social-icon">ig</a>
+          </div>
+        </div>
+        
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <ul class="footer__links" style="list-style:none;padding:0;">
+            <li><a href="#about" class="footer__link">About Us</a></li>
+            <li><a href="#academics" class="footer__link">Academics</a></li>
+            <li><a href="#campus" class="footer__link">Our Campus</a></li>
+            <li><a href="#enroll" class="footer__link">Admissions</a></li>
+            <li><a href="admin/index.html" class="footer__link">Admin Login</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer__col">
+          <h4>Contact Info</h4>
+          <ul style="list-style:none;padding:0;color:var(--gray-400);display:flex;flex-direction:column;gap:1rem;">
+            <li>📍 Gopalapuram, Attur, Salem, Tamil Nadu - 636102</li>
+            <li>📞 +91 4282 240 000</li>
+            <li>✉️ info@christinaschool.in</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer__bottom">
+        <div>&copy; 2026 Christina Nursery & Primary School. All rights reserved.</div>
+        <div>Designed with ♥ for Education</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/animations.js"></script>
+  <script src="js/navigation.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

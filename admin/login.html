@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Christina School Admin</title>
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/global.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/navigation.css">
+  <link rel="stylesheet" href="../css/modals.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .login-wrapper {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--navy-900);
+      padding: var(--space-4);
+    }
+    .login-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: var(--space-8);
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--shadow-xl);
+    }
+    .login-header {
+      text-align: center;
+      margin-bottom: var(--space-8);
+    }
+    .login-header h1 {
+      color: var(--navy-900);
+      margin-bottom: var(--space-2);
+    }
+    .login-header p {
+      color: var(--gray-500);
+    }
+    .login-footer {
+      margin-top: var(--space-6);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+  </style>
+</head>
+<body class="admin-body">
+  <div class="login-wrapper">
+    <div class="login-card">
+      <div class="login-header">
+        <h1 class="heading-3">Christina School</h1>
+        <p class="text-small">Admin Portal</p>
+      </div>
+      <form id="loginForm" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="email">Email <span class="required-star">*</span></label>
+          <input type="email" id="email" class="form-input" data-required="true" data-type="email" placeholder="admin@christinaschool.edu">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="password">Password <span class="required-star">*</span></label>
+          <input type="password" id="password" class="form-input" data-required="true" data-min-length="6" placeholder="Enter your password">
+        </div>
+        <div class="form-group flex flex--between">
+          <label class="flex flex--center" style="gap: var(--space-2);">
+            <input type="checkbox" class="form-checkbox" id="remember">
+            <span class="text-small">Remember me</span>
+          </label>
+          <a href="#" class="text-small" style="color: var(--royal-600); text-decoration: none;">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn btn--primary" style="width: 100%;">Login</button>
+      </form>
+      <div class="login-footer">
+        <a href="../index.html" class="text-small" style="color: var(--gray-600); text-decoration: none;">&larr; Back to website</a>
+      </div>
+    </div>
+  </div>
+  <script src="../js/toast.js" defer></script>
+  <script src="../js/forms.js" defer></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('loginForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]');
+        
+        let isValid = true;
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
+        
+        if(!email || !email.includes('@')) isValid = false;
+        if(!pass || pass.length < 6) isValid = false;
+        
+        if (isValid) {
+          btn.classList.add('btn--loading');
+          btn.textContent = 'Logging in...';
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 800);
+        } else {
+          Toast.show({ message: 'Please enter valid credentials', type: 'error' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

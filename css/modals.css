@@ -1,0 +1,141 @@
+/* modals.css */
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(10, 17, 40, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: var(--z-modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s var(--ease-out);
+}
+
+.modal-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+  z-index: var(--z-modal);
+  transform: scale(0.95) translateY(20px);
+  opacity: 0;
+  transition: all 0.4s var(--spring-snappy);
+}
+
+.modal-overlay.is-open .modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modal__header {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.modal__header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  height: 1px; width: 100%;
+  background: var(--gradient-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.modal-overlay.is-open .modal__header::after {
+  transform: scaleX(1);
+}
+
+.modal__title {
+  font-size: var(--text-xl);
+  margin: 0;
+}
+
+.modal__close {
+  width: 32px; height: 32px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gray-600);
+  transition: all 0.2s;
+}
+
+.modal__close:hover {
+  background: var(--gray-200);
+  color: var(--danger);
+  transform: rotate(90deg);
+}
+
+.modal__body {
+  padding: var(--space-6);
+  overflow-y: auto;
+  /* Smooth scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-400) transparent;
+}
+
+.modal__body::-webkit-scrollbar {
+  width: 6px;
+}
+.modal__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modal__body::-webkit-scrollbar-thumb {
+  background-color: var(--gray-400);
+  border-radius: 10px;
+}
+
+.modal__footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  background: var(--bg-secondary);
+  border-bottom-left-radius: var(--radius-xl);
+  border-bottom-right-radius: var(--radius-xl);
+}
+
+/* Modal Drawer (Side panel) */
+.modal--drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 100vh;
+  border-radius: 0;
+  max-height: none;
+  transform: translateX(100%);
+  transition: transform 0.4s var(--spring-snappy);
+}
+
+.modal-overlay.is-open .modal--drawer {
+  transform: translateX(0);
+}
+
+/* Announcement Popup */
+.announcement-popup {
+  position: relative;
+  border-left: 4px solid var(--orange-500);
+  max-width: 500px;
+}
