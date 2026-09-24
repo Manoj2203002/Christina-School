@@ -1,0 +1,37 @@
+<section class="aview on" data-pane="overview">
+  <div class="kpis">
+    <div class="kpi"><span class="ic"><svg class="i i-18"><use href="#ic-users"/></svg></span><b id="kStaff">0</b><span>Staff members</span><span class="trend">+2</span></div>
+    <div class="kpi"><span class="ic" style="background:var(--mari-soft);color:var(--mari-deep)"><svg class="i i-18"><use href="#ic-mega"/></svg></span><b id="kAnn">0</b><span>Announcements</span><span class="trend">+4</span></div>
+    <div class="kpi"><span class="ic" style="background:#E8F5E9;color:#2E7D32"><svg class="i i-18"><use href="#ic-image"/></svg></span><b id="kGal">0</b><span>Gallery images</span><span class="trend">+18</span></div>
+    <div class="kpi"><span class="ic" style="background:#EDE7F6;color:#5E35B1"><svg class="i i-18"><use href="#ic-cal"/></svg></span><b id="kEv">0</b><span>Upcoming events</span><span class="trend">+1</span></div>
+    <div class="kpi"><span class="ic" style="background:#FFF3E0;color:#EF6C00"><svg class="i i-18"><use href="#ic-mail"/></svg></span><b id="kEnq">0</b><span>Admission enquiries</span><span class="trend">+7</span></div>
+  </div>
+
+  <div class="apanels">
+    <div class="panel-card">
+      <h3><svg class="i i-18" style="color:var(--mari)"><use href="#ic-mail"/></svg> Enquiries received, last six months</h3>
+      <div class="bars" id="bars"></div>
+    </div>
+    <div class="panel-card">
+      <h3><svg class="i i-18" style="color:var(--royal)"><use href="#ic-bell"/></svg> Recent activity</h3>
+      <div class="feed" id="feed"></div>
+    </div>
+  </div>
+
+  <div class="apanels" style="grid-template-columns:1fr 1fr">
+    <div class="panel-card">
+      <h3><svg class="i i-18" style="color:var(--mari)"><use href="#ic-pin"/></svg> Pinned on the site right now</h3>
+      <div id="pinnedAdmin"></div>
+    </div>
+    <div class="panel-card">
+      <h3><svg class="i i-18" style="color:var(--royal)"><use href="#ic-sparkle"/></svg> Quick actions</h3>
+      <div style="display:grid;gap:10px">
+        <button class="btn btn-soft" type="button" data-quick="ann"><svg class="i i-18"><use href="#ic-plus"/></svg> Post an announcement</button>
+        <button class="btn btn-soft" type="button" data-quick="ev"><svg class="i i-18"><use href="#ic-plus"/></svg> Add an event to the calendar</button>
+        <button class="btn btn-soft" type="button" data-quick="staff"><svg class="i i-18"><use href="#ic-plus"/></svg> Add a staff member</button>
+        <button class="btn btn-soft" type="button" data-quick="gal"><svg class="i i-18"><use href="#ic-upload"/></svg> Upload gallery photos</button>
+        <button class="btn btn-soft" type="button" data-quick="doc"><svg class="i i-18"><use href="#ic-upload"/></svg> Add a document</button>
+      </div>
+    </div>
+  </div>
+</section>

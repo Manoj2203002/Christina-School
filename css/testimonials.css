@@ -1,0 +1,110 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Testimonials / Parent Voices Styles
+   ============================================================ */
+/* ---------- testimonials ---------- */
+.tst-view {
+  overflow: hidden;
+  border-radius: var(--r-xl)
+}
+
+.tst-track {
+  display: flex;
+  transition: transform .65s var(--ease)
+}
+
+.tst {
+  flex: 0 0 100%;
+  padding: clamp(24px, 3.5vw, 52px);
+  background: #fff;
+}
+
+.tst-in {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(18px, 3vw, 38px);
+  align-items: center
+}
+
+.tst .av {
+  width: clamp(88px, 10vw, 124px);
+  aspect-ratio: 1;
+  border-radius: 36% 64% 58% 42%/48% 38% 62% 52%;
+  overflow: hidden;
+  flex: none;
+  box-shadow: var(--sh-2)
+}
+
+.tst blockquote {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.08rem, 1.8vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--navy);
+  font-variation-settings: 'SOFT' 34, 'WONK' 1
+}
+
+.tst .by {
+  margin-top: 1.1rem;
+  font-size: .88rem
+}
+
+.tst .by b {
+  color: var(--navy)
+}
+
+.tst .by span {
+  color: var(--ink-50)
+}
+
+.tst .quote-mark {
+  font-family: var(--serif);
+  font-size: 4rem;
+  color: var(--mari-soft);
+  line-height: .6;
+  display: block
+}
+
+.tst-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 22px;
+  justify-content: center
+}
+
+.dots {
+  display: flex;
+  gap: 7px
+}
+
+.dots button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--sky-2);
+  cursor: pointer;
+  transition: .35s var(--ease);
+  padding: 0
+}
+
+.dots button.on {
+  width: 30px;
+  border-radius: 9px;
+  background: var(--mari)
+}
+
+
+/* Testimonials Responsive Overrides */
+@media (max-width:720px) {
+  .tst { padding: clamp(18px, 4vw, 32px); }
+  .tst-in { gap: 1.2rem; }
+  .tst blockquote { font-size: 1.15rem; }
+}
+
+@media (max-width:560px) {
+  .tst-in { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+  .tst .av { margin: 0 auto; width: 80px; height: 80px; }
+  .tst .quote-mark { font-size: 3rem; margin: 0 auto; }
+  .tst blockquote { font-size: 1.02rem; line-height: 1.5; }
+}

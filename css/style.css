@@ -1,0 +1,27 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Master Stylesheet
+   Modular Architecture with Global and Page-Specific Files
+   ============================================================ */
+
+/* 1. Global design tokens, typography, screen sizes & common primitives */
+@import url('global.css');
+
+/* 2. Universal layout: header, topbar, mobile drawer, ticker & footer */
+@import url('nav.css');
+
+/* 3. Page-specific stylesheets */
+@import url('home.css');
+@import url('about.css');
+@import url('academics.css');
+@import url('staff.css');
+@import url('activities.css');
+@import url('announcements.css');
+@import url('gallery.css');
+@import url('news.css');
+@import url('admissions.css');
+@import url('contact.css');
+@import url('testimonials.css');
+@import url('documents.css');
+
+/* 4. Administration dashboard */
+@import url('admin.css');

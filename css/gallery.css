@@ -1,0 +1,212 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Gallery & Albums Styles
+   ============================================================ */
+/* ---------- gallery ---------- */
+.masonry {
+  columns: 4;
+  column-gap: 14px
+}
+
+.gitem {
+  break-inside: avoid;
+  margin-bottom: 14px;
+  border-radius: var(--r-l);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  box-shadow: var(--sh-1);
+  animation: gIn .55s var(--ease) both
+}
+
+@keyframes gIn {
+  from {
+    opacity: 0;
+    transform: scale(.94) translateY(16px)
+  }
+}
+
+.gitem .ph {
+  width: 100%
+}
+
+.gitem .gcap {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.6rem 1rem .9rem;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(10px);
+  background: linear-gradient(transparent, rgba(8, 20, 45, .88));
+  transition: .4s var(--ease)
+}
+
+.gitem:hover .gcap {
+  opacity: 1;
+  transform: none
+}
+
+.gitem .gcap b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1rem
+}
+
+.gitem .gcap span {
+  font-size: .75rem;
+  color: #CFE0F7
+}
+
+.gitem .expand {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .92);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: scale(.7);
+  transition: .35s var(--ease-b);
+  color: var(--navy)
+}
+
+.gitem:hover .expand {
+  opacity: 1;
+  transform: none
+}
+
+/* lightbox */
+.lbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(6, 15, 34, .94);
+  display: none;
+  place-items: center;
+  padding: 20px;
+  backdrop-filter: blur(6px)
+}
+
+.lbox.open {
+  display: grid;
+  animation: fade .3s
+}
+
+@keyframes fade {
+  from {
+    opacity: 0
+  }
+}
+
+.lbox figure {
+  margin: 0;
+  max-width: min(1000px, 94vw);
+  width: 100%;
+  animation: zoomIn .45s var(--ease-b)
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(.9)
+  }
+}
+
+.lbox .frame {
+  border-radius: var(--r-l);
+  overflow: hidden;
+  aspect-ratio: 16/10;
+  background: #0B1730
+}
+
+.lbox figcaption {
+  color: #fff;
+  text-align: center;
+  padding-top: 16px
+}
+
+.lbox figcaption b {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  display: block
+}
+
+.lbox figcaption span {
+  font-size: .82rem;
+  color: #9FBBE6
+}
+
+.lbox .nav-b {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: .3s var(--ease)
+}
+
+.lbox .nav-b:hover {
+  background: var(--mari);
+  border-color: var(--mari);
+  transform: translateY(-50%) scale(1.08)
+}
+
+.lbox .prev {
+  left: clamp(10px, 3vw, 40px)
+}
+
+.lbox .next {
+  right: clamp(10px, 3vw, 40px)
+}
+
+.lbox .close-b {
+  position: absolute;
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: #fff;
+  cursor: pointer;
+  display: grid;
+  place-items: center
+}
+
+.lbox .close-b:hover {
+  background: #fff;
+  color: var(--navy)
+}
+
+.lbox .count {
+  position: absolute;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  color: #9FBBE6;
+  font-size: .82rem
+}
+
+
+/* Gallery Responsive Overrides */
+@media (max-width:1160px) {
+  .masonry { columns: 3; }
+}
+
+@media (max-width:800px) {
+  .masonry { columns: 2; }
+}
+
+@media (max-width:500px) {
+  .masonry { columns: 1; }
+}

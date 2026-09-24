@@ -1,0 +1,211 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — News & Dispatches Styles
+   ============================================================ */
+/* ---------- Page Hero Header (Sub-pages & News) ---------- */
+.page-hero {
+  position: relative;
+  background: radial-gradient(1000px 500px at 70% 0%, #16407F 0%, transparent 60%),
+              linear-gradient(175deg, #0A1B3D 0%, #081533 100%);
+  color: #fff;
+  padding: clamp(48px, 6vw, 76px) 0 clamp(44px, 5vw, 68px);
+  overflow: hidden;
+}
+
+.page-hero .breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .84rem;
+  color: #8FAAD2;
+  margin-bottom: .8rem;
+}
+
+.page-hero .breadcrumb a {
+  color: #B6CBEB;
+  text-decoration: none;
+}
+
+.page-hero .breadcrumb a:hover {
+  color: #fff;
+}
+
+.page-hero .page-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  background: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  padding: .28rem .75rem;
+  border-radius: var(--r-pill);
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--amber);
+  margin-bottom: 1rem;
+}
+
+.page-hero h1 {
+  color: #fff;
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  line-height: 1.15;
+}
+
+.page-hero p.sub {
+  color: #B6CBEB;
+  font-size: clamp(1rem, 1.3vw, 1.18rem);
+  max-width: 720px;
+  margin-top: .8rem;
+  line-height: 1.6;
+}
+
+/* News Spotlight & Filter */
+.news-spotlight {
+  background: #fff;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-3);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  margin-top: -36px;
+  position: relative;
+  z-index: 5;
+  border: 1px solid var(--ink-10);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+
+.news-spotlight:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(10, 27, 61, .14);
+}
+
+.news-spotlight .spotlight-visual {
+  min-height: 320px;
+  position: relative;
+  overflow: hidden;
+}
+
+.news-spotlight .spotlight-content {
+  padding: clamp(24px, 3.5vw, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.news-spotlight .spotlight-content h2 {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  line-height: 1.25;
+  margin: .6rem 0 .9rem;
+}
+
+.news-spotlight .spotlight-content p {
+  color: var(--ink-70);
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+}
+
+.news-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 2.8rem 0 1.8rem;
+  flex-wrap: wrap;
+}
+
+.news-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid var(--ink-20);
+  border-radius: var(--r-pill);
+  padding: .5rem 1rem;
+  box-shadow: var(--sh-1);
+}
+
+.news-search-box input {
+  border: none;
+  outline: none;
+  font-size: .9rem;
+  background: transparent;
+  color: var(--ink-90);
+  width: 180px;
+}
+
+
+/* ---------- news ---------- */
+.news-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 18px
+}
+
+.news {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease)
+}
+
+.news:hover {
+  transform: translateY(-7px);
+  box-shadow: var(--sh-2)
+}
+
+.news .ph {
+  aspect-ratio: 16/9
+}
+
+.news .nb {
+  padding: 1.2rem 1.3rem 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column
+}
+
+.news h3 {
+  font-size: 1.08rem;
+  margin-top: .5rem
+}
+
+.news p {
+  font-size: .88rem;
+  color: var(--ink-70);
+  margin-top: .4rem;
+  flex: 1
+}
+
+.news .dt {
+  font-size: .76rem;
+  color: var(--mari-deep);
+  font-weight: 700
+}
+
+.news.feature .ph {
+  aspect-ratio: 16/10
+}
+
+.news.feature h3 {
+  font-size: 1.5rem
+}
+
+
+/* News Responsive Overrides */
+@media (max-width: 1024px) {
+  .news-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 800px) {
+  .news-spotlight { grid-template-columns: 1fr; margin-top: -24px; }
+  .news-spotlight .spotlight-visual { min-height: 220px; }
+  .news-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .news-filter-bar { flex-direction: column; align-items: stretch; gap: 12px; }
+  .news-search-box { width: 100%; }
+  .news-search-box input { width: 100%; }
+  .news-spotlight .spotlight-content { padding: 1.5rem 1.2rem; }
+}

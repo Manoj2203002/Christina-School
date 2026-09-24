@@ -1,0 +1,26 @@
+﻿<section class="aview on" data-pane="set">
+  <form id="setForm" class="setgrid">
+    <div class="panel-card">
+      <h3>School details</h3>
+      <div style="display:grid;gap:14px">
+        <div class="field"><label for="s-name">School name</label><input id="s-name" value="Christina Nursery and Primary School" /></div>
+        <div class="field"><label for="s-tag">Tagline</label><input id="s-tag" value="Where curiosity takes root" /></div>
+        <div class="field"><label for="s-addr">Address</label><textarea id="s-addr" style="min-height:70px">12 Kamaraj Avenue, Anna Nagar West, Chennai 600040</textarea></div>
+        <div class="field"><label for="s-hours">School timings</label><input id="s-hours" value="Monâ€“Fri, 8:15 am â€“ 3:30 pm" /></div>
+      </div>
+    </div>
+    <div class="panel-card">
+      <h3>Contact and visibility</h3>
+      <div style="display:grid;gap:14px">
+        <div class="field"><label for="s-phone">Office phone</label><input id="s-phone" value="+91 44 2855 3400" /></div>
+        <div class="field"><label for="s-mail">Public email</label><input id="s-mail" type="email" value="hello@christinaschool.in" /></div>
+        <div class="field"><label for="s-ticker">Ticker message</label><input id="s-ticker" value="Admission enquiries for 2026â€“27 are open for Nursery to Grade 5" /></div>
+        <label style="display:flex;align-items:center;gap:.8rem;background:var(--paper);border:1px solid var(--line);border-radius:var(--r-m);padding:.85rem 1rem">
+          <button type="button" class="toggle on" id="s-adm" aria-pressed="true" aria-label="Show the admissions open badge"></button>
+          <span><b style="font-size:.9rem">Show the "admissions open" badge</b><span style="display:block;font-size:.78rem;color:var(--ink-50)">Appears in the top bar and on the hero</span></span>
+        </label>
+        <button class="btn btn-primary" type="submit">Save settings</button>
+      </div>
+    </div>
+  </form>
+</section>

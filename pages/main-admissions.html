@@ -1,0 +1,72 @@
+<section class="row band-mist curve-top curve-bot" id="admissions">
+  <div class="wrap">
+    <div class="row-head rv">
+      <div>
+        <span class="tag">Admissions 2026–27</span>
+        <h2 class="d2">Five steps, about<br>three weeks, no capitation</h2>
+      </div>
+      <p class="lede">Seats are open for Nursery, LKG, UKG, and Grades 1 to 5. Nursery and Grade 1 fill first, usually by January. Everything below happens on campus — transparent, caring, and merit-based.</p>
+    </div>
+
+    <div class="adm-grid">
+      <div class="rv">
+        <h3 class="d3">How admission works</h3>
+        <div class="steps">
+          <div class="step"><span class="sn">1</span><div><b>Enquiry</b><p>Fill the form here or call the office. We reply the same working day with available seats for your child's grade.</p></div></div>
+          <div class="step"><span class="sn">2</span><div><b>Application</b><p>Collect the form at reception or download it. Application fee is ₹500, payable online or at the counter.</p></div></div>
+          <div class="step"><span class="sn">3</span><div><b>Interaction</b><p>A relaxed thirty-minute playful interaction. Nursery to UKG meet with our early-years educators; Grades 1 to 5 have a friendly reading and basic numeracy session.</p></div></div>
+          <div class="step"><span class="sn">4</span><div><b>Document verification</b><p>Originals checked at the office while you wait. Nothing is retained except copies.</p></div></div>
+          <div class="step"><span class="sn">5</span><div><b>Confirmation</b><p>Offer sent within five working days. Seat is held for one week from the offer date.</p></div></div>
+        </div>
+
+        <h3 class="d3" style="margin-top:2.2rem">What to bring</h3>
+        <ul class="docs">
+          <li><svg class="i i-18"><use href="#ic-doc"/></svg> Birth certificate (original + copy)</li>
+          <li><svg class="i i-18"><use href="#ic-doc"/></svg> Transfer certificate from previous school (Grades 1-5)</li>
+          <li><svg class="i i-18"><use href="#ic-doc"/></svg> Previous progress report (if applicable)</li>
+          <li><svg class="i i-18"><use href="#ic-doc"/></svg> Aadhaar of child and both parents</li>
+          <li><svg class="i i-18"><use href="#ic-doc"/></svg> Four passport photographs</li>
+          <li><svg class="i i-18"><use href="#ic-doc"/></svg> Address proof and immunisation record</li>
+        </ul>
+
+        <div class="call-strip">
+          <span class="ic" style="width:48px;height:48px;border-radius:16px;background:rgba(255,255,255,.1);display:grid;place-items:center;color:var(--amber)"><svg class="i i-24"><use href="#ic-phone"/></svg></span>
+          <span>Rather just talk to someone?<br><b>+91 44 2855 3400</b></span>
+          <button class="btn btn-primary btn-sm" style="margin-left:auto" type="button" data-visit>Schedule a visit</button>
+        </div>
+      </div>
+
+      <div class="form-card rv" data-d="1">
+        <span class="halo" aria-hidden="true"></span>
+        <span class="tag">Admission enquiry</span>
+        <h3 class="d3" style="margin-top:.6rem">Tell us about your child</h3>
+        <p class="small" style="color:var(--ink-50);margin-top:.4rem">We reply the same working day. No number is shared with anyone outside the school.</p>
+        <form id="enqForm" novalidate>
+          <div class="fgrid">
+            <div class="field"><label for="e-parent">Parent name</label><input id="e-parent" name="parent" required placeholder="Priya Raghavan" /><span class="err">Please enter the parent's name.</span></div>
+            <div class="field"><label for="e-child">Child's name</label><input id="e-child" name="child" required placeholder="Aarav Raghavan" /><span class="err">Please enter the child's name.</span></div>
+            <div class="field"><label for="e-phone">Phone</label><input id="e-phone" name="phone" type="tel" required placeholder="98400 00000" /><span class="err">Enter a 10-digit mobile number.</span></div>
+            <div class="field"><label for="e-mail">Email</label><input id="e-mail" name="email" type="email" required placeholder="priya@email.com" /><span class="err">Check the email address.</span></div>
+            <div class="field"><label for="e-grade">Grade applying for</label>
+              <select id="e-grade" name="grade" required>
+                <option value="">Select a grade</option>
+                <option>Nursery</option>
+                <option>LKG</option>
+                <option>UKG</option>
+                <option>Grade 1</option>
+                <option>Grade 2</option>
+                <option>Grade 3</option>
+                <option>Grade 4</option>
+                <option>Grade 5</option>
+              </select><span class="err">Choose a grade.</span></div>
+            <div class="field"><label for="e-source">How did you hear about us?</label>
+              <select id="e-source" name="source"><option>Another parent</option><option>Search</option><option>Passed the campus</option><option>Social media</option><option>Someone at work</option></select></div>
+            <div class="field full"><label for="e-msg">Anything you would like us to know</label><textarea id="e-msg" name="message" placeholder="Aarav is applying for Grade 2 and loves building things with blocks. We are moving to Anna Nagar in April."></textarea></div>
+          </div>
+          <button class="btn btn-primary" type="submit" style="margin-top:1.3rem;width:100%">Send the enquiry <svg class="i i-18 ico"><use href="#ic-send"/></svg></button>
+          <p class="form-note">By sending this you agree we may call you about admissions. That is all we use it for.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

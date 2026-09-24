@@ -1,0 +1,17 @@
+﻿<section class="aview on" data-pane="gal">
+  <div class="panel-card">
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:1rem">
+      <h3 style="margin:0"><svg class="i i-18" style="color:var(--mari)"><use href="#ic-image"/></svg> Albums</h3>
+      <button class="btn btn-soft btn-sm" style="margin-left:auto" type="button" id="addAlbum"><svg class="i i-16"><use href="#ic-plus"/></svg> Create album</button>
+      <button class="btn btn-primary btn-sm" type="button" id="addPhoto"><svg class="i i-16"><use href="#ic-upload"/></svg> Upload images</button>
+    </div>
+    <div class="albums" id="albumGrid"></div>
+  </div>
+  <div class="tbl-wrap">
+    <div class="tbl-top"><h3 style="margin:0;font-size:1.05rem">All images</h3><span class="small" style="color:var(--ink-50)" id="galAdminCount"></span></div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Preview</th><th>Caption</th><th>Album</th><th>Category</th><th>Added</th><th style="text-align:right">Actions</th></tr></thead>
+      <tbody id="aGalBody"></tbody>
+    </table></div>
+  </div>
+</section>

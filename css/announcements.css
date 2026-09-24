@@ -1,0 +1,252 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Announcements & Events Styles
+   ============================================================ */
+/* ---------- announcements ---------- */
+.pinned {
+  background: var(--navy);
+  color: #fff;
+  border-radius: var(--r-xl);
+  padding: clamp(22px, 3vw, 36px);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.5rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px
+}
+
+.pinned .pin-ic {
+  width: 64px;
+  height: 64px;
+  border-radius: 22px;
+  background: var(--mari);
+  display: grid;
+  place-items: center;
+  flex: none;
+  box-shadow: var(--sh-mari);
+  animation: drift2 6s ease-in-out infinite
+}
+
+.pinned h3 {
+  font-size: clamp(1.15rem, 2vw, 1.55rem)
+}
+
+.pinned p {
+  color: #B6CBEB;
+  font-size: .93rem;
+  margin-top: .3rem
+}
+
+.pinned .deco-ring {
+  border-color: rgba(255, 255, 255, .06)
+}
+
+.ann-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px
+}
+
+.ann {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+  position: relative;
+  overflow: hidden
+}
+
+.ann::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--cat, var(--sky));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .5s var(--ease)
+}
+
+.ann:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sh-2)
+}
+
+.ann:hover::before {
+  transform: scaleY(1)
+}
+
+.ann .hd {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .8rem;
+  flex-wrap: wrap
+}
+
+.cat {
+  font-size: .71rem;
+  font-weight: 800;
+  padding: .26rem .7rem;
+  border-radius: var(--r-pill);
+  background: var(--catbg, #E7F1FF);
+  color: var(--cat, #1D4ED8)
+}
+
+.ann .date {
+  font-size: .78rem;
+  color: var(--ink-50);
+  margin-left: auto
+}
+
+.ann h3 {
+  font-size: 1.08rem
+}
+
+.ann p {
+  font-size: .89rem;
+  color: var(--ink-70);
+  margin-top: .45rem;
+  flex: 1
+}
+
+.link-a {
+  margin-top: 1rem;
+  font-weight: 700;
+  font-size: .86rem;
+  color: var(--royal);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  align-self: flex-start;
+  position: relative
+}
+
+.link-a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 14px;
+  bottom: -3px;
+  height: 2px;
+  background: var(--royal);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .4s var(--ease)
+}
+
+.link-a:hover::after {
+  transform: scaleX(1)
+}
+
+.link-a:hover .ico {
+  transform: translateX(4px)
+}
+
+.link-a .ico {
+  transition: transform .35s var(--ease-b)
+}
+
+
+/* ---------- events ---------- */
+.ev-list {
+  display: grid;
+  gap: 12px
+}
+
+.ev {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.4rem;
+  align-items: center;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: var(--r-l);
+  padding: 1.1rem 1.4rem;
+  transition: .45s var(--ease)
+}
+
+.ev:hover {
+  background: rgba(255, 255, 255, .12);
+  transform: translateX(6px)
+}
+
+.ev-date {
+  width: 72px;
+  text-align: center;
+  background: #fff;
+  color: var(--navy);
+  border-radius: var(--r-m);
+  padding: .6rem .3rem;
+  flex: none
+}
+
+.ev-date b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  line-height: 1
+}
+
+.ev-date span {
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--mari-deep)
+}
+
+.ev h3 {
+  font-size: 1.1rem;
+  color: #fff
+}
+
+.ev .ev-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: .8rem;
+  color: #9FBBE6;
+  margin-top: .35rem
+}
+
+.ev .ev-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem
+}
+
+.ev p {
+  font-size: .86rem;
+  color: #B6CBEB;
+  margin-top: .4rem;
+  max-width: 62ch
+}
+
+
+/* Announcements Responsive Overrides */
+@media (max-width:1024px) {
+  .ann-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width:768px) {
+  .pinned { grid-template-columns: auto 1fr; gap: 1rem; }
+  .pinned .btn { grid-column: span 2; width: 100%; justify-content: center; }
+  .ann-grid { grid-template-columns: 1fr; }
+  .ev-card { grid-template-columns: auto 1fr; }
+  .ev-card .time-loc { grid-column: 2; margin-top: .4rem; }
+}
+
+@media (max-width:480px) {
+  .pinned { grid-template-columns: 1fr; text-align: left; }
+  .pinned .pin-ic { width: 48px; height: 48px; border-radius: 16px; }
+  .pinned .btn { grid-column: span 1; }
+}

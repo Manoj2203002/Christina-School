@@ -1,0 +1,188 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Staff Page Styles
+   ============================================================ */
+/* ---------- staff ---------- */
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 26px
+}
+
+.search {
+  position: relative;
+  flex: 1;
+  min-width: 230px;
+  max-width: 330px
+}
+
+.search input {
+  width: 100%;
+  padding: .8rem 1rem .8rem 2.8rem;
+  border-radius: var(--r-pill);
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: .92rem;
+  transition: .3s
+}
+
+.search input:focus {
+  outline: none;
+  border-color: var(--royal);
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, .12)
+}
+
+.search svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-50)
+}
+
+.chip-btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  padding: .62rem 1.1rem;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: .87rem;
+  color: var(--ink-70);
+  transition: .3s var(--ease)
+}
+
+.chip-btn:hover {
+  border-color: var(--navy);
+  color: var(--navy)
+}
+
+.chip-btn.active {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 1.6vw, 22px)
+}
+
+.staff-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s;
+  transform-style: preserve-3d
+}
+
+.staff-card:hover {
+  box-shadow: var(--sh-2);
+  border-color: transparent
+}
+
+.staff-card .pic {
+  position: relative;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+  background: var(--mist)
+}
+
+.staff-card .pic .ph {
+  position: absolute;
+  inset: 0
+}
+
+.staff-card .dept {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  z-index: 3;
+  background: rgba(255, 255, 255, .93);
+  color: var(--navy);
+  padding: .25rem .7rem;
+  border-radius: var(--r-pill);
+  font-size: .72rem;
+  font-weight: 700
+}
+
+.staff-card .body {
+  padding: 1.05rem 1.15rem 1.25rem
+}
+
+.staff-card h3 {
+  font-size: 1.1rem
+}
+
+.staff-card .desig {
+  font-size: .84rem;
+  color: var(--mari-deep);
+  font-weight: 600;
+  margin-top: .15rem
+}
+
+.staff-card .meta {
+  margin-top: .7rem;
+  font-size: .79rem;
+  color: var(--ink-50);
+  display: grid;
+  gap: .25rem
+}
+
+.staff-card .view {
+  margin-top: .9rem;
+  font-size: .84rem;
+  font-weight: 700;
+  color: var(--royal);
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem
+}
+
+.staff-card .view .ico {
+  transition: transform .35s var(--ease-b)
+}
+
+.staff-card:hover .view .ico {
+  transform: translateX(5px)
+}
+
+.empty {
+  padding: 52px 20px;
+  text-align: center;
+  border: 2px dashed var(--line);
+  border-radius: var(--r-l);
+  color: var(--ink-50)
+}
+
+.empty b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: var(--navy);
+  margin-bottom: .3rem
+}
+
+
+/* Staff Responsive Overrides */
+@media (max-width:1160px) {
+  .staff-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width:900px) {
+  .staff-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width:600px) {
+  .filters { flex-direction: column; align-items: stretch; gap: 12px; }
+  .search { min-width: 100%; max-width: 100%; }
+  #deptChips { width: 100%; }
+}
+
+@media (max-width:560px) {
+  .staff-grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,235 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Activities, Sports & Achievements Styles
+   ============================================================ */
+/* ---------- student life: scattered playful ---------- */
+.life-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 1.8vw, 24px)
+}
+
+.life {
+  border-radius: var(--r-l);
+  padding: 1.4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 172px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: default;
+  transition: transform .55s var(--ease-b), box-shadow .5s var(--ease)
+}
+
+.life:hover {
+  transform: translateY(-8px) rotate(-1.2deg);
+  box-shadow: var(--sh-2)
+}
+
+.life:nth-child(even):hover {
+  transform: translateY(-8px) rotate(1.2deg)
+}
+
+.life h3 {
+  font-size: 1.22rem
+}
+
+.life p {
+  font-size: .86rem;
+  margin-top: .3rem
+}
+
+.life .emoji-ic {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, .55)
+}
+
+.life .blobdeco {
+  position: absolute;
+  right: -30px;
+  top: -30px;
+  width: 130px;
+  height: 130px;
+  border-radius: 44% 56% 62% 38%/48% 42% 58% 52%;
+  background: rgba(255, 255, 255, .28);
+  transition: transform .8s var(--ease)
+}
+
+.life:hover .blobdeco {
+  transform: scale(1.35) rotate(40deg)
+}
+
+
+/* ---------- sports rail ---------- */
+.rail-wrap {
+  position: relative
+}
+
+.rail {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 6px 4px 22px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  cursor: grab
+}
+
+.rail::-webkit-scrollbar {
+  display: none
+}
+
+.rail.drag {
+  cursor: grabbing;
+  scroll-snap-type: none
+}
+
+.sport {
+  flex: none;
+  width: 290px;
+  scroll-snap-align: start;
+  border-radius: var(--r-l);
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3/3.8;
+  box-shadow: var(--sh-2)
+}
+
+.sport .ph {
+  position: absolute;
+  inset: 0
+}
+
+.sport .inner {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.4rem;
+  color: #fff;
+  background: linear-gradient(transparent 32%, rgba(8, 20, 45, .88))
+}
+
+.sport h3 {
+  font-size: 1.35rem
+}
+
+.sport p {
+  font-size: .85rem;
+  color: #CADCF6;
+  margin-top: .3rem
+}
+
+.sport .lvl {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  background: var(--mari);
+  padding: .28rem .75rem;
+  border-radius: var(--r-pill);
+  font-size: .72rem;
+  font-weight: 700;
+  z-index: 3
+}
+
+.rail-nav {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: -6px
+}
+
+
+/* ---------- achievements ---------- */
+.ach-list {
+  display: grid;
+  gap: 14px
+}
+
+.ach {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 1.2rem;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  padding: 1.1rem 1.4rem;
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease), border-color .3s
+}
+
+.ach:hover {
+  transform: translateX(7px);
+  box-shadow: var(--sh-2);
+  border-color: var(--mari-soft)
+}
+
+.trophy {
+  width: 60px;
+  height: 60px;
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  flex: none;
+  background: linear-gradient(140deg, var(--amber), var(--mari));
+  color: #fff;
+  box-shadow: var(--sh-mari)
+}
+
+.ach.silver .trophy {
+  background: linear-gradient(140deg, #C9D6E8, #93A7C4)
+}
+
+.ach.bronze .trophy {
+  background: linear-gradient(140deg, #E8B98B, #C08552)
+}
+
+.ach h3 {
+  font-size: 1.08rem
+}
+
+.ach .who {
+  font-size: .85rem;
+  color: var(--ink-50);
+  margin-top: .2rem
+}
+
+.ach .res {
+  text-align: right;
+  flex: none
+}
+
+.ach .res b {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: var(--mari-deep)
+}
+
+.ach .res span {
+  font-size: .75rem;
+  color: var(--ink-50)
+}
+
+
+/* Activities Responsive Overrides */
+@media (max-width:900px) {
+  .life-grid { grid-template-columns: repeat(2, 1fr); }
+  .sports-grid { grid-template-columns: repeat(2, 1fr); }
+  .ach-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width:560px) {
+  .life-grid { grid-template-columns: 1fr; }
+  .sports-grid { grid-template-columns: 1fr; }
+  .ach { grid-template-columns: auto 1fr; gap: .9rem; padding: 1rem; }
+  .ach .res { grid-column: 2; text-align: left; margin-top: .3rem; }
+  .trophy { width: 48px; height: 48px; border-radius: 16px; }
+  .sport { width: 250px; }
+}

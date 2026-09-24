@@ -1,0 +1,64 @@
+<!-- ===== News Page Hero ===== -->
+<section class="page-hero">
+  <div class="wrap">
+    <div class="breadcrumb rv">
+      <a href="#/home">Home</a>
+      <svg class="i i-14"><use href="#ic-chev-r"/></svg>
+      <span>News &amp; Stories</span>
+    </div>
+    <span class="page-tag rv" data-d="1"><svg class="i i-16"><use href="#ic-doc"/></svg> The Christina Chronicle</span>
+    <h1 class="d1 rv" data-d="2">Stories, Updates &amp;<br>Campus Dispatches</h1>
+    <p class="sub rv" data-d="3">What's happening across our classrooms, sports grounds, science labs, and creative studios — written by the teachers who were there.</p>
+  </div>
+</section>
+
+<!-- ===== Featured Spotlight & News Grid ===== -->
+<section class="row" id="news" style="padding-top:0">
+  <div class="wrap">
+    <!-- Featured Story Spotlight Card -->
+    <article class="news-spotlight rv" id="newsSpotlight">
+      <div class="spotlight-visual zoom" data-scene="science" data-alt="Christina students collaborating at the annual science and craft exhibition"></div>
+      <div class="spotlight-content">
+        <div class="tag-row">
+          <span class="tag" style="background:#FFF3E0;color:#EF6C00">Featured Story</span>
+          <span class="small" style="color:var(--ink-50)">October 2026 · Science &amp; Innovation</span>
+        </div>
+        <h2>Science &amp; Craft exhibition entries open for Grades 1 to 5</h2>
+        <p>Working models and nature exhibits on plants, clean water, renewable energy, and animal habitats are welcome. Mentors from our primary science faculty will guide student teams on Saturday mornings.</p>
+        <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+          <button class="btn btn-primary" type="button" data-toast="Exhibition guidelines ready.|Forms available from the discovery lab.">Read full guidelines <svg class="i i-16 ico"><use href="#ic-arrow-r"/></svg></button>
+          <span class="small" style="color:var(--ink-60)">By <b>Mr. Joseph Mathew</b> · Primary Science Lead</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- News Filter & Search Bar -->
+    <div class="news-filter-bar rv">
+      <div class="chips" id="newsChips">
+        <button class="chip-btn active" data-ncat="All">All Stories</button>
+        <button class="chip-btn" data-ncat="Academic">Academic</button>
+        <button class="chip-btn" data-ncat="Sports">Sports</button>
+        <button class="chip-btn" data-ncat="Campus">Campus Life</button>
+        <button class="chip-btn" data-ncat="Events">Events</button>
+      </div>
+      <div class="news-search-box">
+        <svg class="i i-18" style="color:var(--ink-40)"><use href="#ic-search"/></svg>
+        <input type="text" id="newsSearch" placeholder="Search news &amp; topics..." aria-label="Search news" />
+      </div>
+    </div>
+
+    <!-- Recent Updates Grid -->
+    <div class="news-grid" id="newsGrid"></div>
+
+    <!-- Parent Dispatch / Newsletter CTA -->
+    <div class="cellx band-navy curve-top curve-bot rv" style="margin-top:4rem;padding:clamp(32px, 5vw, 48px);border-radius:var(--r-xl);text-align:center;color:#fff">
+      <span class="tag on-navy">Weekly Dispatch</span>
+      <h3 class="d2" style="color:#fff;margin:.8rem 0 .5rem">Get school updates sent to your inbox</h3>
+      <p class="lede" style="color:#B6CBEB;max-width:560px;margin:0 auto 1.6rem">A short Friday email with photos, notices, and stories from the week. No spam, ever.</p>
+      <form id="newsletterForm" style="display:flex;gap:10px;justify-content:center;max-width:440px;margin:0 auto;flex-wrap:wrap" onsubmit="event.preventDefault(); window.App.toast('Subscribed!|You will receive the Friday dispatch.'); this.reset();">
+        <input type="email" placeholder="Enter your email address" required style="flex:1;min-width:220px;padding:.75rem 1.1rem;border-radius:var(--r-pill);border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;outline:none" />
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>

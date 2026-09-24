@@ -1,0 +1,122 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Documents Library Styles
+   ============================================================ */
+/* ---------- documents ---------- */
+.doc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+  margin-top: 1.8rem
+}
+
+.doc-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-l);
+  padding: 1.2rem 1.3rem;
+  transition: .4s var(--ease)
+}
+
+.doc-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--sh-2);
+  border-color: var(--sky)
+}
+
+.doc-card .ic {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: var(--mist);
+  color: var(--royal);
+  display: grid;
+  place-items: center;
+  flex: none
+}
+
+.doc-card .db {
+  flex: 1;
+  min-width: 0
+}
+
+.doc-card h3 {
+  font-family: var(--sans);
+  font-size: .98rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--ink)
+}
+
+.doc-card .meta {
+  font-size: .78rem;
+  color: var(--mari-deep);
+  font-weight: 700;
+  margin-top: .3rem
+}
+
+.doc-card p {
+  font-size: .86rem;
+  color: var(--ink-70);
+  margin-top: .5rem
+}
+
+.doc-card .btn {
+  margin-top: .9rem
+}
+
+.filechip {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-m);
+  padding: .7rem 1rem;
+  margin-top: 12px
+}
+
+.filechip svg {
+  color: var(--mari-deep);
+  flex: none
+}
+
+.filechip span {
+  flex: 1;
+  font-size: .86rem;
+  font-weight: 600;
+  color: var(--navy);
+  word-break: break-all
+}
+
+.filechip button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 0;
+  background: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--ink-50);
+  flex: none;
+  box-shadow: var(--sh-1)
+}
+
+.filechip button:hover {
+  background: var(--mari);
+  color: #fff
+}
+
+
+/* Documents Responsive Overrides */
+@media (max-width:1024px) {
+  .doc-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width:680px) {
+  .doc-grid { grid-template-columns: 1fr; }
+  .doc-card { padding: 1rem; }
+}

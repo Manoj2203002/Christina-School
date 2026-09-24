@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Christina Nursery and Primary School — Admin Dashboard</title>
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/admin.css" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="locked">
+
+<svg id="sprite" aria-hidden="true"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6L16.5 12l4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.6 7.2 8.4 5.6 8.4-5.6"/></symbol>
+<symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 1.9"/></symbol>
+<symbol id="ic-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7.2a4 4 0 0 1 8 0V10"/></symbol>
+<symbol id="ic-arrow-r" viewBox="0 0 24 24"><path d="M5 12h13m-5.5-6 6 6-6 6"/></symbol>
+<symbol id="ic-arrow-u" viewBox="0 0 24 24"><path d="M12 19V5.5M6 11.5 12 5l6 6.5"/></symbol>
+<symbol id="ic-chev-r" viewBox="0 0 24 24"><path d="m9.5 5.5 6.5 6.5-6.5 6.5"/></symbol>
+<symbol id="ic-chev-l" viewBox="0 0 24 24"><path d="m14.5 5.5-6.5 6.5 6.5 6.5"/></symbol>
+<symbol id="ic-chev-d" viewBox="0 0 24 24"><path d="m6 9.5 6 6 6-6"/></symbol>
+<symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.2-4.2"/></symbol>
+<symbol id="ic-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path d="m5 12.6 4.4 4.4L19 7.4"/></symbol>
+<symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="ic-pencil" viewBox="0 0 24 24"><path d="M4.5 19.5h4L20 8a2.1 2.1 0 0 0 0-3l-1.5-1.5a2.1 2.1 0 0 0-3 0L4.5 15.5v4z"/></symbol>
+<symbol id="ic-trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V4.8h5V7m-8.2 0 1 12.5h8.4L18.7 7"/></symbol>
+<symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+<symbol id="ic-upload" viewBox="0 0 24 24"><path d="M12 16.5V4.5M7.2 9.3 12 4.5l4.8 4.8M4 19.5h16"/></symbol>
+<symbol id="ic-pin" viewBox="0 0 24 24"><path d="M9.2 3.6h5.6l-1 5.8 3.7 2.9H6.5l3.7-2.9-1-5.8zM12 12.3v8"/></symbol>
+<symbol id="ic-bell" viewBox="0 0 24 24"><path d="M18 15.2v-4.4a6 6 0 1 0-12 0v4.4L4.2 18.4h15.6L18 15.2zM10 21h4"/></symbol>
+<symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10.2h18"/></symbol>
+<symbol id="ic-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 20.2a6 6 0 0 1 12 0M15.8 5.1a3.4 3.4 0 0 1 0 6.5M17.4 14.4a6 6 0 0 1 3.6 5.8"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20.8a7 7 0 0 1 14 0"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24"><path d="M4.5 5.2A2.2 2.2 0 0 1 6.7 3H19.5v14.2H6.7a2.2 2.2 0 0 0-2.2 2.2V5.2zM19.5 17.2v3.6H6.7"/></symbol>
+<symbol id="ic-grad" viewBox="0 0 24 24"><path d="m2.5 9 9.5-3.8L21.5 9 12 12.8 2.5 9z"/><path d="M6.3 10.6v4.2c0 1.7 2.6 3 5.7 3s5.7-1.3 5.7-3v-4.2M21 9.4v5"/></symbol>
+<symbol id="ic-trophy" viewBox="0 0 24 24"><path d="M7 4h10v5.2a5 5 0 0 1-10 0V4zM7 5.8H4v1.1a4 4 0 0 0 3 3.8M17 5.8h3v1.1a4 4 0 0 1-3 3.8M12 14.4v3.6M8.4 21h7.2l-.7-3H9.1l-.7 3z"/></symbol>
+<symbol id="ic-image" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="8.6" cy="9.4" r="1.7"/><path d="m4 17.4 4.8-4.8 4 4 2.4-2.4 4.8 4.8"/></symbol>
+<symbol id="ic-camera" viewBox="0 0 24 24"><path d="M4 8h3l2-2.2h6L17 8h3a1.2 1.2 0 0 1 1.2 1.2v8.6A1.2 1.2 0 0 1 20 19H4a1.2 1.2 0 0 1-1.2-1.2V9.2A1.2 1.2 0 0 1 4 8z"/><circle cx="12" cy="13" r="3.4"/></symbol>
+<symbol id="ic-shield" viewBox="0 0 24 24"><path d="M12 3.2 20 6v6c0 5-3.6 8.2-8 9.2-4.4-1-8-4.2-8-9.2V6l8-2.8z"/><path d="m9.2 12.2 2 2 3.6-3.8"/></symbol>
+<symbol id="ic-bus" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="13" rx="3"/><path d="M4 11.4h16M7.5 20v-3M16.5 20v-3"/><circle cx="8" cy="14.2" r=".9" class="i-fill"/><circle cx="16" cy="14.2" r=".9" class="i-fill"/></symbol>
+<symbol id="ic-flask" viewBox="0 0 24 24"><path d="M9.2 3.2v6.2L4.6 18a2.1 2.1 0 0 0 1.8 3.1h11.2a2.1 2.1 0 0 0 1.8-3.1l-4.6-8.6V3.2M8 3.2h8M6.8 14.6h10.4"/></symbol>
+<symbol id="ic-laptop" viewBox="0 0 24 24"><rect x="4.5" y="5" width="15" height="10.6" rx="2"/><path d="M2.5 19h19"/></symbol>
+<symbol id="ic-palette" viewBox="0 0 24 24"><path d="M12 3.2a8.8 8.8 0 1 0 0 17.6 2.1 2.1 0 0 0 1.6-3.4 2.1 2.1 0 0 1 1.6-3.4h2a4.6 4.6 0 0 0 4.6-4.6c0-3.6-4.4-6.2-9.8-6.2z"/><circle cx="8.2" cy="9.4" r="1.1" class="i-fill"/><circle cx="12.4" cy="7.4" r="1.1" class="i-fill"/><circle cx="16.4" cy="9.6" r="1.1" class="i-fill"/></symbol>
+<symbol id="ic-music" viewBox="0 0 24 24"><path d="M9 17.6V5.8l10-2v11.4"/><circle cx="6.8" cy="18" r="2.4"/><circle cx="16.8" cy="15.8" r="2.4"/></symbol>
+<symbol id="ic-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.8"/><path d="m12 7.4 3.8 2.8-1.5 4.6H9.7L8.2 10.2 12 7.4zM12 3.2v4.2M4 10.4l4.2-.2M20 10.4l-4.2-.2M7.4 20.2l2.3-3.4M16.6 20.2l-2.3-3.4"/></symbol>
+<symbol id="ic-run" viewBox="0 0 24 24"><circle cx="15.4" cy="4.8" r="1.9"/><path d="M9 20.4 11.4 15 9 12l1-4.2 4.2 2 2.2 3.2h2.8M5.4 12.6l3.4-2M8 21h-3"/></symbol>
+<symbol id="ic-chess" viewBox="0 0 24 24"><path d="M10 3.6h4v2.2h2.4l-1.2 4.4H8.8L7.6 5.8H10V3.6zM8.8 10.2h6.4l1.2 7.4H7.6l1.2-7.4zM6.6 20.6h10.8"/></symbol>
+<symbol id="ic-heart" viewBox="0 0 24 24"><path d="M12 20.4s-7.4-4.6-7.4-9.6A4.2 4.2 0 0 1 12 8.4a4.2 4.2 0 0 1 7.4 2.4c0 5-7.4 9.6-7.4 9.6z"/></symbol>
+<symbol id="ic-star" viewBox="0 0 24 24"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8L12 3.6z"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24"><path d="M12 3.4 13.8 8.6 19 10.4 13.8 12.2 12 17.4 10.2 12.2 5 10.4 10.2 8.6 12 3.4zM18.4 15.6l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2z"/></symbol>
+<symbol id="ic-mappin" viewBox="0 0 24 24"><path d="M12 21.2s7-5.8 7-11.2a7 7 0 1 0-14 0c0 5.4 7 11.2 7 11.2z"/><circle cx="12" 10" r="2.6"/></symbol>
+<symbol id="ic-send" viewBox="0 0 24 24"><path d="m21 3-9.2 18-2.6-7.4L2 11 21 3z"/></symbol>
+<symbol id="ic-mega" viewBox="0 0 24 24"><path d="M4 9.8v4.4l12 4.8V5L4 9.8zM16.4 9.4a3 3 0 0 1 0 5.2M7.2 15.4v4.2h3.2"/></symbol>
+<symbol id="ic-cog" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.2M12 18.8V21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M3 12h2.2M18.8 12H21M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"/></symbol>
+<symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+<symbol id="ic-logout" viewBox="0 0 24 24"><path d="M14.5 4H17a2.5 2.5 0 0 1 2.5 2.5v11A2.5 2.5 0 0 1 17 20h-2.5M10 15.5 6.5 12 10 8.5M6.5 12H15"/></symbol>
+<symbol id="ic-filter" viewBox="0 0 24 24"><path d="M4 5h16l-6.2 7.2v6.2l-3.6 1.8v-8L4 5z"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M7 3.2h7l4 4v13.6H7V3.2zM14 3.2v4h4"/></symbol>
+<symbol id="ic-expand" viewBox="0 0 24 24"><path d="M9 4H4v5M15 20h5v-5M20 9V4h-5M4 15v5h5"/></symbol>
+<symbol id="ic-wa" viewBox="0 0 24 24"><path d="M12.04 2.6a9.3 9.3 0 0 0-8 14.05L2.8 21.4l4.9-1.2a9.3 9.3 0 1 0 4.34-17.6z"/><path d="M8.8 8c.25-.6.5-.6.85-.6h.6c.2 0 .45 0 .65.5l.75 1.8c.1.25 0 .5-.15.7l-.5.55c-.15.2-.3.4-.15.7a6.6 6.6 0 0 0 3.05 2.65c.35.15.55.1.75-.1l.6-.7c.2-.25.4-.2.65-.1l1.75.85c.25.1.4.2.45.3.05.25 0 .9-.35 1.4-.35.5-1.15 1-1.95 1a8.2 8.2 0 0 1-7-6.6c-.05-.85.3-1.75.8-2.35z"/></symbol>
+<symbol id="ic-fb" viewBox="0 0 24 24"><path d="M14.6 8.4V6.8c0-.8.5-1.1 1-1.1h1.8V2.8h-2.7c-2.8 0-3.6 2-3.6 3.4v2.2H9v3.2h2.1V21h3.5v-9.4h2.6l.4-3.2h-3z"/></symbol>
+<symbol id="ic-ig" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1.1" class="i-fill"/></symbol>
+<symbol id="ic-yt" viewBox="0 0 24 24"><rect x="2.8" y="5.5" width="18.4" height="13" rx="4"/><path d="m10.3 9.4 5 2.6-5 2.6V9.4z"/></symbol>
+<symbol id="ic-in" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="M8 10.5V17M8 7.4v.1M12 17v-3.6a2.2 2.2 0 0 1 4.4 0V17"/></symbol>
+</defs></svg>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="veil" data-close-modal></div>
+  <div class="box" id="modalBox">
+    <button class="x" data-close-modal aria-label="Close"><svg class="i"><use href="#ic-close"/></svg></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<div class="admin open" id="admin" style="position:relative;min-height:100vh" aria-label="School admin dashboard">
+  <aside class="aside" id="aside">
+    <span class="brand">
+      <span class="brand-mark" style="width:38px;height:38px" aria-hidden="true"><img src="assets/logo.png" alt="Christina School" class="brand-logo" style="width:36px;height:36px" /></span>
+      <span><b>Christina</b><span>Site administration</span></span>
+    </span>
+    <nav aria-label="Dashboard sections">
+      <button data-view="overview" class="on"><svg class="i i-18"><use href="#ic-grid"/></svg> Dashboard</button>
+      <button data-view="staff"><svg class="i i-18"><use href="#ic-users"/></svg> Staff <span class="cnt" id="cStaff">0</span></button>
+      <button data-view="ann"><svg class="i i-18"><use href="#ic-mega"/></svg> Announcements <span class="cnt" id="cAnn">0</span></button>
+      <button data-view="gal"><svg class="i i-18"><use href="#ic-image"/></svg> Gallery <span class="cnt" id="cGal">0</span></button>
+      <button data-view="ev"><svg class="i i-18"><use href="#ic-cal"/></svg> Events <span class="cnt" id="cEv">0</span></button>
+      <button data-view="ach"><svg class="i i-18"><use href="#ic-trophy"/></svg> Achievements <span class="cnt" id="cAch">0</span></button>
+      <button data-view="news"><svg class="i i-18"><use href="#ic-doc"/></svg> News <span class="cnt" id="cNews">0</span></button>
+      <button data-view="doc"><svg class="i i-18"><use href="#ic-doc"/></svg> Documents <span class="cnt" id="cDoc">0</span></button>
+      <button data-view="enq"><svg class="i i-18"><use href="#ic-mail"/></svg> Enquiries <span class="cnt" id="cEnq">0</span></button>
+      <button data-view="set"><svg class="i i-18"><use href="#ic-cog"/></svg> School settings</button>
+    </nav>
+    <div class="aside-foot">
+      <a href="index.html" class="btn btn-ghost on-navy btn-sm" id="viewSite"><svg class="i i-16"><use href="#ic-eye"/></svg> View the website</a>
+      <a href="index.html" class="btn btn-primary btn-sm" id="logout"><svg class="i i-16"><use href="#ic-logout"/></svg> Sign out</a>
+    </div>
+  </aside>
+  <div class="amain">
+    <div class="atop">
+      <button class="burger" id="aBurger" style="display:none" aria-label="Open dashboard menu"><i></i><i></i><i></i></button>
+      <div><h2 id="aTitle">Dashboard</h2><span class="sub" id="aSub">Everything happening on the Christina school website today</span></div>
+      <div class="push">
+        <button class="icon-btn" type="button" data-toast="You have 3 unread enquiries.|info" aria-label="Notifications"><svg class="i i-18"><use href="#ic-bell"/></svg></button>
+        <span class="who"><span class="av">RK</span><span><b>Radhika Krishnan</b><span>Principal</span></span></span>
+      </div>
+    </div>
+    <div id="admin-app">
+      <!-- Admin router injects views here -->
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/pages-cache.js"></script>
+<script src="js/router.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
