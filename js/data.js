@@ -307,7 +307,7 @@ function toast(msg, kind) {
 function countUp(el) {
   const target = parseInt(el.dataset.count, 10);
   if (REDUCED) { el.textContent = target; return; }
-  const dur = 1500, t0 = performance.now();
+  const dur = 850, t0 = performance.now();
   const step = now => {
     const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
     el.textContent = Math.round(target * e);

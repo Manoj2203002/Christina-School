@@ -1016,10 +1016,10 @@ document.addEventListener('click', e => {
 function initHome() {
   mountScenes(); watch(); bindTilt();
   const hero = $('.hero');
-  if (hero) setTimeout(() => hero.classList.add('go'), 100);
+  if (hero) setTimeout(() => hero.classList.add('go'), 30);
   $$('.hero [data-count], .stats [data-count]').forEach(c => {
     c.dataset.done = '1';
-    setTimeout(() => countUp(c), 400);
+    setTimeout(() => countUp(c), 150);
   });
   
   // 1. Update Announcement Pill in marked hero area with latest notice from db

@@ -877,6 +877,115 @@ p {
   font-weight: 600
 }
 
+/* ---------- modal responsive overrides ---------- */
+@media (max-width: 680px) {
+  .modal {
+    padding: 12px;
+    align-items: center;
+  }
+  .modal .box {
+    width: 100%;
+    max-height: 90vh;
+    border-radius: var(--r-l);
+  }
+  .login-box {
+    grid-template-columns: 1fr;
+    border-radius: var(--r-l);
+    width: 100%;
+  }
+  .login-side {
+    padding: 18px 20px 14px;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, var(--navy), #12336B);
+  }
+  .login-side .brand-mark {
+    width: 44px !important;
+    height: 44px !important;
+    flex-shrink: 0;
+  }
+  .login-side .brand-logo {
+    width: 42px !important;
+    height: 42px !important;
+  }
+  .login-side > div {
+    flex: 1;
+    min-width: 160px;
+  }
+  .login-side h3 {
+    font-size: 1.15rem;
+    margin-top: 0;
+    line-height: 1.25;
+  }
+  .login-side p {
+    display: none;
+  }
+  .login-side .login-demo {
+    margin-top: 10px;
+    padding: 7px 12px;
+    font-size: .78rem;
+    width: 100%;
+    border-radius: 8px;
+    line-height: 1.4;
+  }
+  .login-side > p.small {
+    display: none;
+  }
+  .login-main {
+    padding: 20px 20px 24px;
+  }
+  .login-main h3.d3 {
+    font-size: 1.3rem;
+  }
+  .modal#login .x {
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, .2);
+    color: #fff;
+  }
+  .modal#login .x:hover {
+    background: rgba(255, 255, 255, .35);
+    color: #fff;
+  }
+  .prof {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.2rem;
+  }
+  .prof .pic {
+    margin: 0 auto;
+    width: 110px;
+  }
+  .prof-facts {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: left;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-side {
+    padding: 14px 16px 12px;
+  }
+  .login-side h3 {
+    font-size: 1.05rem;
+  }
+  .login-side .login-demo {
+    font-size: .74rem;
+    padding: 6px 10px;
+  }
+  .login-main {
+    padding: 16px 16px 20px;
+  }
+  .login-main h3.d3 {
+    font-size: 1.18rem;
+  }
+}
+
 
 /* ---------- toasts ---------- */
 .toasts {
