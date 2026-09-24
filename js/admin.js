@@ -336,15 +336,15 @@ function renderAdminStaff() {
   if (tbody) {
     tbody.innerHTML = list.length ? list.map(s => `
       <tr>
-        <td><span class="cellav"><span class="av">${staffPic(s)}</span><span><b>${esc(s.name)}</b><span>${esc(s.subjects || '')}</span></span></span></td>
-        <td>${esc(s.desig)}</td>
-        <td><span class="pillx">${esc(s.dept)}</span></td>
-        <td>${esc(s.qual || '')}</td>
-        <td>${s.exp} yrs</td>
-        <td>${esc(s.classes || '')}</td>
-        <td><button class="toggle${s.active ? ' on' : ''}" type="button" data-tog="${s.id}"
+        <td data-col="Staff"><span class="cellav"><span class="av">${staffPic(s)}</span><span><b>${esc(s.name)}</b><span>${esc(s.subjects || '')}</span></span></span></td>
+        <td data-col="Designation">${esc(s.desig)}</td>
+        <td data-col="Department"><span class="pillx">${esc(s.dept)}</span></td>
+        <td data-col="Qualification">${esc(s.qual || '—')}</td>
+        <td data-col="Experience">${s.exp} yrs</td>
+        <td data-col="Classes">${esc(s.classes || '—')}</td>
+        <td data-col="Website Status"><button class="toggle${s.active ? ' on' : ''}" type="button" data-tog="${s.id}"
               aria-pressed="${!!s.active}" aria-label="Show ${esc(s.name)} on the website"></button></td>
-        <td>${acts('staff', s.id)}</td>
+        <td data-col="Actions">${acts('staff', s.id)}</td>
       </tr>`).join('') : blank(8, 'No staff member matches that');
   }
 }
@@ -373,16 +373,16 @@ function renderAdminAnn() {
       }
       return `
         <tr>
-          <td style="max-width:280px"><b style="display:block;font-size:.92rem">${esc(a.title)}</b>
+          <td data-col="Announcement" style="max-width:280px"><b style="display:block;font-size:.92rem">${esc(a.title)}</b>
             <span style="font-size:.76rem;color:var(--ink-50)">${esc((a.text || '').slice(0, 64))}${(a.text || '').length > 64 ? '…' : ''}</span></td>
-          <td><span class="pillx" style="background:${CATS[a.cat] ? CATS[a.cat].bg : 'var(--mist)'};color:${CATS[a.cat] ? CATS[a.cat].c : 'var(--royal)'}">${esc(a.cat)}</span></td>
-          <td><span style="font-size:.82rem;font-weight:600;display:block">${schedText}</span>
+          <td data-col="Category"><span class="pillx" style="background:${CATS[a.cat] ? CATS[a.cat].bg : 'var(--mist)'};color:${CATS[a.cat] ? CATS[a.cat].c : 'var(--royal)'}">${esc(a.cat)}</span></td>
+          <td data-col="Active Schedule"><span style="font-size:.82rem;font-weight:600;display:block">${schedText}</span>
               <span class="pillx ${schedClass}" style="margin-top:4px;font-size:.68rem">${schedClass === 'ok' ? 'Active now' : (schedClass === 'draft' ? 'Scheduled' : 'Expired')}</span></td>
-          <td><button class="mini${a.pinned ? ' on' : ''}" type="button" data-pin="${a.id}" aria-label="Pin ${esc(a.title)}"
+          <td data-col="Popup Dialog"><button class="mini${a.pinned ? ' on' : ''}" type="button" data-pin="${a.id}" aria-label="Pin ${esc(a.title)}"
                 style="${a.pinned ? 'background:var(--mari);color:#fff;border-color:var(--mari)' : ''}"><svg class="i i-16"><use href="#ic-pin"/></svg></button>
               ${a.pinned ? '<span class="pillx ok" style="margin-left:6px;font-size:.68rem">Popup</span>' : ''}</td>
-          <td><span class="pillx ${a.status === 'published' ? 'ok' : 'draft'}">${a.status === 'published' ? 'Published' : 'Draft'}</span></td>
-          <td>${acts('ann', a.id)}</td>
+          <td data-col="Status"><span class="pillx ${a.status === 'published' ? 'ok' : 'draft'}">${a.status === 'published' ? 'Published' : 'Draft'}</span></td>
+          <td data-col="Actions">${acts('ann', a.id)}</td>
         </tr>`;
     }).join('') : blank(6, 'Nothing here yet');
   }
@@ -409,12 +409,12 @@ function renderAdminGal() {
   if (tbody) {
     tbody.innerHTML = db.gallery.length ? db.gallery.map(g => `
       <tr>
-        <td><span class="cellav"><span class="av"><span class="ph" style="width:100%;height:100%;border-radius:0" data-scene="${g.theme}" data-alt="${esc(g.cap)}"${g.src ? ` data-src="${g.src}"` : ''}></span></span></span></td>
-        <td style="max-width:280px">${esc(g.cap)}</td>
-        <td>${esc(g.album || '—')}</td>
-        <td><span class="pillx">${esc(g.cat)}</span></td>
-        <td>${g.date ? fmt(g.date) : '—'}</td>
-        <td>${acts('gal', g.id)}</td>
+        <td data-col="Photograph"><span class="cellav"><span class="av"><span class="ph" style="width:100%;height:100%;border-radius:0" data-scene="${g.theme}" data-alt="${esc(g.cap)}"${g.src ? ` data-src="${g.src}"` : ''}></span></span></span></td>
+        <td data-col="Caption" style="max-width:280px">${esc(g.cap)}</td>
+        <td data-col="Album">${esc(g.album || '—')}</td>
+        <td data-col="Category"><span class="pillx">${esc(g.cat)}</span></td>
+        <td data-col="Added Date">${g.date ? fmt(g.date) : '—'}</td>
+        <td data-col="Actions">${acts('gal', g.id)}</td>
       </tr>`).join('') : blank(6, 'No photographs uploaded yet');
     mountScenes(tbody);
   }
@@ -425,12 +425,12 @@ function renderAdminEv() {
   if (tbody) {
     tbody.innerHTML = db.events.length ? db.events.map(ev => `
       <tr>
-        <td style="max-width:300px"><b style="display:block;font-size:.92rem">${esc(ev.title)}</b>
+        <td data-col="Event" style="max-width:300px"><b style="display:block;font-size:.92rem">${esc(ev.title)}</b>
           <span style="font-size:.76rem;color:var(--ink-50)">${esc((ev.desc || '').slice(0, 70))}${(ev.desc || '').length > 70 ? '…' : ''}</span></td>
-        <td><b>${dayOf(ev.date)}</b> ${monOf(ev.date)}</td>
-        <td>${esc(ev.time || '—')}</td>
-        <td>${esc(ev.loc || '—')}</td>
-        <td>${acts('ev', ev.id)}</td>
+        <td data-col="Date"><b>${dayOf(ev.date)}</b> ${monOf(ev.date)}</td>
+        <td data-col="Time">${esc(ev.time || '—')}</td>
+        <td data-col="Location">${esc(ev.loc || '—')}</td>
+        <td data-col="Actions">${acts('ev', ev.id)}</td>
       </tr>`).join('') : blank(5, 'The calendar is empty');
   }
 }
@@ -440,13 +440,13 @@ function renderAdminAch() {
   if (tbody) {
     tbody.innerHTML = db.ach.length ? db.ach.map(a => `
       <tr>
-        <td><span class="cellav"><span class="av" style="background:var(--mari-soft);display:grid;place-items:center;color:var(--mari-deep)">
+        <td data-col="Student"><span class="cellav"><span class="av" style="background:var(--mari-soft);display:grid;place-items:center;color:var(--mari-deep)">
           <svg class="i i-18"><use href="#ic-trophy"/></svg></span><span><b>${esc(a.student)}</b><span>${esc(a.medal)} medal</span></span></span></td>
-        <td>${esc(a.grade)}</td>
-        <td style="max-width:280px">${esc(a.comp)}</td>
-        <td><span class="pillx ok">${esc(a.result)}</span></td>
-        <td>${fmt(a.date)}</td>
-        <td>${acts('ach', a.id)}</td>
+        <td data-col="Grade">${esc(a.grade)}</td>
+        <td data-col="Competition" style="max-width:280px">${esc(a.comp)}</td>
+        <td data-col="Result"><span class="pillx ok">${esc(a.result)}</span></td>
+        <td data-col="Date">${fmt(a.date)}</td>
+        <td data-col="Actions">${acts('ach', a.id)}</td>
       </tr>`).join('') : blank(6, 'No achievements recorded yet');
   }
 }
@@ -456,11 +456,11 @@ function renderAdminNews() {
   if (tbody) {
     tbody.innerHTML = db.news.length ? db.news.map(n => `
       <tr>
-        <td style="max-width:360px"><b style="display:block;font-size:.92rem">${esc(n.title)}</b>
+        <td data-col="Headline" style="max-width:360px"><b style="display:block;font-size:.92rem">${esc(n.title)}</b>
           <span style="font-size:.76rem;color:var(--ink-50)">${esc((n.text || '').slice(0, 76))}${(n.text || '').length > 76 ? '…' : ''}</span></td>
-        <td>${fmt(n.date)}</td>
-        <td>${esc(n.by || 'School office')}</td>
-        <td>${acts('news', n.id)}</td>
+        <td data-col="Date">${fmt(n.date)}</td>
+        <td data-col="Written By">${esc(n.by || 'School office')}</td>
+        <td data-col="Actions">${acts('news', n.id)}</td>
       </tr>`).join('') : blank(4, 'No updates written yet');
   }
 }
@@ -470,13 +470,13 @@ function renderAdminDocs() {
   if (tbody) {
     tbody.innerHTML = db.documents.length ? db.documents.map(d => `
       <tr>
-        <td style="max-width:300px"><b style="display:block;font-size:.92rem">${esc(d.title)}</b>
+        <td data-col="Document" style="max-width:300px"><b style="display:block;font-size:.92rem">${esc(d.title)}</b>
           <span style="font-size:.76rem;color:var(--ink-50)">${esc((d.desc || '').slice(0, 70))}${(d.desc || '').length > 70 ? '…' : ''}</span></td>
-        <td><span class="pillx">${esc(d.category)}</span></td>
-        <td>${esc(d.audience || 'Everyone')}</td>
-        <td>${fmt(d.date)}</td>
-        <td>${d.file ? `<span class="pillx ok">Uploaded</span>` : `<span class="pillx draft">Pending</span>`}</td>
-        <td>${acts('doc', d.id)}</td>
+        <td data-col="Category"><span class="pillx">${esc(d.category)}</span></td>
+        <td data-col="Audience">${esc(d.audience || 'Everyone')}</td>
+        <td data-col="Date">${fmt(d.date)}</td>
+        <td data-col="Status">${d.file ? `<span class="pillx ok">Uploaded</span>` : `<span class="pillx draft">Pending</span>`}</td>
+        <td data-col="Actions">${acts('doc', d.id)}</td>
       </tr>`).join('') : blank(6, 'No documents uploaded yet');
   }
 }
@@ -487,13 +487,13 @@ function renderAdminEnq() {
   if (tbody) {
     tbody.innerHTML = db.enquiries.length ? db.enquiries.map(q2 => `
       <tr>
-        <td><span class="cellav"><span class="av">${avatar(q2.parent, 'e' + q2.id)}</span><span><b>${esc(q2.parent)}</b><span>${esc(q2.email || '')}</span></span></span></td>
-        <td>${esc(q2.child)}</td>
-        <td><span class="pillx">${esc(q2.grade)}</span></td>
-        <td>${esc(q2.phone)}</td>
-        <td>${fmt(q2.date)}</td>
-        <td><span class="pillx ${q2.status === 'Admitted' ? 'ok' : q2.status === 'New' ? 'draft' : ''}">${esc(q2.status)}</span></td>
-        <td><div class="rowacts">
+        <td data-col="Parent"><span class="cellav"><span class="av">${avatar(q2.parent, 'e' + q2.id)}</span><span><b>${esc(q2.parent)}</b><span>${esc(q2.email || '')}</span></span></span></td>
+        <td data-col="Child">${esc(q2.child)}</td>
+        <td data-col="Grade"><span class="pillx">${esc(q2.grade)}</span></td>
+        <td data-col="Contact">${esc(q2.phone)}</td>
+        <td data-col="Received">${fmt(q2.date)}</td>
+        <td data-col="Status"><span class="pillx ${q2.status === 'Admitted' ? 'ok' : q2.status === 'New' ? 'draft' : ''}">${esc(q2.status)}</span></td>
+        <td data-col="Actions"><div class="rowacts">
           <button class="mini" type="button" data-enq="${q2.id}" aria-label="Read enquiry"><svg class="i i-16"><use href="#ic-eye"/></svg></button>
           <button class="mini del" type="button" data-enqdel="${q2.id}" aria-label="Remove enquiry"><svg class="i i-16"><use href="#ic-trash"/></svg></button>
         </div></td>

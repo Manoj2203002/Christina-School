@@ -765,23 +765,29 @@ table {
     flex-direction: column;
     align-items: stretch;
     gap: 10px;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-l);
+    box-shadow: var(--sh-1);
+    margin-bottom: 14px;
+    padding: 12px 14px;
   }
-  .tbl-top::after {
-    content: '← Swipe table horizontally to see all columns →';
-    display: block;
+  .tbl-top select {
     width: 100%;
-    font-size: .75rem;
-    font-weight: 700;
-    color: var(--royal);
-    background: var(--mist);
-    padding: 7px 12px;
-    border-radius: var(--r-pill);
+    box-sizing: border-box;
+  }
+  .tbl-top .seg {
+    width: 100%;
+    display: flex;
+  }
+  .tbl-top .seg button {
+    flex: 1;
     text-align: center;
-    border: 1px solid var(--sky-3);
-    margin-top: 2px;
   }
   .tbl-top .search {
     max-width: 100% !important;
+    width: 100%;
+    box-sizing: border-box;
   }
   .tbl-top .btn {
     width: 100%;
@@ -789,69 +795,171 @@ table {
   }
   .tbl-wrap {
     margin: 12px 10px;
-    border-radius: var(--r-m);
-    position: relative;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
   }
   .tbl-wrap::before {
-    content: '';
-    position: absolute;
-    top: 48px;
-    right: 0;
-    bottom: 6px;
-    width: 22px;
-    background: linear-gradient(to right, transparent, rgba(10, 27, 61, 0.12));
-    pointer-events: none;
-    z-index: 5;
-    border-radius: 0 var(--r-m) var(--r-m) 0;
+    display: none;
   }
-  .tbl-scroll table {
-    min-width: 580px;
+  .tbl-scroll {
+    overflow-x: visible;
+    scrollbar-width: none;
   }
-  /* Sticky First Column on Mobile */
+  .tbl-scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .tbl-scroll table,
+  table {
+    display: block;
+    width: 100%;
+    min-width: 0 !important;
+    border: none;
+  }
+  thead {
+    display: none;
+  }
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+  }
+  tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid var(--line);
+    border-radius: var(--r-l);
+    box-shadow: 0 4px 14px rgba(10, 27, 61, 0.06);
+    padding: 14px 16px;
+    position: relative;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  tbody tr:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(10, 27, 61, 0.1);
+  }
   .tbl-scroll table th:first-child,
   .tbl-scroll table td:first-child {
-    position: sticky;
-    left: 0;
-    z-index: 3;
-    background: #ffffff;
-    box-shadow: 3px 0 8px -2px rgba(10, 27, 61, 0.12);
+    position: static !important;
+    box-shadow: none !important;
+    background: transparent !important;
   }
-  .tbl-scroll table th:first-child {
-    background: var(--paper);
-    z-index: 4;
+  tbody td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(220, 231, 248, 0.7);
+    font-size: .88rem;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: right;
+    max-width: none !important;
+    word-break: break-word;
   }
-  .tbl-scroll table tbody tr:hover td:first-child {
-    background: var(--paper);
+  tbody td::before {
+    content: attr(data-col);
+    font-size: .74rem;
+    font-weight: 700;
+    color: var(--ink-50);
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    flex-shrink: 0;
+    text-align: left;
+    margin-right: auto;
+    max-width: 45%;
   }
-  .tbl-scroll th {
-    padding: 10px 10px;
-    font-size: .72rem;
+  tbody td:first-child {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    border-bottom: 1.5px solid var(--line);
+    padding: 0 0 10px 0;
+    margin-bottom: 4px;
+    gap: 4px;
   }
-  .tbl-scroll td {
-    padding: 10px 10px;
-    font-size: .82rem;
+  tbody td:first-child::before {
+    display: none;
+  }
+  tbody td:first-child .cellav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .75rem;
+    width: 100%;
+  }
+  tbody td:first-child .cellav .av {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+  tbody td:first-child b {
+    font-size: .98rem;
+    color: var(--navy);
+  }
+  tbody td[data-col="Photograph"] .cellav,
+  tbody td[data-col="Photograph"] .cellav .av {
+    width: 100%;
+    height: 140px;
+    border-radius: var(--r-m);
+    overflow: hidden;
+  }
+  tbody td[data-col="Photograph"] .ph {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  tbody td:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1.5px solid var(--line);
+    border-bottom: none;
+    padding: 10px 0 2px 0;
+    margin-top: 6px;
+  }
+  tbody td:last-child::before {
+    display: none;
+  }
+  tbody td:last-child .rowacts {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  tbody td:last-child .rowacts .mini {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-s);
+  }
+  tbody tr:has(td[colspan]),
+  tbody td[colspan],
+  tbody td:only-child {
+    display: block !important;
+    text-align: center !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 16px 8px !important;
+  }
+  tbody td[colspan]::before,
+  tbody td:only-child::before {
+    display: none !important;
   }
   .cellav {
     gap: .5rem;
   }
-  .cellav .av {
-    width: 32px;
-    height: 32px;
-    border-radius: 8px;
-  }
-  .cellav b {
-    font-size: .84rem;
-  }
-  .cellav span {
-    font-size: .7rem;
-  }
   .pillx {
-    padding: 3px 8px;
-    font-size: .72rem;
-  }
-  .rowacts .mini {
-    width: 30px;
-    height: 30px;
+    padding: 4px 10px;
+    font-size: .74rem;
   }
   .apanels {
     padding: 14px 12px;
@@ -896,25 +1004,28 @@ table {
     gap: 10px;
   }
   .tbl-wrap {
-    margin: 10px 8px;
-    border-radius: 14px;
+    margin: 10px 6px;
   }
-  .tbl-scroll table {
-    min-width: 520px;
+  tbody tr {
+    padding: 12px 14px;
+    border-radius: var(--r-m);
   }
-  .tbl-scroll th,
-  .tbl-scroll td {
-    padding: 8px 8px;
-    font-size: .8rem;
+  tbody td {
+    padding: 7px 0;
+    font-size: .84rem;
   }
-  .cellav .av {
-    width: 28px;
-    height: 28px;
+  tbody td::before {
+    font-size: .7rem;
   }
-  .cellav b {
-    font-size: .8rem;
+  tbody td:first-child .cellav .av {
+    width: 38px;
+    height: 38px;
   }
-  .cellav span {
-    font-size: .68rem;
+  tbody td:first-child b {
+    font-size: .92rem;
+  }
+  tbody td[data-col="Photograph"] .cellav,
+  tbody td[data-col="Photograph"] .cellav .av {
+    height: 110px;
   }
 }
