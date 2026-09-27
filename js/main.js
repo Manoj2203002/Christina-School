@@ -799,7 +799,7 @@ document.addEventListener('submit', e => {
         <h3 id="modalTitle">Your enquiry is with the office</h3>
       </div>
       <div class="mbody" style="text-align:center">
-        <p style="color:var(--ink-70)">Someone from admissions will call you on the number you gave, usually the same working day. If you would rather not wait, the office is on <b>+91 44 2855 3400</b>.</p>
+        <p style="color:var(--ink-70)">Someone from admissions will call you on the number you gave, usually the same working day. If you would rather not wait, the office is on <b>+91 427 225 4053</b>.</p>
         <div style="display:flex;gap:10px;justify-content:center;margin-top:1.4rem;flex-wrap:wrap">
           <button class="btn btn-primary btn-sm" type="button" data-visit>Book a campus visit too</button>
           <button class="btn btn-soft btn-sm" type="button" data-close-modal>Close</button>

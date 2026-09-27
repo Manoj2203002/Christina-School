@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christina Nursery & Primary School - Project Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .presentation {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease;
+            transform: scale(0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            visibility: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            visibility: visible;
+            z-index: 10;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 50px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: -webkit-linear-gradient(#4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            color: #4facfe;
+            border-bottom: 2px solid rgba(79, 172, 254, 0.3);
+            padding-bottom: 10px;
+        }
+
+        p, li {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li::before {
+            content: "🔹 ";
+            color: #00f2fe;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .tech-badges span {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #4facfe;
+            font-weight: 600;
+        }
+
+        .table-container {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .table-container th, .table-container td {
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-align: left;
+        }
+        .table-container th {
+            background: rgba(79, 172, 254, 0.2);
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            z-index: 100;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 20px;
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        button {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        button:hover {
+            color: #4facfe;
+        }
+
+        .counter {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+<div class="presentation" id="presentation">
+
+    <!-- Slide 1 -->
+    <div class="slide active">
+        <div class="glass-panel" style="text-align: center;">
+            <h1>Christina Nursery & Primary School</h1>
+            <h2 style="border:none;">Web Application Project</h2>
+            <p><strong>Established:</strong> 1992</p>
+            <p>📍 Rasipuram Main Road, Gopalapuram, Attur Salem – 636102, Tamil Nadu</p>
+            <p>👤 <strong>Principal:</strong> Mr. Joshua Billowry</p>
+            <p>📞 0427-2254053 / 9443275738</p>
+            <br>
+            <p><em>Use arrow keys or buttons below to navigate</em></p>
+        </div>
+    </div>
+
+    <!-- Slide 2 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Project Overview</h2>
+            <p>This project is <strong>NOT</strong> just a simple static school portfolio. It is a robust, dynamic Web Application designed to digitize school administration and communication.</p>
+            <ul>
+                <li>Comprehensive Admin Dashboard</li>
+                <li>Full CRUD (Create, Read, Update, Delete) capabilities for all data</li>
+                <li>Dynamic public-facing portal driven by the database</li>
+                <li>Real-time updates to announcements, news, and galleries</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 3 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Technology Stack</h2>
+            <div class="grid">
+                <div>
+                    <h3>🎨 Frontend</h3>
+                    <div class="tech-badges">
+                        <span>Angular 21</span>
+                        <span>TypeScript</span>
+                        <span>Tailwind/CSS3</span>
+                    </div>
+                </div>
+                <div>
+                    <h3>⚙️ Backend</h3>
+                    <div class="tech-badges">
+                        <span>.NET 10</span>
+                        <span>C#</span>
+                        <span>REST APIs</span>
+                    </div>
+                </div>
+                <div style="grid-column: span 2; text-align: center; margin-top: 20px;">
+                    <h3>🗄️ Database & Storage</h3>
+                    <div class="tech-badges">
+                        <span>SQL Server</span>
+                        <span>Entity Framework Core</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Admin Dashboard Features</h2>
+            <div class="grid" style="font-size: 0.9em;">
+                <div>
+                    <ul>
+                        <li>📢 <strong>Announcements:</strong> Manage critical notices</li>
+                        <li>👥 <strong>Staff Management:</strong> Add/edit faculty profiles</li>
+                        <li>🖼️ <strong>Gallery:</strong> Album & image uploads</li>
+                        <li>📄 <strong>Documents:</strong> Manage downloadable forms</li>
+                        <li>✉️ <strong>Admissions:</strong> Track & manage enquiries</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>📅 <strong>Events:</strong> Schedule school activities</li>
+                        <li>🏆 <strong>Achievements:</strong> Highlight student success</li>
+                        <li>⚙️ <strong>Settings:</strong> Core school configuration</li>
+                        <li>📰 <strong>News:</strong> Publish journal articles</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Public Website Features</h2>
+            <div class="grid" style="font-size: 0.85em; max-height: 400px; overflow-y: auto; padding-right:10px;">
+                <div>
+                    <ul>
+                        <li>🏠 <strong>Home:</strong> Hero, stats, faculty spotlight, news</li>
+                        <li>📖 <strong>About:</strong> Vision, mission, values</li>
+                        <li>📚 <strong>Academics:</strong> Nursery to Grade 5 curriculum</li>
+                        <li>👨‍🏫 <strong>Staff Directory:</strong> Meet the team</li>
+                        <li>⚽ <strong>Activities:</strong> Clubs and sports</li>
+                        <li>📌 <strong>Notice Board:</strong> Live announcements</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>📸 <strong>Gallery:</strong> Dynamic photo albums</li>
+                        <li>📰 <strong>News Journal:</strong> School updates</li>
+                        <li>📝 <strong>Admissions:</strong> Online enquiry form</li>
+                        <li>📞 <strong>Contact:</strong> Location and form</li>
+                        <li>📥 <strong>Documents:</strong> Download center</li>
+                        <li>⭐ <strong>Testimonials:</strong> Parent feedback</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Authentication & Security</h2>
+            <ul>
+                <li>🔐 <strong>Secure Admin Login:</strong> JWT based authentication</li>
+                <li>🛡️ <strong>Role-Based Access:</strong> Restrict actions based on admin privileges</li>
+                <li>⏱️ <strong>Session Management:</strong> Auto-logout on idle, secure token storage</li>
+                <li>🛑 <strong>Data Validation:</strong> Backend and frontend input sanitization</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 7 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Architecture Overview</h2>
+            <div style="text-align: center; margin-top: 30px;">
+                <p style="font-size: 1.5em; font-weight: bold; color: #00f2fe;">Angular 21 Client</p>
+                <p>⬇️ (HTTP/JSON over REST) ⬆️</p>
+                <p style="font-size: 1.5em; font-weight: bold; color: #4facfe;">.NET 10 API Server</p>
+                <p>⬇️ (Entity Framework Core) ⬆️</p>
+                <p style="font-size: 1.5em; font-weight: bold; color: #00f2fe;">SQL Server Database</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 8 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Key Highlights</h2>
+            <ul>
+                <li>📱 <strong>Fully Responsive:</strong> Flawless experience on mobile, tablet, and desktop</li>
+                <li>🔍 <strong>SEO Optimized:</strong> Built for search engine visibility</li>
+                <li>♿ <strong>Accessibility:</strong> Adherence to modern web accessibility standards</li>
+                <li>⚡ <strong>Performance:</strong> Fast loading with optimized assets and API responses</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 9 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Why This is NOT a Simple Portfolio</h2>
+            <table class="table-container">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Standard Portfolio</th>
+                        <th>This Web Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Content Updates</td>
+                        <td>Requires developer (Code changes)</td>
+                        <td>Via Admin Dashboard (No code needed)</td>
+                    </tr>
+                    <tr>
+                        <td>Data Storage</td>
+                        <td>Static HTML/JSON</td>
+                        <td>Relational SQL Database</td>
+                    </tr>
+                    <tr>
+                        <td>Interactivity</td>
+                        <td>Basic forms to email</td>
+                        <td>Managed Enquiry tracking system</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Slide 10 -->
+    <div class="slide">
+        <div class="glass-panel">
+            <h2>Project Timeline & Deliverables</h2>
+            <ul>
+                <li>📅 <strong>Phase 1:</strong> UI/UX Design & HTML Prototype (Completed)</li>
+                <li>📅 <strong>Phase 2:</strong> .NET 10 Backend API & Database Setup</li>
+                <li>📅 <strong>Phase 3:</strong> Angular 21 Admin Panel Integration</li>
+                <li>📅 <strong>Phase 4:</strong> Public Portal Dynamic Integration</li>
+                <li>📅 <strong>Phase 5:</strong> Testing, Security Audit & Deployment</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Slide 11 -->
+    <div class="slide">
+        <div class="glass-panel" style="text-align: center;">
+            <h1>Thank You!</h1>
+            <p>Ready to transform Christina Nursery & Primary School's digital presence.</p>
+            <br>
+            <p><strong>Contact for Queries:</strong></p>
+            <p>📞 0427-2254053 / 9443275738</p>
+            <p>📍 Rasipuram Main Road, Gopalapuram, Attur</p>
+        </div>
+    </div>
+
+</div>
+
+<div class="controls">
+    <button id="prevBtn" onclick="changeSlide(-1)">◀</button>
+    <span class="counter" id="counter">1 / 11</span>
+    <button id="nextBtn" onclick="changeSlide(1)">▶</button>
+</div>
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const counter = document.getElementById('counter');
+
+    function updateSlide() {
+        slides.forEach((slide, index) => {
+            if (index === currentSlide) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+        counter.innerText = (currentSlide + 1) + ' / ' + slides.length;
+    }
+
+    function changeSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+        if (currentSlide >= slides.length) currentSlide = 0;
+        updateSlide();
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === 'Space') {
+            changeSlide(1);
+        } else if (e.key === 'ArrowLeft') {
+            changeSlide(-1);
+        }
+    });
+</script>
+
+</body>
+</html>
