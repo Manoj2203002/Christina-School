@@ -131,6 +131,24 @@
   color: #FFF;
 }
 
+.hero-news-pill {
+  border-color: rgba(78, 168, 255, .5);
+}
+.hero-news-pill:hover {
+  border-color: #6FB6FF;
+  box-shadow: 0 8px 24px rgba(29, 78, 216, .35);
+}
+.ann-pill-tag.news-tag {
+  background: linear-gradient(135deg, #1D4ED8, #0D47A1);
+  color: #fff;
+}
+.hero-news-pill .ann-pill-title {
+  color: #E2EDFF;
+}
+.hero-news-pill .ann-pill-arrow {
+  color: #6FB6FF;
+}
+
 /* ---------- ACTIVE ANNOUNCEMENT POP-UP DIALOG ---------- */
 .ann-dialog-veil {
   position: fixed;
@@ -219,6 +237,67 @@
 .ann-dialog-close-btn:hover {
   background: rgba(255, 255, 255, .28);
   transform: scale(1.08);
+}
+
+.ann-dialog-count-pill {
+  background: rgba(255, 255, 255, 0.18);
+  color: #FFE8D6;
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  letter-spacing: 0.02em;
+}
+
+.ann-dialog-nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 24px;
+  background: #F1F6FF;
+  border-bottom: 1px solid var(--line);
+}
+
+.ann-nav-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--navy);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ann-nav-arrow:hover {
+  background: var(--navy);
+  color: #fff;
+  border-color: var(--navy);
+}
+
+.ann-nav-dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ann-nav-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #C7D8F2;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.ann-nav-dot.active {
+  width: 22px;
+  border-radius: 10px;
+  background: var(--mari);
 }
 
 .ann-dialog-body {

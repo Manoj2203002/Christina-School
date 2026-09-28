@@ -123,6 +123,7 @@
       <a href="#/staff">Staff</a>
       <a href="#/activities">Activities</a>
       <a href="#/announcements">Notices</a>
+      <a href="#/events">Events</a>
       <a href="#/gallery">Gallery</a>
       <a href="#/news">News</a>
       <a href="#/admissions">Admissions</a>
@@ -156,9 +157,9 @@
       <a href="#/staff" style="--i:3">Staff <b>04</b></a>
       <a href="#/activities" style="--i:4">Activities <b>05</b></a>
       <a href="#/announcements" style="--i:5">Notices <b>06</b></a>
-      <a href="#/gallery" style="--i:6">Gallery <b>07</b></a>
-      <a href="#/documents" style="--i:7">Documents <b>08</b></a>
-      <a href="#/testimonials" style="--i:8">Testimonials <b>09</b></a>
+      <a href="#/events" style="--i:6">Events <b>07</b></a>
+      <a href="#/gallery" style="--i:7">Gallery <b>08</b></a>
+      <a href="#/documents" style="--i:8">Documents <b>09</b></a>
       <a href="#/news" style="--i:9">News <b>10</b></a>
       <a href="#/admissions" style="--i:10">Admissions <b>11</b></a>
       <a href="#/contact" style="--i:11">Contact <b>12</b></a>
@@ -188,10 +189,10 @@
         </span>
         <p class="foot-about">A distinguished nursery and primary school in Attur, Salem, established in 1992, nurturing young minds from Nursery to Grade 5 with holistic foundation, values, and care.</p>
         <div class="socials">
-          <a href="#" aria-label="Christina School on Facebook"><svg class="i"><use href="#ic-fb"/></svg></a>
-          <a href="#" aria-label="Christina School on Instagram"><svg class="i"><use href="#ic-ig"/></svg></a>
-          <a href="#" aria-label="Christina School on YouTube"><svg class="i"><use href="#ic-yt"/></svg></a>
-          <a href="#" aria-label="Christina School on LinkedIn"><svg class="i"><use href="#ic-in"/></svg></a>
+          <a href="javascript:void(0)" data-toast="Facebook|Visit Christina School Facebook page." aria-label="Christina School on Facebook"><svg class="i"><use href="#ic-fb"/></svg></a>
+          <a href="javascript:void(0)" data-toast="Instagram|Follow Christina School on Instagram." aria-label="Christina School on Instagram"><svg class="i"><use href="#ic-ig"/></svg></a>
+          <a href="javascript:void(0)" data-toast="YouTube|Watch Christina School on YouTube." aria-label="Christina School on YouTube"><svg class="i"><use href="#ic-yt"/></svg></a>
+          <a href="javascript:void(0)" data-toast="LinkedIn|Connect with Christina School on LinkedIn." aria-label="Christina School on LinkedIn"><svg class="i"><use href="#ic-in"/></svg></a>
         </div>
       </div>
       <div>
@@ -201,7 +202,7 @@
           <li><a href="#/about">Why Christina</a></li>
           <li><a href="#/staff">Our teachers</a></li>
           <li><a href="#/activities">Clubs and activities</a></li>
-          <li><a href="#/testimonials">Parent reviews</a></li>
+          <li><a href="#/events">School events calendar</a></li>
           <li><a href="#/news">School news</a></li>
         </ul>
       </div>
@@ -231,7 +232,9 @@
     <div class="foot-bottom">
       <span>© <span id="yr">2026</span> Christina Nursery and Primary School. All rights reserved.</span>
       <span style="display:flex;gap:1.2rem;flex-wrap:wrap">
-        <a href="#">Privacy</a><a href="#">Child protection policy</a><a href="#">Fee policy</a>
+        <a href="javascript:void(0)" class="policy-link" data-policy="privacy">Privacy</a>
+        <a href="javascript:void(0)" class="policy-link" data-policy="child">Child protection policy</a>
+        <a href="javascript:void(0)" class="policy-link" data-policy="fee">Fee policy</a>
         <button class="login-open" style="background:none;border:0;color:inherit;cursor:pointer;font-weight:600">Admin login</button>
       </span>
     </div>
@@ -257,11 +260,25 @@
       <div class="ann-dialog-badge">
         <span class="ann-dialog-pulse"></span>
         <svg class="i i-18"><use href="#ic-mega"/></svg>
-        <span>Important School Announcement</span>
+        <span id="annDialogBadgeText">School Announcements</span>
       </div>
-      <button class="ann-dialog-close-btn" id="annDialogX" aria-label="Close announcement">&times;</button>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="ann-dialog-count-pill" id="annDialogCounter" style="display:none">1 of 1</span>
+        <button class="ann-dialog-close-btn" id="annDialogX" aria-label="Close announcement">&times;</button>
+      </div>
     </div>
-    <div class="ann-dialog-body">
+    <div class="ann-dialog-nav-bar" id="annDialogNavBar" style="display:none">
+      <button type="button" class="ann-nav-arrow" id="annDialogPrev" aria-label="Previous announcement">
+        <svg class="i i-14"><use href="#ic-chev-l"/></svg>
+        <span>Previous</span>
+      </button>
+      <div class="ann-nav-dots" id="annDialogDots"></div>
+      <button type="button" class="ann-nav-arrow" id="annDialogNext" aria-label="Next announcement">
+        <span>Next</span>
+        <svg class="i i-14"><use href="#ic-chev-r"/></svg>
+      </button>
+    </div>
+    <div class="ann-dialog-body" id="annDialogBody">
       <div class="ann-dialog-cat-row">
         <span class="cat" id="annDialogCat" style="--cat:#FF7A1A;--catbg:#FFF3E0">Notice</span>
         <span class="ann-dialog-time" id="annDialogTime">Active Announcement</span>

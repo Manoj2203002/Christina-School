@@ -12,11 +12,11 @@
 
   <div class="wrap hero-grid">
     <div>
-      <!-- Announcement Pill in the user-marked area -->
+      <!-- Latest News Pill in the hero area -->
       <div class="hero-ann-area hero-fade" style="--d:0">
-        <a href="#/announcements" class="hero-ann-pill" id="heroAnnPill" title="Click to view all notices">
-          <span class="ann-pill-tag"><span class="ann-pulse"></span> Notice</span>
-          <span class="ann-pill-title" id="heroAnnTitle">School closed for Ayudha Puja and Vijayadashami — Oct 11 to 13</span>
+        <a href="#/news" class="hero-ann-pill hero-news-pill" id="heroNewsPill" title="Click to read latest school news">
+          <span class="ann-pill-tag news-tag"><span class="ann-pulse news-pulse"></span> Latest News</span>
+          <span class="ann-pill-title" id="heroNewsTitle">Grade 5 junior robotics team reaches the state finals</span>
           <span class="ann-pill-arrow"><svg class="i i-16"><use href="#ic-arrow-r"/></svg></span>
         </a>
         <span class="badge" style="background:rgba(255,255,255,.08);color:#B6CBEB;border:1px solid rgba(255,255,255,.15)">
@@ -211,7 +211,7 @@
 
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr));gap:20px" class="rv" data-d="1">
       <!-- Pinned Notice Card -->
-      <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-xl);padding:clamp(20px, 3vw, 32px);color:#fff;display:flex;flex-direction:column;justify-content:space-between">
+      <div id="homePinnedCard" style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:var(--r-xl);padding:clamp(20px, 3vw, 32px);color:#fff;display:flex;flex-direction:column;justify-content:space-between">
         <div>
           <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem">
             <span class="pin-ic" style="width:36px;height:36px;border-radius:50%;background:#FF7A1A;display:inline-flex;align-items:center;justify-content:center"><svg class="i i-18" style="stroke:#fff"><use href="#ic-pin"/></svg></span>
@@ -329,33 +329,6 @@
   </div>
 </section>
 
-<!-- ===== 8. PARENT REVIEWS CAROUSEL ===== -->
-<section class="row band-mist curve-top curve-bot">
-  <div class="wrap">
-    <div class="home-section-head rv">
-      <div>
-        <span class="tag">Parent voices</span>
-        <h2 class="d2">What families say about Christina</h2>
-      </div>
-      <button class="btn btn-soft btn-sm" type="button" data-goto="#/testimonials">Read all testimonials &rarr;</button>
-    </div>
-
-    <div class="rv" data-d="1">
-      <div class="tst-view" style="box-shadow:var(--sh-2)">
-        <div class="tst-track" id="tstTrackHome">
-          <div class="tst"><div class="tst-in">
-            <div class="av">PK</div>
-            <div>
-              <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-              <blockquote>My daughter joined Christina in LKG shy and reluctant to speak. By Grade 2 she was reading storybooks and presenting her project on nature with absolute confidence. The teachers don't just teach subjects; they build character.</blockquote>
-              <p class="by"><b>Priya Krishnakumar</b> <span>— Parent of Ananya, Grade 3</span></p>
-            </div>
-          </div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ===== 9. LATEST NEWS DISPATCHES PREVIEW ===== -->
 <section class="row">

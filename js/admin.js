@@ -64,15 +64,19 @@ function renderFeed() {
   
   const pinnedAdmin = $('#pinnedAdmin');
   if (pinnedAdmin) {
-    const p = db.ann.find(a => a.pinned && a.status === 'published');
-    pinnedAdmin.innerHTML = p
-      ? `<div style="background:var(--paper);border:1px solid var(--line);border-radius:var(--r-m);padding:1rem">
-          <span class="cat" style="--cat:${CATS[p.cat].c};--catbg:${CATS[p.cat].bg}">${esc(p.cat)}</span>
-          <h4 style="font-family:var(--serif);font-size:1.05rem;margin:.55rem 0 .3rem">${esc(p.title)}</h4>
-          <p style="font-size:.85rem;color:var(--ink-50)">Pinned to the top of the notice board · Posted ${fmt(p.date)}</p>
-          <button class="btn btn-soft btn-sm" style="margin-top:.9rem" type="button" data-edit="ann:${p.id}">Edit this notice</button>
-        </div>`
-      : `<div class="empty" style="padding:26px"><b>Nothing is pinned</b>Pin an announcement to feature it at the top of the board.</div>`;
+    const pinnedList = db.ann.filter(a => a.pinned && a.status === 'published');
+    pinnedAdmin.innerHTML = pinnedList.length
+      ? pinnedList.map(p => `
+          <div style="background:var(--paper);border:1px solid var(--line);border-radius:var(--r-m);padding:1rem;margin-bottom:10px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:8px">
+              <span class="cat" style="--cat:${CATS[p.cat].c};--catbg:${CATS[p.cat].bg}">${esc(p.cat)}</span>
+              <span class="pillx ok" style="font-size:.68rem">Pinned</span>
+            </div>
+            <h4 style="font-family:var(--serif);font-size:1.05rem;margin:.55rem 0 .3rem">${esc(p.title)}</h4>
+            <p style="font-size:.85rem;color:var(--ink-50)">Pinned notice · Posted ${fmt(p.date)}</p>
+            <button class="btn btn-soft btn-sm" style="margin-top:.7rem" type="button" data-edit="ann:${p.id}">Edit this notice</button>
+          </div>`).join('')
+      : `<div class="empty" style="padding:26px"><b>Nothing is pinned</b>Pin announcements to feature them at the top of the board.</div>`;
   }
 }
 
@@ -108,7 +112,7 @@ const SCHEMA = {
     ] },
   ach: { title: 'achievement', fields: [
       { k: 'student', l: 'Student or team', t: 'text', req: 1 },
-      { k: 'grade', l: 'Grade', t: 'select', opts: ['Grade 1','Grade 2','Grade 3','Grade 4','Grade 5','Grade 6','Grade 7','Grade 8','Grades 7–8'] },
+      { k: 'grade', l: 'Grade', t: 'select', opts: ['Nursery', 'LKG', 'UKG', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5', 'Grades 4–5'] },
       { k: 'comp', l: 'Competition', t: 'text', req: 1, full: 1 },
       { k: 'result', l: 'Result', t: 'text' },
       { k: 'medal', l: 'Medal colour', t: 'select', opts: ['gold', 'silver', 'bronze'] },
@@ -258,7 +262,6 @@ function editor(kind, rec) {
     if (S.photo) { if (kind === 'gal') out.src = pic; else out.photo = pic; }
     if (S.file) { out.file = docFile; out.fileName = docFileName; }
     if (kind === 'gal' && !out.h) out.h = 230 + (Date.now() % 5) * 26;
-    if (kind === 'ann' && out.pinned) db.ann.forEach(a => { if (a !== out) a.pinned = false; });
     if (isNew) db[STORE[kind]].unshift(out);
     if (sortStores) sortStores();
     closeModal();
@@ -527,10 +530,6 @@ function initOverview() {
   refreshAdminCounts();
   renderFeed();
   setTimeout(drawBars, 240);
-  $$('[data-quick]').forEach(b => b.addEventListener('click', () => {
-    const map = { ann: addAnn, ev: addEv, staff: addStaff, gal: addPhoto, doc: addDoc };
-    if (map[b.dataset.quick]) map[b.dataset.quick]();
-  }));
 }
 
 function initAdminStaff() {
@@ -574,10 +573,9 @@ function initAdminAnn() {
     const a = db.ann.find(x => x.id === +p.dataset.pin); 
     if (!a) return;
     const on = !a.pinned;
-    db.ann.forEach(x => { x.pinned = false; });
     a.pinned = on;
     renderAdminAnn();
-    toast(on ? 'Pinned|' + a.title + ' now sits at the top of the notice board.' : 'Unpinned|The notice board is back to date order.', on ? 'ok' : 'info');
+    toast(on ? 'Pinned|' + a.title + ' is now pinned on the notice board.' : 'Unpinned|' + a.title + ' is unpinned.', on ? 'ok' : 'info');
   });
 
   const addBtn = $('#addAnn');
@@ -770,6 +768,14 @@ document.addEventListener('click', e => {
   
   // Close modal
   if (e.target.closest('[data-close-modal]')) closeModal();
+  
+  // Quick actions
+  const q = e.target.closest('[data-quick]');
+  if (q) {
+    const map = { ann: addAnn, ev: addEv, staff: addStaff, gal: addPhoto, doc: addDoc };
+    if (map[q.dataset.quick]) map[q.dataset.quick]();
+    return;
+  }
   
   // Toast
   const tst = e.target.closest('[data-toast]');

@@ -571,6 +571,12 @@
 
 
 /* Navigation & Footer Responsive Breakpoints */
+@media (max-width: 1320px) and (min-width: 1161px) {
+  .menu { gap: 0; }
+  .menu a { padding: .5rem .52rem; font-size: .86rem; }
+  .menu a::after { left: .52rem; right: .52rem; }
+}
+
 @media (max-width:1160px) {
   html { scroll-padding-top: 86px; }
   .menu, .nav-cta .btn-soft { display: none !important; }

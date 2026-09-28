@@ -195,9 +195,7 @@ function updateActiveNav(hash) {
     'sports': 'activities',
     'achievements': 'activities',
     'why': 'about',
-    'campus': 'academics',
-    'events': 'announcements',
-    'voices': 'testimonials'
+    'campus': 'academics'
   };
   const primary = aliasMap[hash] || hash;
   $$('#menu a, #drawer nav a').forEach(a => {
@@ -462,17 +460,48 @@ function renderAnnChips() {
 }
 function renderPinned() {
   const pw = $('#pinnedWrap'); if(!pw) return;
-  const p = db.ann.find(a => a.pinned && a.status === 'published');
-  pw.innerHTML = !p ? '' : `
-    <div class="pinned">
-      <span class="deco-ring" aria-hidden="true"></span>
-      <span class="pin-ic"><svg class="i i-28"><use href="#ic-pin"/></svg></span>
-      <div>
-        <span class="cat" style="--cat:${CATS[p.cat].c};--catbg:${CATS[p.cat].bg}">${esc(p.cat)}</span>
-        <h3 style="margin-top:.5rem">${esc(p.title)}</h3>
-        <p>${esc(p.text)}</p>
+  const pinnedList = db.ann.filter(a => a.pinned && a.status === 'published');
+  if (!pinnedList.length) { pw.innerHTML = ''; return; }
+  if (pinnedList.length === 1) {
+    const p = pinnedList[0];
+    pw.innerHTML = `
+      <div class="pinned">
+        <span class="deco-ring" aria-hidden="true"></span>
+        <span class="pin-ic"><svg class="i i-28"><use href="#ic-pin"/></svg></span>
+        <div>
+          <span class="cat" style="--cat:${CATS[p.cat].c};--catbg:${CATS[p.cat].bg}">${esc(p.cat)}</span>
+          <h3 style="margin-top:.5rem">${esc(p.title)}</h3>
+          <p>${esc(p.text)}</p>
+        </div>
+        <button class="btn btn-primary" type="button" data-ann="${p.id}">Read the full notice</button>
+      </div>`;
+    return;
+  }
+  pw.innerHTML = `
+    <div style="margin-bottom:1.5rem">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
+        <span class="pin-ic" style="width:28px;height:28px;border-radius:50%;background:#FF7A1A;display:inline-flex;align-items:center;justify-content:center"><svg class="i i-16" style="stroke:#fff"><use href="#ic-pin"/></svg></span>
+        <span class="pillx ok" style="background:#EF6C00;color:#fff;font-weight:700">Pinned Notices (${pinnedList.length})</span>
+        <span class="small" style="color:var(--ink-50)">Featured school announcements</span>
       </div>
-      <button class="btn btn-primary" type="button" data-ann="${p.id}">Read the full notice</button>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(min(100%, 330px), 1fr));gap:16px">
+        ${pinnedList.map(p => `
+          <div class="pinned" style="margin-bottom:0;display:flex;flex-direction:column;justify-content:space-between">
+            <span class="deco-ring" aria-hidden="true"></span>
+            <div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:.5rem">
+                <span class="cat" style="--cat:${CATS[p.cat].c};--catbg:${CATS[p.cat].bg}">${esc(p.cat)}</span>
+                <span class="small" style="color:var(--ink-50);margin-left:auto">${fmt(p.date)}</span>
+              </div>
+              <h3 style="margin-top:.4rem;font-size:1.15rem;line-height:1.3">${esc(p.title)}</h3>
+              <p style="font-size:.9rem;line-height:1.5;margin-top:.5rem">${esc(p.text)}</p>
+            </div>
+            <div style="margin-top:1.2rem">
+              <button class="btn btn-primary btn-sm" type="button" data-ann="${p.id}">Read the full notice</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
     </div>`;
 }
 function renderAnn() {
@@ -735,6 +764,128 @@ function closeModal() {
   if (!a || !a.classList.contains('open')) document.body.classList.remove('locked');
   if (lastFocus) lastFocus.focus();
 }
+
+function openPolicyModal(type) {
+  if (type === 'fee') {
+    openModal(`
+      <div class="mhead">
+        <span class="pillx ok" style="background:#E7F1FF;color:#1D4ED8;font-weight:700">Official School Policy</span>
+        <h3 id="modalTitle" style="margin-top:.6rem">Fee Policy &amp; Payment Guidelines</h3>
+        <p class="small" style="color:var(--ink-50);margin-top:.3rem">Christina Nursery &amp; Primary School · Established 1992</p>
+      </div>
+      <div class="mbody" style="line-height:1.65;color:var(--ink-80)">
+        <div style="background:#FFF9F2;border:1px solid #FFE0B2;border-radius:var(--r-m);padding:1rem;margin-bottom:1.2rem">
+          <b style="color:#D84315;display:block;margin-bottom:.3rem">Zero Donation / No Capitation Policy</b>
+          <span>Christina School follows a strictly transparent fee structure. No capitation fee, building fund, or arbitrary donation has ever been charged since our founding in 1992.</span>
+        </div>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">1. Term-Wise Instalment Structure</h4>
+        <p style="margin-bottom:.8rem">To ease financial planning for families, annual tuition is split into three manageable term instalments:</p>
+        <ul style="margin:0 0 1rem 1.2rem;display:grid;gap:6px;font-size:.92rem">
+          <li><b>Term 1:</b> Payable at the start of the academic year (by June 10)</li>
+          <li><b>Term 2:</b> Payable before the half-yearly assessment term (by October 10)</li>
+          <li><b>Term 3:</b> Payable before the final term (by January 10)</li>
+        </ul>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">2. Inclusions &amp; Facility Charges</h4>
+        <p style="margin-bottom:.8rem">Regular tuition covers all classroom instruction, smartboard digital classrooms, library access, activity periods, and physical education. Optional school transport and specific hobby club materials are billed strictly at actual direct cost.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">3. Modes of Payment &amp; Office Hours</h4>
+        <p style="margin-bottom:.8rem">Fees may be paid via Net Banking (NEFT/RTGS), UPI, or directly at the school office by Debit/Credit Card or Cheque. Cash receipts are stamped on the spot. Office hours: Monday to Saturday, 9:00 am to 4:00 pm.</p>
+
+        <div style="display:flex;gap:10px;margin-top:1.6rem;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" type="button" data-goto="#/documents">View Fee Structure document <svg class="i i-16 ico"><use href="#ic-arrow-r"/></svg></button>
+          <button class="btn btn-soft btn-sm" type="button" data-close-modal>Close</button>
+        </div>
+      </div>`);
+  } else if (type === 'child') {
+    openModal(`
+      <div class="mhead">
+        <span class="pillx ok" style="background:#E8F5E9;color:#2E7D32;font-weight:700">Safety &amp; Wellbeing</span>
+        <h3 id="modalTitle" style="margin-top:.6rem">Child Protection &amp; Campus Safety Policy</h3>
+        <p class="small" style="color:var(--ink-50);margin-top:.3rem">Safeguarding every young learner entrusted to our care</p>
+      </div>
+      <div class="mbody" style="line-height:1.65;color:var(--ink-80)">
+        <p style="margin-bottom:.9rem">At Christina Nursery and Primary School, children's emotional and physical safety, dignity, and joyful environment are paramount.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">1. Zero Tolerance on Corporal Punishment &amp; Bullying</h4>
+        <p style="margin-bottom:.8rem">We maintain absolute zero tolerance for physical punishment, emotional distress, or humiliation. Every educator and staff member undergoes annual child protection sensitisation.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">2. Campus Security &amp; Monitored Corridors</h4>
+        <p style="margin-bottom:.8rem">The school campus is gated, monitored with 24/7 CCTV surveillance in all corridors and entry gates, and staffed with vigilant gate personnel throughout operating hours. Visitors must sign the visitor ledger at the reception.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">3. Professional Student Counsellor</h4>
+        <p style="margin-bottom:.8rem">Our qualified school counsellor, Ms. Sunita Rao (M.Phil. Child Psychology), is available for students and parents without appointment to support emotional and behavioural wellbeing.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">4. Safe Transport Guidelines</h4>
+        <p style="margin-bottom:.8rem">All school buses have speed governors and a female staff attendant on board for junior students from Nursery to Grade 2. Drivers undergo comprehensive verification and periodic road safety checks.</p>
+
+        <div style="display:flex;gap:10px;margin-top:1.6rem;flex-wrap:wrap">
+          <button class="btn btn-navy btn-sm" type="button" data-close-modal>Understood</button>
+          <button class="btn btn-soft btn-sm" type="button" data-goto="#/contact">Contact safety officer</button>
+        </div>
+      </div>`);
+  } else if (type === 'privacy') {
+    openModal(`
+      <div class="mhead">
+        <span class="pillx ok" style="background:#EDE7F6;color:#5E35B1;font-weight:700">Privacy Policy</span>
+        <h3 id="modalTitle" style="margin-top:.6rem">Student &amp; Family Data Privacy</h3>
+        <p class="small" style="color:var(--ink-50);margin-top:.3rem">How Christina Nursery &amp; Primary School handles your information</p>
+      </div>
+      <div class="mbody" style="line-height:1.65;color:var(--ink-80)">
+        <p style="margin-bottom:.9rem">We respect the trust parents place in us when sharing personal and academic information.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">1. Data Collection &amp; Use</h4>
+        <p style="margin-bottom:.8rem">Information collected during admission enquiries, form submissions, and student enrolment (student names, DOB, parent contact numbers, email, address) is used strictly for school administration, academic tracking, and emergency contact.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">2. Strict Confidentiality</h4>
+        <p style="margin-bottom:.8rem">We never sell, rent, or lease student or parent information to third-party advertisers or commercial entities. All records are securely maintained under the custody of the Principal's office.</p>
+
+        <h4 style="font-size:1.02rem;color:var(--navy);margin-bottom:.4rem">3. Photography &amp; Website Media</h4>
+        <p style="margin-bottom:.8rem">School event photographs and student project highlights published on our website celebrate student learning and follow parent consent recorded upon admission.</p>
+
+        <div style="display:flex;gap:10px;margin-top:1.6rem;flex-wrap:wrap">
+          <button class="btn btn-navy btn-sm" type="button" data-close-modal>Close</button>
+        </div>
+      </div>`);
+  }
+}
+
+function openNewsModal(n) {
+  openModal(`
+    <div class="mhead">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:.4rem">
+        <span class="pillx ok" style="background:#E7F1FF;color:#1D4ED8;font-weight:700">School News</span>
+        <span class="small" style="color:var(--ink-50)">${fmt(n.date)}</span>
+      </div>
+      <h3 id="modalTitle" style="margin-top:.4rem;line-height:1.3">${esc(n.title)}</h3>
+      <p class="small" style="color:var(--ink-50);margin-top:.4rem">By <b>${esc(n.by || 'School Office')}</b></p>
+    </div>
+    <div class="mbody">
+      <div class="ph" data-scene="${n.theme || 'computer'}" data-alt="${esc(n.title)}" style="height:220px;border-radius:var(--r-m);margin-bottom:1.2rem;overflow:hidden"></div>
+      <p style="color:var(--ink-80);line-height:1.75;font-size:1.02rem">${esc(n.text)}</p>
+      <div style="display:flex;gap:10px;margin-top:1.6rem;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" type="button" data-close-modal>Done</button>
+        <button class="btn btn-soft btn-sm" type="button" data-toast="Article copied.|Link to news story copied.">Share story</button>
+      </div>
+    </div>`);
+}
+
+document.addEventListener('click', e => {
+  const p = e.target.closest('.policy-link');
+  if (p) {
+    e.preventDefault();
+    openPolicyModal(p.dataset.policy);
+    return;
+  }
+  const newsLink = e.target.closest('[data-news-id]');
+  if (newsLink) {
+    e.preventDefault();
+    const n = db.news.find(x => x.id === +newsLink.dataset.newsId);
+    if (n) openNewsModal(n);
+    return;
+  }
+});
 document.addEventListener('click', e => { if (e.target.closest('[data-close-modal]')) closeModal(); });
 addEventListener('keydown', e => {
   const m = $('#modal'), l = $('#login');
@@ -905,39 +1056,73 @@ document.addEventListener('submit', e => {
 });
 
 /* ------------------------------------------------------------
-   ANNOUNCEMENT POP-UP DIALOG
+   ANNOUNCEMENT POP-UP DIALOG (MULTI-ANNOUNCEMENT SUPPORT)
    ------------------------------------------------------------ */
-function findActivePopupAnnouncement() {
-  if (!db.ann) return null;
+let currentDialogAnns = [];
+let currentDialogIndex = 0;
+
+function getActivePopupAnnouncements() {
+  if (!db.ann) return [];
   const now = new Date().toISOString();
-  const list = db.ann.filter(a => a.status === 'published');
-  // 1. Time-scheduled announcement whose window includes now
-  const timed = list.find(a => {
-    if (!a.startDate && !a.endDate) return false;
-    const s = a.startDate || '1970-01-01';
-    const e = a.endDate || '2099-12-31';
-    return now >= s && now <= e;
+  const todayStr = now.slice(0, 10);
+  const published = db.ann.filter(a => a.status === 'published');
+  
+  // Collect all pinned (valid expiry) and scheduled (in range) announcements
+  const matches = published.filter(a => {
+    const isPinnedValid = a.pinned && (!a.expiry || todayStr <= a.expiry);
+    const inSchedule = (a.startDate || a.endDate) &&
+      (now >= (a.startDate || '1970-01-01') && now <= (a.endDate || '2099-12-31'));
+    return isPinnedValid || inSchedule;
   });
-  if (timed) return timed;
-  // 2. Pinned announcement with valid expiry
-  const pinned = list.find(a => a.pinned && (!a.expiry || now.slice(0, 10) <= a.expiry));
-  if (pinned) return pinned;
-  // 3. Fallback active announcement
-  return list.find(a => typeof isAnnActive === 'function' ? isAnnActive(a) : true);
+  
+  if (matches.length > 0) return matches;
+  
+  // Fallback: active announcements
+  const activeFallback = published.filter(a => typeof isAnnActive === 'function' ? isAnnActive(a) : true);
+  return activeFallback.slice(0, 1);
 }
 
-function showAnnouncementDialog(ann) {
-  if (!ann) return;
-  const veil = $('#annDialogVeil');
+function findActivePopupAnnouncement() {
+  const anns = getActivePopupAnnouncements();
+  return anns.length ? anns[0] : null;
+}
+
+function renderDialogAnnouncement(index) {
+  if (!currentDialogAnns || !currentDialogAnns.length) return;
+  if (index < 0) index = currentDialogAnns.length - 1;
+  if (index >= currentDialogAnns.length) index = 0;
+  currentDialogIndex = index;
+  
+  const ann = currentDialogAnns[currentDialogIndex];
+  const total = currentDialogAnns.length;
+  
+  const counter = $('#annDialogCounter');
+  const navBar = $('#annDialogNavBar');
+  const dots = $('#annDialogDots');
+  const badgeText = $('#annDialogBadgeText');
+  
+  if (total > 1) {
+    if (counter) { counter.style.display = 'inline-block'; counter.textContent = `Notice ${currentDialogIndex + 1} of ${total}`; }
+    if (navBar) navBar.style.display = 'flex';
+    if (badgeText) badgeText.textContent = `School Announcements (${total})`;
+    if (dots) {
+      dots.innerHTML = currentDialogAnns.map((_, i) =>
+        `<span class="ann-nav-dot${i === currentDialogIndex ? ' active' : ''}" data-ann-idx="${i}" role="button" aria-label="Go to notice ${i + 1}"></span>`
+      ).join('');
+    }
+  } else {
+    if (counter) counter.style.display = 'none';
+    if (navBar) navBar.style.display = 'none';
+    if (badgeText) badgeText.textContent = 'School Announcement';
+  }
+  
   const title = $('#annDialogTitle');
   const text = $('#annDialogText');
   const cat = $('#annDialogCat');
   const dates = $('#annDialogDates');
   const sch = $('#annDialogSchedule');
   
-  if (!veil || !title) return;
-  
-  title.textContent = ann.title;
+  if (title) title.textContent = ann.title;
   if (text) text.textContent = ann.text || (ann.body ? ann.body.slice(0, 180) + '...' : '');
   
   if (cat) {
@@ -960,8 +1145,7 @@ function showAnnouncementDialog(ann) {
       sch.style.display = 'none';
     }
   }
-
-  // Routing option button:
+  
   const actionBtn = $('#annDialogAction');
   if (actionBtn) {
     actionBtn.onclick = () => {
@@ -987,7 +1171,19 @@ function showAnnouncementDialog(ann) {
       }, 300);
     };
   }
+}
 
+function showAnnouncementDialog(anns) {
+  if (!anns) return;
+  const list = Array.isArray(anns) ? anns : [anns];
+  if (!list.length) return;
+  currentDialogAnns = list;
+  currentDialogIndex = 0;
+  
+  const veil = $('#annDialogVeil');
+  if (!veil) return;
+  
+  renderDialogAnnouncement(0);
   veil.classList.add('show');
   veil.setAttribute('aria-hidden', 'false');
   document.body.classList.add('locked');
@@ -1004,9 +1200,22 @@ function closeAnnouncementDialog() {
 
 document.addEventListener('click', e => {
   if (e.target.closest('#annDialogClose') || e.target.closest('#annDialogX') || e.target === $('#annDialogVeil')) {
-    const activeAnn = findActivePopupAnnouncement();
-    if (activeAnn) sessionStorage.setItem('ann_dismissed_' + activeAnn.id, '1');
+    sessionStorage.setItem('ann_dismissed_dialog', '1');
     closeAnnouncementDialog();
+    return;
+  }
+  if (e.target.closest('#annDialogPrev')) {
+    renderDialogAnnouncement(currentDialogIndex - 1);
+    return;
+  }
+  if (e.target.closest('#annDialogNext')) {
+    renderDialogAnnouncement(currentDialogIndex + 1);
+    return;
+  }
+  const dot = e.target.closest('[data-ann-idx]');
+  if (dot) {
+    renderDialogAnnouncement(+dot.dataset.annIdx);
+    return;
   }
 });
 
@@ -1022,30 +1231,57 @@ function initHome() {
     setTimeout(() => countUp(c), 150);
   });
   
-  // 1. Update Announcement Pill in marked hero area with latest notice from db
-  const annTitle = $('#heroAnnTitle');
-  const activeAnn = findActivePopupAnnouncement();
-  if (annTitle && activeAnn) {
-    annTitle.textContent = activeAnn.title + (activeAnn.date ? ' — ' + fmt(activeAnn.date) : '');
+  // 1. Update Latest News Pill in hero area from db.news
+  const newsTitle = $('#heroNewsTitle');
+  const newsPill = $('#heroNewsPill');
+  const latestNews = (db.news && db.news.length) ? db.news[0] : null;
+  if (newsTitle && latestNews) {
+    newsTitle.textContent = latestNews.title + (latestNews.date ? ' — ' + fmt(latestNews.date) : '');
   }
-
-  // 2. Automatically show Announcement Dialog on home landing if active and not dismissed
-  if (activeAnn && !sessionStorage.getItem('ann_dismissed_' + activeAnn.id)) {
-    setTimeout(() => {
-      showAnnouncementDialog(activeAnn);
-    }, 600);
-  }
-
-  // Allow clicking announcement pill in hero to view the dialog
-  const annPill = $('#heroAnnPill');
-  if (annPill && activeAnn) {
-    annPill.onclick = e => {
+  if (newsPill && latestNews) {
+    newsPill.onclick = e => {
       e.preventDefault();
-      showAnnouncementDialog(activeAnn);
+      window.Router.go('news');
+      setTimeout(() => {
+        const fullNews = db.news.find(x => x.id === latestNews.id);
+        if (fullNews) openNewsModal(fullNews);
+      }, 250);
     };
   }
 
-  // 3. Populate Upcoming Events on home page
+  // 2. Automatically show Announcement Dialog on home landing if active announcements exist and not dismissed
+  const activeAnns = getActivePopupAnnouncements();
+  if (activeAnns.length > 0 && !sessionStorage.getItem('ann_dismissed_dialog')) {
+    setTimeout(() => {
+      showAnnouncementDialog(activeAnns);
+    }, 600);
+  }
+
+  // 3. Populate Pinned Notice Card dynamically on home page
+  const hPinned = $('#homePinnedCard');
+  if (hPinned) {
+    const pinned = db.ann.filter(a => a.pinned && a.status === 'published');
+    if (pinned.length > 0) {
+      const p = pinned[0];
+      hPinned.innerHTML = `
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;flex-wrap:wrap">
+            <span class="pin-ic" style="width:36px;height:36px;border-radius:50%;background:#FF7A1A;display:inline-flex;align-items:center;justify-content:center"><svg class="i i-18" style="stroke:#fff"><use href="#ic-pin"/></svg></span>
+            <span class="tag on-navy" style="background:#EF6C00;color:#fff">Pinned Notice</span>
+            ${pinned.length > 1 ? `<span class="pillx" style="background:rgba(255,255,255,.15);color:#FFE8D6;font-size:.75rem">+${pinned.length - 1} more pinned</span>` : ''}
+            <span class="small" style="color:#B6CBEB;margin-left:auto">${fmt(p.date)}</span>
+          </div>
+          <h3 style="color:#fff;font-size:1.35rem;line-height:1.3">${esc(p.title)}</h3>
+          <p style="color:#B6CBEB;margin-top:.8rem;line-height:1.6">${esc(p.text)}</p>
+        </div>
+        <div style="margin-top:1.8rem;display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" type="button" data-ann="${p.id}">Read notice details</button>
+          ${pinned.length > 1 ? `<button class="btn btn-ghost on-navy btn-sm" type="button" data-goto="#/announcements">View all ${pinned.length} pinned notices &rarr;</button>` : ''}
+        </div>`;
+    }
+  }
+
+  // 4. Populate Upcoming Events on home page
   const hEv = $('#homeEventsList');
   if (hEv && db.events && db.events.length) {
     hEv.innerHTML = db.events.slice(0, 3).map(e => `
@@ -1061,7 +1297,7 @@ function initHome() {
       </div>`).join('');
   }
 
-  // 4. Populate Faculty Spotlight on home page
+  // 5. Populate Faculty Spotlight on home page
   const hFac = $('#homeFacultyGrid');
   if (hFac && db.staff && db.staff.length) {
     hFac.innerHTML = db.staff.slice(0, 4).map(s => `
@@ -1076,20 +1312,6 @@ function initHome() {
       </article>`).join('');
     bindTilt(hFac);
     watch(hFac);
-  }
-
-  // 5. Populate Parent Reviews on home page
-  const hTst = $('#tstTrackHome');
-  if (hTst && db.testimonials && db.testimonials.length) {
-    hTst.innerHTML = db.testimonials.slice(0, 3).map(t => `
-      <div class="tst"><div class="tst-in">
-        <div class="av">${avatar(t.name, 'p' + t.id)}</div>
-        <div>
-          <span class="quote-mark" aria-hidden="true">&ldquo;</span>
-          <blockquote>${esc(t.text)}</blockquote>
-          <p class="by"><b>${esc(t.name)}</b> <span>— ${esc(t.child)}</span></p>
-        </div>
-      </div></div>`).join('');
   }
 
   // 6. Populate News Dispatches on home page
@@ -1132,6 +1354,12 @@ function initActivities() {
 
 function initAnnouncements() {
   renderAnnChips(); renderPinned(); renderAnn(); renderEvents(); mountScenes(); watch();
+  if (window.location.hash.includes('events')) {
+    setTimeout(() => {
+      const ev = $('#events');
+      if (ev) ev.scrollIntoView({ behavior: 'smooth' });
+    }, 150);
+  }
 }
 
 function initGallery() {
@@ -1168,7 +1396,7 @@ function renderFilteredNews() {
         <span class="dt">${fmt(n.date)} · ${esc(n.by)}</span>
         <h3>${esc(n.title)}</h3>
         <p>${esc(n.text)}</p>
-        <button class="link-a" type="button" data-toast="Full story opens in the live site.|${esc(n.title)}">Read the update <svg class="i i-16 ico"><use href="#ic-arrow-r"/></svg></button>
+        <button class="link-a" type="button" data-news-id="${n.id}">Read the update <svg class="i i-16 ico"><use href="#ic-arrow-r"/></svg></button>
       </div>
     </article>`).join('')
     : `<div class="empty" style="grid-column:1/-1"><b>No stories match your filter</b>
@@ -1230,6 +1458,12 @@ const router = window.Router.init({
   onRouteChange: function(hash, route) {
     updateActiveNav(hash);
     closeDrawer();
+    if (hash === 'events') {
+      setTimeout(() => {
+        const ev = $('#events');
+        if (ev) ev.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
   }
 });
 
