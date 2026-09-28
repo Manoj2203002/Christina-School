@@ -63,7 +63,7 @@ const SCENES = {
 
 const db = {
   staff: [
-    { id: 1, name: 'Radhika Krishnan', desig: 'Principal', dept: 'Student support', qual: 'M.A. English, M.Ed.', exp: 24, classes: 'Nursery to Grade 5', subjects: 'School leadership, English', note: 'Joined Christina in its second year and has guided generations of primary learners with care and dedication.', active: true },
+    { id: 1, name: 'Mr. Joshua Billowry', desig: 'Principal', dept: 'Student support', qual: 'M.A., B.Ed.', exp: 30, classes: 'Nursery to Grade 5', subjects: 'School leadership, Administration', note: "Has been leading Christina Nursery and Primary School with vision, care, and dedication, nurturing generations of young learners since the school's founding in 1992.", active: true },
     { id: 2, name: 'Anand Subramanian', desig: 'Vice Principal and Mathematics lead', dept: 'Mathematics', qual: 'M.Sc. Mathematics, B.Ed.', exp: 18, classes: 'Grades 3, 4, 5', subjects: 'Mathematics, Mental Math', note: 'Believes early number sense should be joyful and intuitive, not rushed through worksheets.', active: true },
     { id: 3, name: 'Fatima Sheikh', desig: 'Senior teacher, Primary', dept: 'Primary years', qual: 'B.El.Ed., Montessori diploma', exp: 13, classes: 'Grades 1, 2', subjects: 'Early literacy, Environmental studies', note: 'Built the phonics programme used across early years and Grades 1 and 2. Keeps a reading nest in her classroom.', active: true },
     { id: 4, name: 'Joseph Mathew', desig: 'Science teacher', dept: 'Science', qual: 'M.Sc. Physics, B.Ed.', exp: 11, classes: 'Grades 3, 4, 5', subjects: 'General Science, Nature Studies', note: 'Directs the campus nature club and rooftop plant nursery, helping kids explore living science.', active: true },
@@ -96,10 +96,10 @@ const db = {
     { id: 6, title: 'Educational Field Trip, Grades 3 to 5', date: '2027-02-06', time: '8:00 am – 4:00 pm', loc: 'DakshinaChitra Heritage & Craft Center', desc: 'Traditional crafts and folk arts workshop. Consent forms due by 25 January.' }
   ],
   ach: [
-    { id: 1, student: 'Ishaan Verma', grade: 'Grade 5', comp: 'Chennai Inter-School Junior Chess Championship', result: 'Gold', date: '2026-08-22', medal: 'gold' },
+    { id: 1, student: 'Ishaan Verma', grade: 'Grade 5', comp: 'Salem District Junior Chess Championship', result: 'Gold', date: '2026-08-22', medal: 'gold' },
     { id: 2, student: 'Grade 5 Junior Robotics Team', grade: 'Grade 5', comp: 'Tamil Nadu Junior Robotics Challenge', result: 'State finalist', date: '2026-07-30', medal: 'silver' },
     { id: 3, student: 'Ananya Pillai', grade: 'Grade 4', comp: 'District Bharatanatyam Competition', result: 'First place', date: '2026-07-11', medal: 'gold' },
-    { id: 4, student: 'Christina Junior Football Squad', grade: 'Grades 4–5', comp: 'Anna Nagar Schools Junior League', result: 'Runners-up', date: '2026-06-18', medal: 'silver' },
+    { id: 4, student: 'Christina Junior Football Squad', grade: 'Grades 4–5', comp: 'Salem District Schools Junior League', result: 'Runners-up', date: '2026-06-18', medal: 'silver' },
     { id: 5, student: 'Kavya Balan', grade: 'Grade 5', comp: 'State-level Tamil Recitation', result: 'Gold', date: '2026-04-09', medal: 'gold' },
     { id: 6, student: 'Rehan Ahmed', grade: 'Grade 5', comp: 'National Primary Science Olympiad', result: 'Zonal rank 14', date: '2026-03-14', medal: 'bronze' },
     { id: 7, student: 'Grade 4 Choir', grade: 'Grade 4', comp: 'Inter-School Junior Choir Festival', result: 'Best ensemble', date: '2026-02-21', medal: 'gold' }
@@ -151,7 +151,7 @@ const db = {
     { id: 2, name: 'Mohammed Irfan', child: 'Parent of children in LKG and Grade 4', text: 'What I did not expect was how quickly they call. Not once has a problem reached us late. When my child was having trouble blending sounds, the teacher rang before I even knew there was a difficulty.' },
     { id: 3, name: 'Sujatha Menon', child: 'Parent of a Grade 5 graduate', text: 'Seven wonderful years from Nursery to Grade 5. She had loving teachers, a caring principal who still knows her name, and a joyful foundation. You cannot buy that kind of warmth.' },
     { id: 4, name: 'Karthik Ramanathan', child: 'Parent of a Grade 1 child', text: 'The first week of Grade 1 was harder for me than for him. The class teacher sent one photograph on the second day of him laughing at lunch. I still have it.' },
-    { id: 5, name: 'Anita Dsouza', child: 'Parent of a Grade 3 child', text: 'No donation, no capitation, a transparent fee schedule and no surprise charges in three years. For a Chennai school that is worth saying out loud.' }
+    { id: 5, name: 'Anita Dsouza', child: 'Parent of a Grade 3 child', text: 'No donation, no capitation, a transparent fee schedule and no surprise charges in three years. For a reputed school in Salem district that is worth saying out loud.' }
   ],
   enquiries: [
     { id: 1, parent: 'Vidya Shankar', child: 'Nila Shankar', grade: 'Grade 1', phone: '98401 22110', email: 'vidya.s@email.com', date: '2026-09-19', status: 'New', msg: 'Nila turns six in March. We live in Mogappair — is route 7 still running?' },
