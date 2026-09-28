@@ -363,6 +363,65 @@ function isAnnActive(a) {
   return true;
 }
 
+const DB_STORAGE_KEY = 'christina_school_db';
+
+if (!db.settings) {
+  db.settings = {
+    name: 'Christina Nursery and Primary School',
+    tag: 'Where curiosity takes root',
+    addr: 'Rasipuram Main Road, Gopalapuram, Attur Salem – 636102',
+    hours: 'Mon - Sat, 9:00 am - 5:00 pm',
+    phone: '+91 427 225 4053',
+    mail: 'hello@christinaschool.in',
+    ticker: 'Admission enquiries for 2026-27 are open for Nursery to Grade 5'
+  };
+}
+
+function loadDb() {
+  try {
+    const raw = localStorage.getItem(DB_STORAGE_KEY);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    if (saved && typeof saved === 'object') {
+      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'academics', 'settings'].forEach(k => {
+        if (saved[k] !== undefined) {
+          db[k] = saved[k];
+        }
+      });
+      sortStores();
+    }
+  } catch (err) {
+    console.warn('[ChristinaSchool] Storage load warning:', err);
+  }
+}
+
+function saveDb() {
+  try {
+    localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(db));
+  } catch (err) {
+    console.warn('[ChristinaSchool] Storage save warning:', err);
+  }
+}
+
+function resetDb() {
+  try {
+    localStorage.removeItem(DB_STORAGE_KEY);
+    window.location.reload();
+  } catch (err) {
+    console.warn('[ChristinaSchool] Storage reset warning:', err);
+  }
+}
+
+// Hydrate from localStorage immediately if data exists
+loadDb();
+
+// Keep tabs in sync
+window.addEventListener('storage', e => {
+  if (e.key === DB_STORAGE_KEY) {
+    loadDb();
+  }
+});
+
 return {
   $, $$, REDUCED, esc, hash,
   db, CATS, DEPTS, DOC_CATS, GAL_CATS, TONES, ENQ_STATES, MON, SCENES,
@@ -370,6 +429,8 @@ return {
   scene, avatar, staffPic, mountScenes,
   toast, countUp, revealer, watch, sortStores,
   isAnnActive,
+  saveDb, loadDb, resetDb,
   uid: () => ++uid
 };
 })();
+

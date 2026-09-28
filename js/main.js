@@ -168,13 +168,21 @@ document.addEventListener('touchstart', e => {
   }
 }, { passive: false });
 
-// Global escape key listener
+// Global keyboard listeners
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeDrawer();
     if (typeof closeModal === 'function') closeModal();
     if (typeof closeLogin === 'function') closeLogin();
-    if (typeof closeAnnDialog === 'function') closeAnnDialog();
+    if (typeof closeAnnouncementDialog === 'function') closeAnnouncementDialog();
+  }
+  const veil = $('#annDialogVeil');
+  if (veil && veil.classList.contains('show')) {
+    if (e.key === 'ArrowRight' && typeof renderDialogAnnouncement === 'function') {
+      renderDialogAnnouncement(currentDialogIndex + 1);
+    } else if (e.key === 'ArrowLeft' && typeof renderDialogAnnouncement === 'function') {
+      renderDialogAnnouncement(currentDialogIndex - 1);
+    }
   }
 });
 
@@ -331,12 +339,23 @@ function renderStaff() {
         <span class="view">View profile <svg class="i i-16 ico"><use href="#ic-arrow-r"/></svg></span>
       </div>
     </article>`).join('')
-    : `<div class="empty" style="grid-column:1/-1"><b>No teacher matches that search</b>
-        Try a subject like "science", or clear the filters to see everyone.</div>`;
+    : `<div class="empty" style="grid-column:1/-1;text-align:center;padding:2.5rem 1rem">
+        <b>No teacher matches that search</b>
+        <p style="color:var(--ink-60);margin-top:.4rem">Try a subject like "science", or reset the filters to see everyone.</p>
+        <button class="btn btn-soft btn-sm" type="button" id="resetStaffFilter" style="margin-top:14px">Reset filters</button>
+      </div>`;
   watch(sGrid);
   bindTilt(sGrid);
 }
 document.addEventListener('click', e => {
+  if (e.target.closest('#resetStaffFilter')) {
+    dept = 'All'; q = '';
+    const sInput = $('#staffSearch');
+    if (sInput) sInput.value = '';
+    renderDeptChips();
+    renderStaff();
+    return;
+  }
   const b = e.target.closest('#deptChips [data-dept]'); if (!b) return;
   dept = b.dataset.dept; renderDeptChips(); renderStaff();
 });
@@ -559,8 +578,6 @@ function renderEvents() {
         </div>
         <p>${esc(e.desc)}</p>
       </div>
-      <button class="btn btn-ghost on-navy btn-sm" type="button"
-        data-toast="Added to your reminders.|${esc(e.title)}, ${fmt(e.date)}">Remind me</button>
     </article>`).join('');
   watch(el);
 }
@@ -642,6 +659,22 @@ addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox();
   if (e.key === 'ArrowRight') moveLightbox(1);
   if (e.key === 'ArrowLeft') moveLightbox(-1);
+});
+let lbTouchX = null;
+document.addEventListener('pointerdown', e => {
+  const lb = $('#lbox');
+  if (!lb || !lb.classList.contains('open')) return;
+  if (e.target.closest('#lbFrame') || e.target === lb) {
+    lbTouchX = e.clientX;
+  }
+});
+document.addEventListener('pointerup', e => {
+  if (lbTouchX === null) return;
+  const dx = e.clientX - lbTouchX;
+  lbTouchX = null;
+  if (Math.abs(dx) > 45) {
+    moveLightbox(dx < 0 ? 1 : -1);
+  }
 });
 
 /* ------------------------------------------------------------
@@ -736,10 +769,20 @@ function renderDocs() {
           : `<button class="btn btn-soft btn-sm" type="button" data-toast="Coming soon|This document will be uploaded shortly. Please check back.">Download</button>`}
       </div>
     </div>`).join('')
-    : `<div class="empty"><b>No documents in this category yet</b>Pick another category to keep looking.</div>`;
+    : `<div class="empty" style="grid-column:1/-1;text-align:center;padding:2.5rem 1rem">
+        <b>No documents in this category yet</b>
+        <p style="color:var(--ink-60);margin-top:.4rem">Pick another category or view all documents.</p>
+        <button class="btn btn-soft btn-sm" type="button" id="resetDocFilter" style="margin-top:14px">View all documents</button>
+      </div>`;
   watch(dg);
 }
 document.addEventListener('click', e => {
+  if (e.target.closest('#resetDocFilter')) {
+    docCat = 'All';
+    renderDocChips();
+    renderDocs();
+    return;
+  }
   const b = e.target.closest('#docChips [data-doc]'); if (!b) return;
   docCat = b.dataset.doc; renderDocChips(); renderDocs();
 });
@@ -941,6 +984,7 @@ document.addEventListener('submit', e => {
       date: `${d.getFullYear()}-${d2(d.getMonth() + 1)}-${d2(d.getDate())}`, status: 'New',
       msg: $('#e-msg').value.trim() || '—'
     });
+    if (window.App && window.App.saveDb) window.App.saveDb();
     e.target.reset();
     $$('#enqForm .field').forEach(f => f.classList.remove('ok', 'bad'));
     openModal(`
@@ -982,8 +1026,17 @@ document.addEventListener('submit', e => {
       date: `${d3.getFullYear()}-${d2(d3.getMonth() + 1)}-${d2(d3.getDate())}`, status: 'Visit booked',
       msg: 'Campus tour requested for ' + fmt(when) + ', ' + slot + ' slot.'
     });
+    if (window.App && window.App.saveDb) window.App.saveDb();
     closeModal();
     toast('Visit requested|' + fmt(when) + ' at ' + slot + '. The office will confirm by phone.');
+  }
+});
+
+/* live validation error clearing on input */
+document.addEventListener('input', e => {
+  const f = e.target.closest('.field');
+  if (f && f.classList.contains('bad')) {
+    f.classList.remove('bad');
   }
 });
 
@@ -1399,11 +1452,26 @@ function renderFilteredNews() {
         <button class="link-a" type="button" data-news-id="${n.id}">Read the update <svg class="i i-16 ico"><use href="#ic-arrow-r"/></svg></button>
       </div>
     </article>`).join('')
-    : `<div class="empty" style="grid-column:1/-1"><b>No stories match your filter</b>
-        Try clearing your search term or select "All Stories".</div>`;
+    : `<div class="empty" style="grid-column:1/-1;text-align:center;padding:2.5rem 1rem">
+        <b>No stories match your filter</b>
+        <p style="color:var(--ink-60);margin-top:.4rem">Try clearing your search term or view all stories.</p>
+        <button class="btn btn-soft btn-sm" type="button" id="resetNewsFilter" style="margin-top:14px">Reset filters</button>
+      </div>`;
   mountScenes(ng);
   watch(ng);
 }
+
+document.addEventListener('click', e => {
+  if (e.target.closest('#resetNewsFilter')) {
+    newsCat = 'All';
+    newsQuery = '';
+    const sBox = $('#newsSearch');
+    if (sBox) sBox.value = '';
+    const chips = $$('#newsChips button');
+    chips.forEach((c, idx) => c.classList.toggle('active', idx === 0));
+    renderFilteredNews();
+  }
+});
 
 function initNews() {
   renderFilteredNews();

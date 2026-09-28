@@ -264,6 +264,7 @@ function editor(kind, rec) {
     if (kind === 'gal' && !out.h) out.h = 230 + (Date.now() % 5) * 26;
     if (isNew) db[STORE[kind]].unshift(out);
     if (sortStores) sortStores();
+    if (window.App && window.App.saveDb) window.App.saveDb();
     closeModal();
     // Re-render current route data based on hash
     const hash = window.location.hash.slice(2) || 'overview';
@@ -289,6 +290,7 @@ function confirmDelete(kind, id) {
   $('#doDel').addEventListener('click', () => {
     const i = store.findIndex(x => x.id === id);
     if (i > -1) store.splice(i, 1);
+    if (window.App && window.App.saveDb) window.App.saveDb();
     closeModal(); 
     
     const hash = window.location.hash.slice(2) || 'overview';
@@ -550,6 +552,7 @@ function initAdminStaff() {
     s.active = !s.active;
     t.classList.toggle('on', s.active);
     t.setAttribute('aria-pressed', String(s.active));
+    if (window.App && window.App.saveDb) window.App.saveDb();
     refreshAdminCounts();
     toast(s.active ? 'Profile is live|' + s.name + ' now appears on the staff page.' : 'Profile hidden|' + s.name + ' has been taken off the staff page.', s.active ? 'ok' : 'info');
   });
@@ -574,6 +577,7 @@ function initAdminAnn() {
     if (!a) return;
     const on = !a.pinned;
     a.pinned = on;
+    if (window.App && window.App.saveDb) window.App.saveDb();
     renderAdminAnn();
     toast(on ? 'Pinned|' + a.title + ' is now pinned on the notice board.' : 'Unpinned|' + a.title + ' is unpinned.', on ? 'ok' : 'info');
   });
@@ -603,6 +607,7 @@ function initAdminGal() {
       const n = $('#alb-n').value.trim();
       if (!n) { $('#alb-n').closest('.field').classList.add('bad'); return; }
       db.albums.unshift({ id: Date.now(), name: n, cat: $('#alb-c').value });
+      if (window.App && window.App.saveDb) window.App.saveDb();
       closeModal(); 
       renderAdminGal();
       toast('Album created|' + n + ' is ready for photographs.');
@@ -673,6 +678,7 @@ function initAdminEnq() {
           const b = ev.target.closest('[data-es]'); if (!b) return;
           q2.status = b.dataset.es;
           $$('#enqSeg button').forEach(x => x.classList.toggle('on', x === b));
+          if (window.App && window.App.saveDb) window.App.saveDb();
           renderAdminEnq();
           toast('Enquiry updated|' + q2.parent + ' is now marked “' + q2.status + '”.', 'info');
         });
@@ -685,6 +691,7 @@ function initAdminEnq() {
         if (i > -1) {
           const name = db.enquiries[i].parent;
           db.enquiries.splice(i, 1);
+          if (window.App && window.App.saveDb) window.App.saveDb();
           renderAdminEnq(); 
           refreshAdminCounts(); 
           drawBars();
@@ -713,6 +720,7 @@ function initAdminSettings() {
     const phone = $('#s-phone').value.trim();
     const mail = $('#s-mail').value.trim();
     db.settings = { name: name, tag: tag, addr: addr, hours: hours, phone: phone, mail: mail, ticker: $('#s-ticker').value.trim() };
+    if (window.App && window.App.saveDb) window.App.saveDb();
     
     // In a real app this would reflect globally. For admin we just show toast.
     toast('Settings saved|The public website has been updated.');

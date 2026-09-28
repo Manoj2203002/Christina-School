@@ -7,6 +7,9 @@ const adminJs = fs.readFileSync(path.join(__dirname, '..', 'js', 'admin.js'), 'u
 const mainJs = fs.readFileSync(path.join(__dirname, '..', 'js', 'main.js'), 'utf8');
 const pagesCacheJs = fs.readFileSync(path.join(__dirname, '..', 'js', 'pages-cache.js'), 'utf8');
 
+const annHtml = fs.readFileSync(path.join(__dirname, '..', 'pages', 'main-announcements.html'), 'utf8');
+const dataJs = fs.readFileSync(path.join(__dirname, '..', 'js', 'data.js'), 'utf8');
+
 const checks = [
   ['Index has Events in menu', indexHtml.includes('<a href="#/events">Events</a>')],
   ['Index has Events in drawer', indexHtml.includes('<a href="#/events" style="--i:6">Events <b>07</b></a>')],
@@ -29,7 +32,15 @@ const checks = [
   ['Main has getActivePopupAnnouncements', mainJs.includes('function getActivePopupAnnouncements()')],
   ['Main has openPolicyModal', mainJs.includes('function openPolicyModal(type)')],
   ['Main has openNewsModal', mainJs.includes('function openNewsModal(n)')],
-  ['Pages cache updated with new home.html', pagesCacheJs.includes('heroNewsPill') && !pagesCacheJs.includes('PARENT REVIEWS CAROUSEL')]
+  ['Pages cache updated with new home.html', pagesCacheJs.includes('heroNewsPill') && !pagesCacheJs.includes('PARENT REVIEWS CAROUSEL')],
+  ['Events: Remind me button removed from main.js', !mainJs.includes('Remind me')],
+  ['Events: Download term calendar removed from announcements page', !annHtml.includes('Download the term calendar')],
+  ['Events: Download term calendar removed from pages cache', !pagesCacheJs.includes('Download the term calendar')],
+  ['Data: localStorage persistence and loadDb/saveDb implemented', dataJs.includes('DB_STORAGE_KEY') && dataJs.includes('saveDb') && dataJs.includes('loadDb')],
+  ['Admin: mutations call saveDb for cross-tab and persistent state', adminJs.includes('window.App.saveDb()')],
+  ['Main: form submissions call saveDb', mainJs.includes('window.App.saveDb()')],
+  ['Main: announcement dialog has keyboard arrow navigation', mainJs.includes("e.key === 'ArrowRight' && typeof renderDialogAnnouncement === 'function'")],
+  ['Main: news and staff empty states have filter reset handlers', mainJs.includes('resetNewsFilter') && mainJs.includes('resetStaffFilter')]
 ];
 
 let allPassed = true;
@@ -42,5 +53,5 @@ if (!allPassed) {
   console.error('\nSome checks failed!');
   process.exit(1);
 } else {
-  console.log('\nALL 22 CHECKS PASSED PERFECTLY!');
+  console.log(`\nALL ${checks.length} CHECKS PASSED PERFECTLY!`);
 }

@@ -505,7 +505,7 @@ p{margin:0}
 
 /* ---------- events ---------- */
 .ev-list{ display:grid; gap:12px }
-.ev{ display:grid; grid-template-columns:auto 1fr auto; gap:1.4rem; align-items:center; background:rgba(255,255,255,.06);
+.ev{ display:grid; grid-template-columns:auto 1fr; gap:1.4rem; align-items:center; background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12); border-radius:var(--r-l); padding:1.1rem 1.4rem; transition:.45s var(--ease) }
 .ev:hover{ background:rgba(255,255,255,.12); transform:translateX(6px) }
 .ev-date{ width:72px; text-align:center; background:#fff; color:var(--navy); border-radius:var(--r-m); padding:.6rem .3rem; flex:none }
@@ -1440,8 +1440,7 @@ tbody tr{ transition:background .25s } tbody tr:hover{ background:var(--paper) }
     </div>
     <div class="ev-list" id="evList"></div>
     <div class="rv" style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
-      <button class="btn btn-primary" type="button" data-toast="The term calendar will download as a PDF in the live site.|info">Download the term calendar</button>
-      <button class="btn btn-ghost on-navy" type="button" data-goto="#contact">Ask the office about a date</button>
+      <button class="btn btn-primary" type="button" data-goto="#contact">Ask the office about a date</button>
     </div>
   </div>
 </section>
@@ -2728,8 +2727,6 @@ function renderEvents() {
         </div>
         <p>${esc(e.desc)}</p>
       </div>
-      <button class="btn btn-ghost on-navy btn-sm" type="button"
-        data-toast="Added to your reminders.|${esc(e.title)}, ${fmt(e.date)}">Remind me</button>
     </article>`).join('');
   watch($('#evList'));
 }
