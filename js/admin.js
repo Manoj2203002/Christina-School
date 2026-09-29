@@ -18,6 +18,8 @@ const TITLES = {
   news:     ['News', 'Short updates written by staff'],
   doc:      ['Documents', 'Files for parents and students — admission forms, policies and more'],
   enq:      ['Admission enquiries', 'Every enquiry submitted through the website form'],
+  tst:      ['Testimonials', 'Parent testimonials shown on the public website'],
+  alumni:   ['Alumni', 'Alumni profiles and testimonials — stories of Christina graduates'],
   set:      ['School settings', 'Details that appear across the public site']
 };
 
@@ -36,6 +38,7 @@ function refreshAdminCounts() {
   set('#cStaff', db.staff.length); set('#cAnn', db.ann.length); set('#cGal', db.gallery.length);
   set('#cEv', db.events.length); set('#cAch', db.ach.length); set('#cNews', db.news.length); set('#cEnq', db.enquiries.length);
   set('#cDoc', db.documents.length);
+  set('#cTst', db.testimonials.length); set('#cAlumni', db.alumni.length);
   set('#kStaff', db.staff.filter(s => s.active).length); set('#kAnn', live); set('#kGal', db.gallery.length);
   set('#kEv', db.events.length); set('#kEnq', db.enquiries.length);
 }
@@ -138,9 +141,20 @@ const SCHEMA = {
       { k: 'audience', l: 'Who this is for', t: 'select', opts: ['Everyone', 'Parents', 'Students', 'Staff'] },
       { k: 'date', l: 'Date posted', t: 'date', req: 1 },
       { k: 'desc', l: 'Short description', t: 'textarea', full: 1 }
-    ], file: 1 }
+    ], file: 1 },
+  tst: { title: 'testimonial', fields: [
+      { k: 'name', l: 'Parent name', t: 'text', req: 1 },
+      { k: 'child', l: 'Relation (e.g. Parent of a Grade 4 child)', t: 'text', req: 1, full: 1 },
+      { k: 'text', l: 'Testimonial text', t: 'textarea', full: 1, req: 1 }
+    ] },
+  alumni: { title: 'alumni', fields: [
+      { k: 'name', l: 'Full name', t: 'text', req: 1 },
+      { k: 'batch', l: 'Batch / Passing year', t: 'text', req: 1 },
+      { k: 'current', l: 'Current role and company', t: 'text', full: 1 },
+      { k: 'text', l: 'Testimonial message', t: 'textarea', full: 1, req: 1 }
+    ], photo: 1 }
 };
-const STORE = { staff: 'staff', ann: 'ann', ev: 'events', ach: 'ach', news: 'news', gal: 'gallery', doc: 'documents' };
+const STORE = { staff: 'staff', ann: 'ann', ev: 'events', ach: 'ach', news: 'news', gal: 'gallery', doc: 'documents', tst: 'testimonials', alumni: 'alumni' };
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d2(d.getMonth() + 1)}-${d2(d.getDate())}`; };
 
 function editor(kind, rec) {
@@ -308,6 +322,8 @@ const addAch = () => editor('ach');
 const addNews = () => editor('news');
 const addPhoto = () => editor('gal');
 const addDoc = () => editor('doc');
+const addTst = () => editor('tst');
+const addAlumni = () => editor('alumni');
 
 /* ------------------------------------------------------------
    ADMIN TABLES
@@ -503,6 +519,37 @@ function renderAdminEnq() {
           <button class="mini del" type="button" data-enqdel="${q2.id}" aria-label="Remove enquiry"><svg class="i i-16"><use href="#ic-trash"/></svg></button>
         </div></td>
       </tr>`).join('') : blank(7, 'No enquiries yet');
+  }
+}
+
+function renderAdminTst() {
+  const tbody = $('#aTstBody');
+  if (tbody) {
+    tbody.innerHTML = db.testimonials.length ? db.testimonials.map(t => `
+      <tr>
+        <td data-col="Parent"><span class="cellav"><span class="av">${avatar(t.name, 't' + t.id)}</span><span><b>${esc(t.name)}</b></span></span></td>
+        <td data-col="Relation">${esc(t.child)}</td>
+        <td data-col="Testimonial" style="max-width:360px"><span style="font-size:.82rem;color:var(--ink-60)">${esc((t.text || '').slice(0, 90))}${(t.text || '').length > 90 ? '\u2026' : ''}</span></td>
+        <td data-col="Actions">${acts('tst', t.id)}</td>
+      </tr>`).join('') : blank(4, 'No testimonials yet');
+  }
+}
+
+function renderAdminAlumni() {
+  const searchInput = $('#aAlumniSearch');
+  const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const list = db.alumni
+    .filter(a => !term || (a.name + ' ' + a.batch + ' ' + (a.current || '')).toLowerCase().includes(term));
+  const tbody = $('#aAlumniBody');
+  if (tbody) {
+    tbody.innerHTML = list.length ? list.map(a => `
+      <tr>
+        <td data-col="Alumni"><span class="cellav"><span class="av">${a.photo ? '<img src="' + a.photo + '" alt="' + esc(a.name) + '" style="width:100%;height:100%;object-fit:cover;display:block" />' : avatar(a.name, 'al' + a.id)}</span><span><b>${esc(a.name)}</b><span>Batch of ${esc(a.batch)}</span></span></span></td>
+        <td data-col="Batch"><span class="pillx">${esc(a.batch)}</span></td>
+        <td data-col="Current Role" style="max-width:240px">${esc(a.current || '\u2014')}</td>
+        <td data-col="Testimonial" style="max-width:280px"><span style="font-size:.82rem;color:var(--ink-60)">${esc((a.text || '').slice(0, 80))}${(a.text || '').length > 80 ? '\u2026' : ''}</span></td>
+        <td data-col="Actions">${acts('alumni', a.id)}</td>
+      </tr>`).join('') : blank(5, 'No alumni profiles yet');
   }
 }
 
@@ -728,6 +775,21 @@ function initAdminSettings() {
 }
 
 
+function initAdminTst() {
+  renderAdminTst();
+  const addBtn = $('#addTst');
+  if (addBtn) addBtn.addEventListener('click', addTst);
+}
+
+function initAdminAlumni() {
+  renderAdminAlumni();
+  const search = $('#aAlumniSearch');
+  if (search) search.addEventListener('input', renderAdminAlumni);
+  const addBtn = $('#addAlumni');
+  if (addBtn) addBtn.addEventListener('click', addAlumni);
+}
+
+
 /* ---- ROUTER SETUP & BOOT ---- */
 const adminRouter = window.Router.init({
   container: '#admin-app',
@@ -742,6 +804,8 @@ const adminRouter = window.Router.init({
     'news':     { page: 'pages/admin-news.html', onLoad: initAdminNews },
     'doc':      { page: 'pages/admin-documents.html', onLoad: initAdminDocs },
     'enq':      { page: 'pages/admin-enquiries.html', onLoad: initAdminEnq },
+    'tst':      { page: 'pages/admin-testimonials.html', onLoad: initAdminTst },
+    'alumni':   { page: 'pages/admin-alumni.html', onLoad: initAdminAlumni },
     'set':      { page: 'pages/admin-settings.html', onLoad: initAdminSettings }
   },
   onRouteChange: function(hash) {
@@ -780,7 +844,7 @@ document.addEventListener('click', e => {
   // Quick actions
   const q = e.target.closest('[data-quick]');
   if (q) {
-    const map = { ann: addAnn, ev: addEv, staff: addStaff, gal: addPhoto, doc: addDoc };
+    const map = { ann: addAnn, ev: addEv, staff: addStaff, gal: addPhoto, doc: addDoc, tst: addTst, alumni: addAlumni };
     if (map[q.dataset.quick]) map[q.dataset.quick]();
     return;
   }

@@ -1,7 +1,24 @@
-﻿<section class="aview on" data-pane="enq">
+<section class="aview on" data-pane="enq">
   <div class="tbl-wrap" style="margin-top:0">
-    <div class="tbl-top"><h3 style="margin:0;font-size:1.05rem">Admission enquiries</h3>
-      <span class="small" style="color:var(--ink-50)">New enquiries from the website form appear here instantly</span></div>
+    <div class="tbl-top">
+      <div>
+        <h3 style="margin:0;font-size:1.05rem">Admission enquiries</h3>
+        <span class="small" style="color:var(--ink-50)">New enquiries from the website form appear here instantly</span>
+      </div>
+      <div style="display:flex;gap:10px;margin-left:auto;align-items:center;flex-wrap:wrap">
+        <label class="search" style="max-width:220px"><span class="sr-only">Search enquiries</span><svg class="i i-18"><use href="#ic-search"/></svg><input type="search" id="aEnqSearch" placeholder="Search parent / child" /></label>
+        <select id="aEnqFilter" style="padding:.5rem .8rem;border-radius:var(--r-pill);border:1px solid var(--line);background:#fff;font-size:.85rem">
+          <option value="All">All statuses</option>
+          <option value="New">New</option>
+          <option value="Called">Called</option>
+          <option value="Visit booked">Visit booked</option>
+          <option value="Admitted">Admitted</option>
+        </select>
+        <button class="btn btn-soft btn-sm" type="button" id="btnExportEnq" style="display:inline-flex;align-items:center;gap:6px">
+          <svg class="i i-16"><use href="#ic-upload"/></svg> Export CSV
+        </button>
+      </div>
+    </div>
     <div class="tbl-scroll"><table>
       <thead><tr><th>Parent</th><th>Child</th><th>Grade</th><th>Contact</th><th>Received</th><th>Status</th><th style="text-align:right">Actions</th></tr></thead>
       <tbody id="aEnqBody"></tbody>

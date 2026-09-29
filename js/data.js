@@ -153,6 +153,13 @@ const db = {
     { id: 4, name: 'Karthik Ramanathan', child: 'Parent of a Grade 1 child', text: 'The first week of Grade 1 was harder for me than for him. The class teacher sent one photograph on the second day of him laughing at lunch. I still have it.' },
     { id: 5, name: 'Anita Dsouza', child: 'Parent of a Grade 3 child', text: 'No donation, no capitation, a transparent fee schedule and no surprise charges in three years. For a reputed school in Salem district that is worth saying out loud.' }
   ],
+  alumni: [
+    { id: 1, name: 'Sneha Krishnamurthy', batch: '2010', current: 'Software Engineer at Infosys, Chennai', text: "Christina School gave me a foundation that no amount of coaching could replace. The teachers here made learning feel like an adventure. I still remember Ms Fatima's reading sessions that sparked my love for books.", photo: '' },
+    { id: 2, name: 'Arjun Balachandran', batch: '2008', current: 'Doctor (MBBS), Government Hospital, Salem', text: "The values I learned at Christina School — discipline, empathy, and curiosity — are what got me through medical college. Mr. Joshua Billowry always told us to aim higher than we thought possible.", photo: '' },
+    { id: 3, name: 'Divya Ramesh', batch: '2012', current: 'Civil Services (IAS) Probationer', text: "My journey to the civil services started with the confidence I built at Christina. The school taught me to question, to think, and to care about the community around me.", photo: '' },
+    { id: 4, name: 'Karthik Sundaram', batch: '2015', current: 'Mechanical Engineer, L&T, Coimbatore', text: "I was part of the very first robotics club at Christina. That early exposure to building things with my hands shaped my entire career. I owe my engineering passion to this school.", photo: '' },
+    { id: 5, name: 'Meera Joseph', batch: '2011', current: 'Chartered Accountant, Deloitte, Bengaluru', text: "The math foundation I got at Christina was exceptional. Mr. Anand's mental math exercises made numbers feel like a game, and that love for numbers led me to become a CA.", photo: '' }
+  ],
   enquiries: [
     { id: 1, parent: 'Vidya Shankar', child: 'Nila Shankar', grade: 'Grade 1', phone: '98401 22110', email: 'vidya.s@email.com', date: '2026-09-19', status: 'New', msg: 'Nila turns six in March. We live in Mogappair — is route 7 still running?' },
     { id: 2, parent: 'Rajesh Kumar', child: 'Advik Kumar', grade: 'Grade 5', phone: '99620 45178', email: 'rajesh.k@email.com', date: '2026-09-18', status: 'Called', msg: 'Transferring from Bengaluru in December. Is a mid-year seat possible?' },
@@ -383,7 +390,7 @@ function loadDb() {
     if (!raw) return;
     const saved = JSON.parse(raw);
     if (saved && typeof saved === 'object') {
-      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'academics', 'settings'].forEach(k => {
+      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'settings'].forEach(k => {
         if (saved[k] !== undefined) {
           db[k] = saved[k];
         }
