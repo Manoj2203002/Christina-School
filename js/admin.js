@@ -9,18 +9,19 @@ const { $, $$, REDUCED, esc, db, CATS, DEPTS, DOC_CATS, GAL_CATS, SCENES,
         toast, countUp, revealer, watch, sortStores } = window.App;
 
 const TITLES = {
-  overview: ['Dashboard', 'Everything happening on the Christina School website today'],
-  staff:    ['Staff', 'Add, edit and retire teacher profiles shown on the website'],
-  ann:      ['Announcements', 'Post notices to the board, the ticker and the homepage'],
-  gal:      ['Gallery', 'Albums and photographs shown in the public gallery'],
-  ev:       ['Events', 'The calendar parents see on the homepage'],
-  ach:      ['Achievements', 'Results your children brought home'],
-  news:     ['News', 'Short updates written by staff'],
-  doc:      ['Documents', 'Files for parents and students — admission forms, policies and more'],
-  enq:      ['Admission enquiries', 'Every enquiry submitted through the website form'],
-  tst:      ['Testimonials', 'Parent testimonials shown on the public website'],
-  alumni:   ['Alumni', 'Alumni profiles and testimonials — stories of Christina graduates'],
-  set:      ['School settings', 'Details that appear across the public site']
+  overview:   ['Dashboard', 'Everything happening on the Christina School website today'],
+  staff:      ['Staff', 'Add, edit and retire teacher profiles shown on the website'],
+  ann:        ['Announcements', 'Post notices to the board, the ticker and the homepage'],
+  gal:        ['Gallery', 'Albums and photographs shown in the public gallery'],
+  ev:         ['Events', 'The calendar parents see on the homepage'],
+  ach:        ['Achievements', 'Results your children brought home'],
+  activities: ['Activity Settings', 'Manage student clubs, extracurriculars and sports programs'],
+  news:       ['News', 'Short updates written by staff'],
+  doc:        ['Documents', 'Files for parents and students — admission forms, policies and more'],
+  enq:        ['Admission enquiries', 'Every enquiry submitted through the website form'],
+  tst:        ['Testimonials', 'Parent testimonials shown on the public website'],
+  alumni:     ['Alumni', 'Alumni profiles and testimonials — stories of Christina graduates'],
+  set:        ['School settings', 'Details that appear across the public site']
 };
 
 function closeAdmin() { 
@@ -39,6 +40,7 @@ function refreshAdminCounts() {
   set('#cEv', db.events.length); set('#cAch', db.ach.length); set('#cNews', db.news.length); set('#cEnq', db.enquiries.length);
   set('#cDoc', db.documents.length);
   set('#cTst', db.testimonials.length); set('#cAlumni', db.alumni.length);
+  set('#cActivities', (db.clubs ? db.clubs.length : 0) + (db.sports ? db.sports.length : 0));
   set('#kStaff', db.staff.filter(s => s.active).length); set('#kAnn', live); set('#kGal', db.gallery.length);
   set('#kEv', db.events.length); set('#kEnq', db.enquiries.length);
 }
@@ -152,9 +154,21 @@ const SCHEMA = {
       { k: 'batch', l: 'Batch / Passing year', t: 'text', req: 1 },
       { k: 'current', l: 'Current role and company', t: 'text', full: 1 },
       { k: 'text', l: 'Testimonial message', t: 'textarea', full: 1, req: 1 }
-    ], photo: 1 }
+    ], photo: 1 },
+  club: { title: 'club', fields: [
+      { k: 'name', l: 'Club name', t: 'text', req: 1 },
+      { k: 'icon', l: 'Icon symbol', t: 'select', opts: ['ic-palette', 'ic-music', 'ic-sparkle', 'ic-pencil', 'ic-book', 'ic-flask', 'ic-laptop', 'ic-mega', 'ic-heart', 'ic-trophy', 'ic-star', 'ic-chess', 'ic-run', 'ic-ball'] },
+      { k: 'tone', l: 'Color theme tone', t: 'select', opts: ['a', 'b', 'c', 'd', 'e', 'f'] },
+      { k: 'text', l: 'Description', t: 'textarea', full: 1, req: 1 }
+    ] },
+  sport: { title: 'sport', fields: [
+      { k: 'name', l: 'Sport name', t: 'text', req: 1 },
+      { k: 'lvl', l: 'Grades / Levels handled', t: 'text', req: 1 },
+      { k: 'theme', l: 'Scene illustration theme', t: 'select', opts: ['football', 'cricket', 'volleyball', 'badminton', 'athletics', 'chess'] },
+      { k: 'text', l: 'Description', t: 'textarea', full: 1, req: 1 }
+    ] }
 };
-const STORE = { staff: 'staff', ann: 'ann', ev: 'events', ach: 'ach', news: 'news', gal: 'gallery', doc: 'documents', tst: 'testimonials', alumni: 'alumni' };
+const STORE = { staff: 'staff', ann: 'ann', ev: 'events', ach: 'ach', news: 'news', gal: 'gallery', doc: 'documents', tst: 'testimonials', alumni: 'alumni', club: 'clubs', sport: 'sports' };
 const today = () => { const d = new Date(); return `${d.getFullYear()}-${d2(d.getMonth() + 1)}-${d2(d.getDate())}`; };
 
 function editor(kind, rec) {
@@ -757,6 +771,21 @@ function initAdminSettings() {
     $$('.badge, .adm-flag').forEach(el => { el.style.display = on ? '' : 'none'; });
   });
 
+  const s = db.settings || {};
+  if ($('#s-name') && s.name) $('#s-name').value = s.name;
+  if ($('#s-tag') && s.tag) $('#s-tag').value = s.tag;
+  if ($('#s-addr') && s.addr) $('#s-addr').value = s.addr;
+  if ($('#s-hours') && s.hours) $('#s-hours').value = s.hours;
+  if ($('#s-phone') && s.phone) $('#s-phone').value = s.phone;
+  if ($('#s-mail') && s.mail) $('#s-mail').value = s.mail;
+  if ($('#s-ticker') && s.ticker) $('#s-ticker').value = s.ticker;
+  if ($('#s-statStudents')) $('#s-statStudents').value = s.statStudents != null ? s.statStudents : 412;
+  if ($('#s-statTeachers')) $('#s-statTeachers').value = s.statTeachers != null ? s.statTeachers : 34;
+  if ($('#s-statLevels')) $('#s-statLevels').value = s.statLevels != null ? s.statLevels : 8;
+  if ($('#s-statLevelsLabel')) $('#s-statLevelsLabel').value = s.statLevelsLabel || 'Levels (Nur–Gr 5)';
+  if ($('#s-statClubs')) $('#s-statClubs').value = s.statClubs != null ? s.statClubs : 26;
+  if ($('#s-statYears')) $('#s-statYears').value = s.statYears != null ? s.statYears : 34;
+
   const setForm = $('#setForm');
   if (setForm) setForm.addEventListener('submit', e => {
     e.preventDefault();
@@ -766,14 +795,94 @@ function initAdminSettings() {
     const hours = $('#s-hours').value.trim();
     const phone = $('#s-phone').value.trim();
     const mail = $('#s-mail').value.trim();
-    db.settings = { name: name, tag: tag, addr: addr, hours: hours, phone: phone, mail: mail, ticker: $('#s-ticker').value.trim() };
+    const ticker = $('#s-ticker').value.trim();
+    const statStudents = parseInt($('#s-statStudents').value, 10) || 412;
+    const statTeachers = parseInt($('#s-statTeachers').value, 10) || 34;
+    const statLevels = parseInt($('#s-statLevels').value, 10) || 8;
+    const statLevelsLabel = $('#s-statLevelsLabel').value.trim() || 'Levels (Nur–Gr 5)';
+    const statClubs = parseInt($('#s-statClubs').value, 10) || 26;
+    const statYears = parseInt($('#s-statYears').value, 10) || 34;
+
+    db.settings = {
+      ...(db.settings || {}),
+      name, tag, addr, hours, phone, mail, ticker,
+      statStudents, statTeachers, statLevels, statLevelsLabel, statClubs, statYears
+    };
     if (window.App && window.App.saveDb) window.App.saveDb();
     
-    // In a real app this would reflect globally. For admin we just show toast.
-    toast('Settings saved|The public website has been updated.');
+    toast('Settings saved|School details and key statistics have been updated.');
   });
 }
 
+function renderAdminClubs() {
+  const body = $('#aClubBody');
+  if (!body) return;
+  const q = ($('#aClubSearch') ? $('#aClubSearch').value.trim().toLowerCase() : '');
+  const list = (db.clubs || []).filter(c => !q || c.name.toLowerCase().includes(q) || c.text.toLowerCase().includes(q));
+  if (list.length === 0) {
+    body.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--ink-50)">No clubs found. Click &quot;Add club&quot; to create one.</td></tr>`;
+    return;
+  }
+  body.innerHTML = list.map(c => `
+    <tr>
+      <td>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="width:38px;height:38px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;${TONES[c.tone] || ''}">
+            <svg class="i i-20"><use href="#${c.icon || 'ic-sparkle'}"/></svg>
+          </span>
+          <b>${esc(c.name)}</b>
+        </div>
+      </td>
+      <td><span class="pillx" style="text-transform:uppercase;font-size:.76rem;font-weight:600">Tone ${esc(c.tone)}</span></td>
+      <td><span class="small" style="color:var(--ink-70);max-width:380px;display:inline-block">${esc(c.text)}</span></td>
+      <td style="text-align:right;white-space:nowrap">
+        <button class="btn btn-soft btn-sm" type="button" data-edit="club:${c.id}">Edit</button>
+        <button class="btn btn-soft btn-sm" type="button" data-del="club:${c.id}" style="color:#C62828;border-color:#F3C9C9;margin-left:4px">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderAdminSports() {
+  const body = $('#aSportBody');
+  if (!body) return;
+  const list = db.sports || [];
+  if (list.length === 0) {
+    body.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--ink-50)">No sports added. Click &quot;Add sport&quot; to create one.</td></tr>`;
+    return;
+  }
+  body.innerHTML = list.map(s => `
+    <tr>
+      <td><b>${esc(s.name)}</b></td>
+      <td><span class="tag" style="background:#E7F1FF;color:#1D4ED8">${esc(s.lvl)}</span></td>
+      <td><span class="pillx" style="text-transform:capitalize;font-size:.78rem">${esc(s.theme)}</span></td>
+      <td><span class="small" style="color:var(--ink-70);max-width:380px;display:inline-block">${esc(s.text)}</span></td>
+      <td style="text-align:right;white-space:nowrap">
+        <button class="btn btn-soft btn-sm" type="button" data-edit="sport:${s.id}">Edit</button>
+        <button class="btn btn-soft btn-sm" type="button" data-del="sport:${s.id}" style="color:#C62828;border-color:#F3C9C9;margin-left:4px">Delete</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function addClub() {
+  editor('club');
+}
+
+function addSport() {
+  editor('sport');
+}
+
+function initAdminActivities() {
+  renderAdminClubs();
+  renderAdminSports();
+  const search = $('#aClubSearch');
+  if (search) search.addEventListener('input', renderAdminClubs);
+  const addClubBtn = $('#addClub');
+  if (addClubBtn) addClubBtn.addEventListener('click', addClub);
+  const addSportBtn = $('#addSport');
+  if (addSportBtn) addSportBtn.addEventListener('click', addSport);
+}
 
 function initAdminTst() {
   renderAdminTst();
@@ -794,19 +903,20 @@ function initAdminAlumni() {
 const adminRouter = window.Router.init({
   container: '#admin-app',
   routes: {
-    'home':     { page: 'pages/admin-overview.html', onLoad: initOverview },
-    'overview': { page: 'pages/admin-overview.html', onLoad: initOverview },
-    'staff':    { page: 'pages/admin-staff.html', onLoad: initAdminStaff },
-    'ann':      { page: 'pages/admin-announcements.html', onLoad: initAdminAnn },
-    'gal':      { page: 'pages/admin-gallery.html', onLoad: initAdminGal },
-    'ev':       { page: 'pages/admin-events.html', onLoad: initAdminEv },
-    'ach':      { page: 'pages/admin-achievements.html', onLoad: initAdminAch },
-    'news':     { page: 'pages/admin-news.html', onLoad: initAdminNews },
-    'doc':      { page: 'pages/admin-documents.html', onLoad: initAdminDocs },
-    'enq':      { page: 'pages/admin-enquiries.html', onLoad: initAdminEnq },
-    'tst':      { page: 'pages/admin-testimonials.html', onLoad: initAdminTst },
-    'alumni':   { page: 'pages/admin-alumni.html', onLoad: initAdminAlumni },
-    'set':      { page: 'pages/admin-settings.html', onLoad: initAdminSettings }
+    'home':       { page: 'pages/admin-overview.html', onLoad: initOverview },
+    'overview':   { page: 'pages/admin-overview.html', onLoad: initOverview },
+    'staff':      { page: 'pages/admin-staff.html', onLoad: initAdminStaff },
+    'ann':        { page: 'pages/admin-announcements.html', onLoad: initAdminAnn },
+    'gal':        { page: 'pages/admin-gallery.html', onLoad: initAdminGal },
+    'ev':         { page: 'pages/admin-events.html', onLoad: initAdminEv },
+    'ach':        { page: 'pages/admin-achievements.html', onLoad: initAdminAch },
+    'activities': { page: 'pages/admin-activities.html', onLoad: initAdminActivities },
+    'news':       { page: 'pages/admin-news.html', onLoad: initAdminNews },
+    'doc':        { page: 'pages/admin-documents.html', onLoad: initAdminDocs },
+    'enq':        { page: 'pages/admin-enquiries.html', onLoad: initAdminEnq },
+    'tst':        { page: 'pages/admin-testimonials.html', onLoad: initAdminTst },
+    'alumni':     { page: 'pages/admin-alumni.html', onLoad: initAdminAlumni },
+    'set':        { page: 'pages/admin-settings.html', onLoad: initAdminSettings }
   },
   onRouteChange: function(hash) {
     const view = $('#admin-app .aview');
@@ -844,7 +954,7 @@ document.addEventListener('click', e => {
   // Quick actions
   const q = e.target.closest('[data-quick]');
   if (q) {
-    const map = { ann: addAnn, ev: addEv, staff: addStaff, gal: addPhoto, doc: addDoc, tst: addTst, alumni: addAlumni };
+    const map = { ann: addAnn, ev: addEv, staff: addStaff, gal: addPhoto, doc: addDoc, tst: addTst, alumni: addAlumni, club: addClub, sport: addSport };
     if (map[q.dataset.quick]) map[q.dataset.quick]();
     return;
   }
