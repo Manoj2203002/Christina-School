@@ -1379,6 +1379,30 @@ function initHome() {
       </article>`).join('');
     watch(hNews);
   }
+
+  // 7. Render Testimonials Carousel and Alumni Spotlight on home page
+  if ($('#tstTrack')) {
+    renderTst();
+    resetTst();
+  }
+  const hAlum = $('#homeAlumniSpotlight');
+  if (hAlum && db.alumni && db.alumni.length) {
+    hAlum.innerHTML = db.alumni.slice(0, 3).map(a => `
+      <div class="alumni-spot-card" style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:1.2rem;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--sh-1)">
+        <div class="av" style="width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0">
+          ${a.photo ? '<img src="' + a.photo + '" alt="' + esc(a.name) + '" style="width:100%;height:100%;object-fit:cover" />' : avatar(a.name, 'al' + a.id)}
+        </div>
+        <div style="flex:1">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:6px">
+            <b style="font-size:.95rem;color:var(--navy)">${esc(a.name)}</b>
+            <span class="pillx" style="font-size:.7rem;background:var(--mari-soft);color:var(--mari-deep)">Batch ${esc(a.batch)}</span>
+          </div>
+          <p style="font-size:.8rem;color:var(--ink-60);margin:.2rem 0 .4rem">${esc(a.current || '')}</p>
+          <p style="font-size:.82rem;color:var(--ink-70);font-style:italic;line-height:1.4;margin:0">&ldquo;${esc(a.text.slice(0, 100))}${a.text.length > 100 ? '…' : ''}&rdquo;</p>
+        </div>
+      </div>`).join('');
+    watch(hAlum);
+  }
 }
 
 function initAbout() {
@@ -1500,6 +1524,36 @@ function initNews() {
   }
 }
 
+function initAlumni() {
+  const grid = $('#alumniGrid');
+  const empty = $('#alumniEmpty');
+  if (!grid) return;
+  if (db.alumni.length === 0) {
+    grid.style.display = 'none';
+    if (empty) empty.style.display = '';
+  } else {
+    grid.style.display = '';
+    if (empty) empty.style.display = 'none';
+    grid.innerHTML = db.alumni.map(a => `
+      <div class="alumni-card rv" style="background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;transition:box-shadow .3s">
+        <div style="padding:1.6rem">
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
+            <div class="av" style="width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0">
+              ${a.photo ? '<img src="' + a.photo + '" alt="' + esc(a.name) + '" style="width:100%;height:100%;object-fit:cover" />' : avatar(a.name, 'al' + a.id)}
+            </div>
+            <div>
+              <h3 style="font-family:var(--serif);font-size:1.1rem;margin:0">${esc(a.name)}</h3>
+              <span style="font-size:.82rem;color:var(--mari-deep);font-weight:600">Batch of ${esc(a.batch)}</span>
+            </div>
+          </div>
+          ${a.current ? '<p style="font-size:.85rem;color:var(--ink-60);margin-bottom:.8rem"><svg class="i i-14" style="vertical-align:-2px;margin-right:4px"><use href="#ic-grad"/></svg>' + esc(a.current) + '</p>' : ''}
+          <blockquote style="font-size:.92rem;color:var(--ink-70);line-height:1.6;margin:0;font-style:italic;border-left:3px solid var(--mari);padding-left:1rem">&ldquo;${esc(a.text)}&rdquo;</blockquote>
+        </div>
+      </div>`).join('');
+  }
+  watch();
+}
+
 const router = window.Router.init({
   container: '#app',
   routes: {
@@ -1521,6 +1575,8 @@ const router = window.Router.init({
     'contact':       { page: 'pages/main-contact.html', onLoad: initContact },
     'testimonials':  { page: 'pages/main-testimonials.html', onLoad: initTestimonials },
     'voices':        { page: 'pages/main-testimonials.html', onLoad: initTestimonials },
+    'alumni':        { page: 'pages/main-alumni.html', onLoad: initAlumni },
+    'graduates':     { page: 'pages/main-alumni.html', onLoad: initAlumni },
     'news':          { page: 'pages/main-news.html', onLoad: initNews }
   },
   onRouteChange: function(hash, route) {
