@@ -1279,6 +1279,27 @@ function initHome() {
   mountScenes(); watch(); bindTilt();
   const hero = $('.hero');
   if (hero) setTimeout(() => hero.classList.add('go'), 30);
+
+  // Dynamic statistics from db.settings
+  const s = db.settings || {};
+  const statStudents = s.statStudents != null ? s.statStudents : 412;
+  const statTeachers = s.statTeachers != null ? s.statTeachers : 34;
+  const statLevels = s.statLevels != null ? s.statLevels : 8;
+  const statLevelsLabel = s.statLevelsLabel || 'Levels (Nur–Gr 5)';
+  const statClubs = s.statClubs != null ? s.statClubs : 26;
+  const statYears = s.statYears != null ? s.statYears : 34;
+
+  const elStudents = $('#homeStatStudents'); if (elStudents) elStudents.dataset.count = statStudents;
+  const elTeachers = $('#homeStatTeachers'); if (elTeachers) elTeachers.dataset.count = statTeachers;
+  const elLevels = $('#homeStatLevels'); if (elLevels) elLevels.dataset.count = statLevels;
+  const elLevelsLabel = $('#homeStatLevelsLabel'); if (elLevelsLabel) elLevelsLabel.textContent = statLevelsLabel;
+  const elClubs = $('#homeStatClubs'); if (elClubs) elClubs.dataset.count = statClubs;
+  const elYears = $('#homeStatYears'); if (elYears) elYears.dataset.count = statYears;
+
+  const heroStudents = $('#heroStudentsCount'); if (heroStudents) heroStudents.dataset.count = statStudents;
+  const heroTeachers = $('#heroTeachersCount'); if (heroTeachers) heroTeachers.dataset.count = statTeachers;
+  const homeYearsBadge = $('#homeStatYearsBadge'); if (homeYearsBadge) homeYearsBadge.textContent = statYears;
+
   $$('.hero [data-count], .stats [data-count]').forEach(c => {
     c.dataset.done = '1';
     setTimeout(() => countUp(c), 150);
@@ -1388,7 +1409,7 @@ function initHome() {
   const hAlum = $('#homeAlumniSpotlight');
   if (hAlum && db.alumni && db.alumni.length) {
     hAlum.innerHTML = db.alumni.slice(0, 3).map(a => `
-      <div class="alumni-spot-card" style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:1.2rem;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--sh-1)">
+      <div class="alumni-spot-card" data-alumni="${a.id}" tabindex="0" role="button" aria-label="View photo and profile of ${esc(a.name)}" style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:1.2rem;display:flex;gap:12px;align-items:flex-start;box-shadow:var(--sh-1);cursor:pointer">
         <div class="av" style="width:48px;height:48px;border-radius:50%;overflow:hidden;flex-shrink:0">
           ${a.photo ? '<img src="' + a.photo + '" alt="' + esc(a.name) + '" style="width:100%;height:100%;object-fit:cover" />' : avatar(a.name, 'al' + a.id)}
         </div>
@@ -1524,35 +1545,85 @@ function initNews() {
   }
 }
 
+function openAlumniModal(id) {
+  const a = (db.alumni || []).find(x => x.id === id);
+  if (!a) return;
+  const imgContent = a.photo
+    ? `<div style="max-width:320px;margin:0 auto;border-radius:var(--r-m);overflow:hidden;box-shadow:var(--sh-m);border:3px solid var(--line)"><img src="${a.photo}" alt="${esc(a.name)}" style="width:100%;max-height:360px;object-fit:cover;display:block" /></div>`
+    : `<div style="width:160px;height:160px;margin:0 auto;border-radius:50%;overflow:hidden;box-shadow:var(--sh-m);border:4px solid #fff;display:flex;align-items:center;justify-content:center">${avatar(a.name, 'al' + a.id)}</div>`;
+
+  openModal(`
+    <div class="mhead" style="text-align:center">
+      <div style="margin:0 auto 1.2rem;display:flex;justify-content:center">
+        ${imgContent}
+      </div>
+      <span class="tag" style="background:var(--mari-soft);color:var(--mari-deep);font-weight:700">Batch of ${esc(a.batch)}</span>
+      <h3 id="modalTitle" style="font-family:var(--serif);font-size:1.55rem;margin-top:.6rem">${esc(a.name)}</h3>
+      ${a.current ? `<p style="color:var(--mari-deep);font-weight:600;font-size:.96rem;margin-top:.3rem"><svg class="i i-16" style="vertical-align:-2px;margin-right:4px"><use href="#ic-grad"/></svg>${esc(a.current)}</p>` : ''}
+    </div>
+    <div class="mbody">
+      <blockquote style="font-size:1rem;line-height:1.65;color:var(--ink-80);font-style:italic;background:var(--paper);border-left:4px solid var(--mari);border-radius:var(--r-s);padding:1.2rem 1.4rem;margin:0">
+        &ldquo;${esc(a.text)}&rdquo;
+      </blockquote>
+      <div style="display:flex;justify-content:flex-end;margin-top:1.4rem">
+        <button class="btn btn-soft btn-sm" type="button" data-close-modal>Close</button>
+      </div>
+    </div>
+  `);
+}
+
 function initAlumni() {
   const grid = $('#alumniGrid');
   const empty = $('#alumniEmpty');
   if (!grid) return;
-  if (db.alumni.length === 0) {
+  if (!db.alumni || db.alumni.length === 0) {
     grid.style.display = 'none';
     if (empty) empty.style.display = '';
   } else {
     grid.style.display = '';
     if (empty) empty.style.display = 'none';
     grid.innerHTML = db.alumni.map(a => `
-      <div class="alumni-card rv" style="background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;transition:box-shadow .3s">
-        <div style="padding:1.6rem">
-          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem">
-            <div class="av" style="width:56px;height:56px;border-radius:50%;overflow:hidden;flex-shrink:0">
+      <div class="alumni-card rv tilt" data-alumni="${a.id}" tabindex="0" role="button" aria-label="View photo and profile of ${esc(a.name)}" style="background:var(--paper);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh-s);cursor:pointer;display:flex;flex-direction:column;transition:transform .2s ease,box-shadow .2s ease">
+        <div style="height:6px;background:linear-gradient(90deg,var(--mari),var(--royal))"></div>
+        <div style="padding:1.6rem;display:flex;flex-direction:column;flex:1">
+          <div style="display:flex;align-items:center;gap:1.1rem;margin-bottom:1.1rem">
+            <div class="av" style="width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 3px 10px rgba(0,0,0,.08);border:2px solid #fff;position:relative">
               ${a.photo ? '<img src="' + a.photo + '" alt="' + esc(a.name) + '" style="width:100%;height:100%;object-fit:cover" />' : avatar(a.name, 'al' + a.id)}
             </div>
-            <div>
-              <h3 style="font-family:var(--serif);font-size:1.1rem;margin:0">${esc(a.name)}</h3>
-              <span style="font-size:.82rem;color:var(--mari-deep);font-weight:600">Batch of ${esc(a.batch)}</span>
+            <div style="flex:1;min-width:0">
+              <span class="pillx" style="background:var(--mari-soft);color:var(--mari-deep);font-size:.75rem;font-weight:700">Batch of ${esc(a.batch)}</span>
+              <h3 style="font-family:var(--serif);font-size:1.15rem;margin:.35rem 0 0;line-height:1.2">${esc(a.name)}</h3>
             </div>
           </div>
-          ${a.current ? '<p style="font-size:.85rem;color:var(--ink-60);margin-bottom:.8rem"><svg class="i i-14" style="vertical-align:-2px;margin-right:4px"><use href="#ic-grad"/></svg>' + esc(a.current) + '</p>' : ''}
-          <blockquote style="font-size:.92rem;color:var(--ink-70);line-height:1.6;margin:0;font-style:italic;border-left:3px solid var(--mari);padding-left:1rem">&ldquo;${esc(a.text)}&rdquo;</blockquote>
+          ${a.current ? '<p style="font-size:.85rem;color:var(--ink-60);margin-bottom:.9rem;font-weight:500;display:flex;align-items:center;gap:6px"><svg class="i i-16" style="color:var(--mari);flex-shrink:0"><use href="#ic-grad"/></svg><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + esc(a.current) + '</span></p>' : ''}
+          <blockquote style="font-size:.9rem;color:var(--ink-70);line-height:1.6;margin:0 0 1.2rem;font-style:italic;border-left:3px solid var(--mari);padding-left:1rem;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">&ldquo;${esc(a.text)}&rdquo;</blockquote>
+          <button class="btn btn-soft btn-sm" type="button" style="width:100%;pointer-events:none;display:flex;align-items:center;justify-content:center;gap:6px">
+            <svg class="i i-16"><use href="#ic-image"/></svg> View photo &amp; story
+          </button>
         </div>
       </div>`).join('');
+
+    bindTilt(grid);
   }
   watch();
 }
+
+document.addEventListener('click', e => {
+  const ac = e.target.closest('[data-alumni]');
+  if (ac) {
+    e.preventDefault();
+    openAlumniModal(+ac.dataset.alumni);
+  }
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const ac = document.activeElement && document.activeElement.closest('[data-alumni]');
+    if (ac) {
+      e.preventDefault();
+      openAlumniModal(+ac.dataset.alumni);
+    }
+  }
+});
 
 const router = window.Router.init({
   container: '#app',

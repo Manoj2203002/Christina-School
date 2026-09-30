@@ -19,7 +19,42 @@
           <button type="button" class="toggle on" id="s-adm" aria-pressed="true" aria-label="Show the admissions open badge"></button>
           <span><b style="font-size:.9rem">Show the "admissions open" badge</b><span style="display:block;font-size:.78rem;color:var(--ink-50)">Appears in the top bar and on the hero</span></span>
         </label>
-        <button class="btn btn-primary" type="submit">Save settings</button>
+      </div>
+    </div>
+    <div class="panel-card" style="grid-column: 1 / -1">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:.5rem">
+        <svg class="i i-20" style="color:var(--mari)"><use href="#ic-sparkle"/></svg>
+        <h3 style="margin:0">Home Page Key Statistics &amp; Counters</h3>
+      </div>
+      <p class="small" style="color:var(--ink-50);margin-bottom:1.2rem">Customize the 5 key figures displayed on the home page statistics strip and floating hero cards.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
+        <div class="field">
+          <label for="s-statStudents">Children / Students count</label>
+          <input id="s-statStudents" type="number" min="1" value="412" />
+        </div>
+        <div class="field">
+          <label for="s-statTeachers">Teachers count</label>
+          <input id="s-statTeachers" type="number" min="1" value="34" />
+        </div>
+        <div class="field">
+          <label for="s-statLevels">Levels count</label>
+          <input id="s-statLevels" type="number" min="1" value="8" />
+        </div>
+        <div class="field">
+          <label for="s-statLevelsLabel">Levels description / label</label>
+          <input id="s-statLevelsLabel" value="Levels (Nur–Gr 5)" />
+        </div>
+        <div class="field">
+          <label for="s-statClubs">Clubs &amp; activities count</label>
+          <input id="s-statClubs" type="number" min="1" value="26" />
+        </div>
+        <div class="field">
+          <label for="s-statYears">Years of teaching / legacy</label>
+          <input id="s-statYears" type="number" min="1" value="34" />
+        </div>
+      </div>
+      <div style="margin-top:1.4rem;display:flex;justify-content:flex-end">
+        <button class="btn btn-primary" type="submit">Save settings &amp; statistics</button>
       </div>
     </div>
   </form>

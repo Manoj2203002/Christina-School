@@ -168,23 +168,23 @@ const db = {
     { id: 5, parent: 'Sneha Prabhu', child: 'Vivaan Prabhu', grade: 'LKG', phone: '87540 30119', email: 'sneha.p@email.com', date: '2026-09-11', status: 'Admitted', msg: 'Completed the interaction last week. Sending documents on Monday.' }
   ],
   clubs: [
-    { name: 'Art and craft', icon: 'ic-palette', tone: 'a', text: 'Clay, finger painting, print-making and a corridor gallery that changes every month.' },
-    { name: 'Choir and keyboard', icon: 'ic-music', tone: 'b', text: 'Junior voices, two keyboards and percussion instruments kids love to explore.' },
-    { name: 'Bharatanatyam', icon: 'ic-sparkle', tone: 'c', text: 'Classical dance foundation from UKG up, with a visiting master on Wednesdays.' },
-    { name: 'Drawing and sketching', icon: 'ic-pencil', tone: 'd', text: 'Observational drawing sessions in the garden and on the lawn.' },
-    { name: 'Reading & story club', icon: 'ic-book', tone: 'e', text: 'Picture books, storytelling circles, and early dramatisation.' },
-    { name: 'Little scientists club', icon: 'ic-flask', tone: 'f', text: 'The rooftop garden, nature logs, magnifying glasses, and seed experiments.' },
-    { name: 'Coding & digital literacy', icon: 'ic-laptop', tone: 'a', text: 'Visual block puzzles from Grade 1, Scratch by Grade 3, junior robotics in Grade 5.' },
-    { name: 'Drama and speech', icon: 'ic-mega', tone: 'b', text: 'Tamil and English skits, rhymes, and public expression circles.' },
-    { name: 'Nature and gardening', icon: 'ic-heart', tone: 'c', text: 'Twelve troughs, a butterfly patch and hands-on caring for green plants.' }
+    { id: 1, name: 'Art and craft', icon: 'ic-palette', tone: 'a', text: 'Clay, finger painting, print-making and a corridor gallery that changes every month.' },
+    { id: 2, name: 'Choir and keyboard', icon: 'ic-music', tone: 'b', text: 'Junior voices, two keyboards and percussion instruments kids love to explore.' },
+    { id: 3, name: 'Bharatanatyam', icon: 'ic-sparkle', tone: 'c', text: 'Classical dance foundation from UKG up, with a visiting master on Wednesdays.' },
+    { id: 4, name: 'Drawing and sketching', icon: 'ic-pencil', tone: 'd', text: 'Observational drawing sessions in the garden and on the lawn.' },
+    { id: 5, name: 'Reading & story club', icon: 'ic-book', tone: 'e', text: 'Picture books, storytelling circles, and early dramatisation.' },
+    { id: 6, name: 'Little scientists club', icon: 'ic-flask', tone: 'f', text: 'The rooftop garden, nature logs, magnifying glasses, and seed experiments.' },
+    { id: 7, name: 'Coding & digital literacy', icon: 'ic-laptop', tone: 'a', text: 'Visual block puzzles from Grade 1, Scratch by Grade 3, junior robotics in Grade 5.' },
+    { id: 8, name: 'Drama and speech', icon: 'ic-mega', tone: 'b', text: 'Tamil and English skits, rhymes, and public expression circles.' },
+    { id: 9, name: 'Nature and gardening', icon: 'ic-heart', tone: 'c', text: 'Twelve troughs, a butterfly patch and hands-on caring for green plants.' }
   ],
   sports: [
-    { name: 'Junior Football', theme: 'football', lvl: 'Grades 2–5', text: 'Two squads, foundational footwork and passing, and friendly weekend fixtures.' },
-    { name: 'Cricket Nets', theme: 'cricket', lvl: 'Grades 3–5', text: 'Morning coaching sessions and an inter-house cup every February.' },
-    { name: 'Throwball & Volleyball', theme: 'volleyball', lvl: 'Grades 3–5', text: 'Court behind the lawn. Builds team spirit, hand-eye coordination and agility.' },
-    { name: 'Badminton', theme: 'badminton', lvl: 'Grades 2–5', text: 'Two indoor courts in the activity hall, open during recreation periods.' },
-    { name: 'Athletics & Fun Track', theme: 'athletics', lvl: 'Nursery to Grade 5', text: 'Sprint fun runs, obstacle races, sack race, and relay. Everyone runs on Sports Day.' },
-    { name: 'Chess & Board Games', theme: 'chess', lvl: 'Grades 1–5', text: 'Friday club ladder and friendly coaching for tactical young minds.' }
+    { id: 1, name: 'Junior Football', theme: 'football', lvl: 'Grades 2–5', text: 'Two squads, foundational footwork and passing, and friendly weekend fixtures.' },
+    { id: 2, name: 'Cricket Nets', theme: 'cricket', lvl: 'Grades 3–5', text: 'Morning coaching sessions and an inter-house cup every February.' },
+    { id: 3, name: 'Throwball & Volleyball', theme: 'volleyball', lvl: 'Grades 3–5', text: 'Court behind the lawn. Builds team spirit, hand-eye coordination and agility.' },
+    { id: 4, name: 'Badminton', theme: 'badminton', lvl: 'Grades 2–5', text: 'Two indoor courts in the activity hall, open during recreation periods.' },
+    { id: 5, name: 'Athletics & Fun Track', theme: 'athletics', lvl: 'Nursery to Grade 5', text: 'Sprint fun runs, obstacle races, sack race, and relay. Everyone runs on Sports Day.' },
+    { id: 6, name: 'Chess & Board Games', theme: 'chess', lvl: 'Grades 1–5', text: 'Friday club ladder and friendly coaching for tactical young minds.' }
   ],
   academics: {
     early: [
@@ -380,7 +380,13 @@ if (!db.settings) {
     hours: 'Mon - Sat, 9:00 am - 5:00 pm',
     phone: '+91 427 225 4053',
     mail: 'hello@christinaschool.in',
-    ticker: 'Admission enquiries for 2026-27 are open for Nursery to Grade 5'
+    ticker: 'Admission enquiries for 2026-27 are open for Nursery to Grade 5',
+    statStudents: 412,
+    statTeachers: 34,
+    statLevels: 8,
+    statLevelsLabel: 'Levels (Nur–Gr 5)',
+    statClubs: 26,
+    statYears: 34
   };
 }
 
@@ -390,11 +396,25 @@ function loadDb() {
     if (!raw) return;
     const saved = JSON.parse(raw);
     if (saved && typeof saved === 'object') {
-      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'settings'].forEach(k => {
+      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'clubs', 'sports', 'settings'].forEach(k => {
         if (saved[k] !== undefined) {
           db[k] = saved[k];
         }
       });
+      if (db.clubs) {
+        db.clubs.forEach((c, idx) => { if (!c.id) c.id = idx + 1; });
+      }
+      if (db.sports) {
+        db.sports.forEach((s, idx) => { if (!s.id) s.id = idx + 1; });
+      }
+      if (db.settings) {
+        if (db.settings.statStudents === undefined) db.settings.statStudents = 412;
+        if (db.settings.statTeachers === undefined) db.settings.statTeachers = 34;
+        if (db.settings.statLevels === undefined) db.settings.statLevels = 8;
+        if (db.settings.statLevelsLabel === undefined) db.settings.statLevelsLabel = 'Levels (Nur–Gr 5)';
+        if (db.settings.statClubs === undefined) db.settings.statClubs = 26;
+        if (db.settings.statYears === undefined) db.settings.statYears = 34;
+      }
       sortStores();
     }
   } catch (err) {

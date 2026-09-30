@@ -1,0 +1,36 @@
+<section class="aview on" data-pane="activities">
+  <!-- Clubs Management -->
+  <div class="tbl-wrap" style="margin-top:0">
+    <div class="tbl-top">
+      <div>
+        <h3 style="margin:0;font-size:1.08rem;display:flex;align-items:center;gap:8px">
+          <svg class="i i-18" style="color:var(--mari)"><use href="#ic-sparkle"/></svg> Student Clubs (Beyond the Timetable)
+        </h3>
+        <span class="small" style="color:var(--ink-50)">Weekly enrichment clubs for Nursery to Grade 5</span>
+      </div>
+      <label class="search" style="max-width:260px;margin-left:auto"><span class="sr-only">Search clubs</span><svg class="i i-18"><use href="#ic-search"/></svg><input type="search" id="aClubSearch" placeholder="Search clubs" /></label>
+      <button class="btn btn-primary btn-sm" type="button" id="addClub"><svg class="i i-16"><use href="#ic-plus"/></svg> Add club</button>
+    </div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Club</th><th>Theme Tone</th><th>Description</th><th style="text-align:right">Actions</th></tr></thead>
+      <tbody id="aClubBody"></tbody>
+    </table></div>
+  </div>
+
+  <!-- Sports Management -->
+  <div class="tbl-wrap" style="margin-top:2rem">
+    <div class="tbl-top">
+      <div>
+        <h3 style="margin:0;font-size:1.08rem;display:flex;align-items:center;gap:8px">
+          <svg class="i i-18" style="color:var(--royal)"><use href="#ic-ball"/></svg> Sports &amp; Physical Activities
+        </h3>
+        <span class="small" style="color:var(--ink-50)">Games, athletic disciplines and sports coaching</span>
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-left:auto" type="button" id="addSport"><svg class="i i-16"><use href="#ic-plus"/></svg> Add sport</button>
+    </div>
+    <div class="tbl-scroll"><table>
+      <thead><tr><th>Sport Name</th><th>Grades / Level</th><th>Scene Theme</th><th>Description</th><th style="text-align:right">Actions</th></tr></thead>
+      <tbody id="aSportBody"></tbody>
+    </table></div>
+  </div>
+</section>
