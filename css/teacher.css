@@ -1,0 +1,1183 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Teacher Portal Styles
+   ============================================================ */
+
+body.teacher-body {
+  background: #F1F5F9;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.teacher-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  position: relative;
+}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.t-aside {
+  background: linear-gradient(180deg, #071736 0%, #0E244E 60%, #132E60 100%);
+  color: #B6CBEB;
+  padding: 24px 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 24px rgba(7, 23, 54, 0.15);
+}
+
+.t-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.t-brand b {
+  color: #fff;
+  font-size: 1.08rem;
+  letter-spacing: -0.01em;
+  display: block;
+}
+
+.t-brand span {
+  color: #8FAAD2;
+  font-size: 0.78rem;
+  font-weight: 500;
+  display: block;
+}
+
+/* Teacher Profile Box in Sidebar */
+.t-profile-card {
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 14px 16px;
+  backdrop-filter: blur(8px);
+}
+
+.t-profile-card #tAvatar {
+  box-shadow: 0 4px 12px rgba(255, 122, 26, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Navigation items */
+.t-nav {
+  margin-top: 26px;
+  display: grid;
+  gap: 6px;
+}
+
+.t-nav button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: 0;
+  color: #B6CBEB;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.t-nav button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.t-nav button.active {
+  background: linear-gradient(135deg, #FF7A1A 0%, #FF9B45 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(255, 122, 26, 0.35);
+}
+
+.t-nav button .badge {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.t-nav button.active .badge {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.t-aside-foot {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  gap: 10px;
+}
+
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+.t-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Sticky Navigation */
+.t-top {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: 0 1px 4px rgba(10, 27, 61, 0.03);
+}
+
+.t-content {
+  padding: 24px 32px 48px;
+  flex: 1;
+}
+
+/* Classroom Hero Banner */
+.t-banner {
+  background: linear-gradient(135deg, #091C3E 0%, #123063 50%, #1A4488 100%);
+  border-radius: 20px;
+  padding: 26px 30px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  box-shadow: 0 14px 32px -10px rgba(10, 27, 61, 0.3);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.t-banner::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -30px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 122, 26, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.t-banner .tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFC24A;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   KPI METRIC CARDS (CLEAN MODERN TILES)
+   ============================================================ */
+.t-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 1080px) {
+  .t-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .t-kpis {
+    grid-template-columns: 1fr;
+  }
+}
+
+.t-kpi {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.t-kpi::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.t-kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(10, 27, 61, 0.08);
+  border-color: #CBD5E1;
+}
+
+.t-kpi:nth-child(1):hover::before { background: #2563EB; }
+.t-kpi:nth-child(2):hover::before { background: #16A34A; }
+.t-kpi:nth-child(3):hover::before { background: #4F46E5; }
+.t-kpi:nth-child(4):hover::before { background: #EA580C; }
+
+.t-kpi .kpi-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.t-kpi .kpi-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+  margin-bottom: 4px;
+}
+
+.t-kpi b {
+  font-family: var(--sans);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0A1B3D;
+  line-height: 1;
+}
+
+.t-kpi .kpi-sub {
+  font-size: 0.78rem;
+  color: #64748B;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.t-kpi .ic {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   TOOLBAR & CONTROLS
+   ============================================================ */
+.t-toolbar {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.t-search {
+  position: relative;
+  flex: 1;
+  min-width: 260px;
+  max-width: 420px;
+}
+
+.t-search svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94A3B8;
+  pointer-events: none;
+}
+
+.t-search input {
+  width: 100%;
+  padding: 0.58rem 1rem 0.58rem 40px;
+  border: 1px solid #CBD5E1;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  outline: none;
+  background: #F8FAFC;
+  transition: all 0.18s ease;
+}
+
+.t-search input:focus {
+  border-color: #FF7A1A;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 122, 26, 0.15);
+}
+
+/* View Mode Segmented Pill */
+.view-seg-bar {
+  display: inline-flex;
+  background: #F1F5F9;
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid #E2E8F0;
+}
+
+.view-seg-btn {
+  border: 0;
+  background: transparent;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #64748B;
+  transition: all 0.18s ease;
+}
+
+.view-seg-btn.active {
+  background: #ffffff;
+  color: #0A1B3D;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================================
+   STUDENT CARDS GRID (SQUARE, UNIFORM HEIGHT, POLISHED)
+   ============================================================ */
+.student-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 20px;
+  align-items: stretch;
+}
+
+.student-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(10, 27, 61, 0.04);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.student-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px -6px rgba(10, 27, 61, 0.1), 0 4px 10px -2px rgba(10, 27, 61, 0.04);
+  border-color: #CBD5E1;
+}
+
+/* Top Header: Avatar + Info + Action Icons */
+.student-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+}
+
+.student-photo-wrap {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  position: relative;
+  cursor: pointer;
+}
+
+.student-photo {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(10, 27, 61, 0.1);
+  transition: transform 0.18s ease;
+}
+
+.student-photo:hover {
+  transform: scale(1.04);
+}
+
+.student-av {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(10, 27, 61, 0.1);
+  transition: transform 0.18s ease;
+}
+
+.student-av:hover {
+  transform: scale(1.04);
+}
+
+.student-head-meta {
+  flex: 1;
+  min-width: 0;
+  padding-right: 50px; /* Space for top-right edit/delete icons */
+}
+
+.student-name {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 3px 0 2px;
+  color: #0A1B3D;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-grade-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.76rem;
+  color: #64748B;
+  font-weight: 500;
+}
+
+.pill-roll {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 7px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #EFF6FF;
+  color: #1D4ED8;
+  border: 1px solid #DBEAFE;
+}
+
+.pill-adm {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #475569;
+}
+
+.pill-blood {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 5px;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: #FEE2E2;
+  color: #B91C1C;
+}
+
+/* Top-Right Card Action Icons (Edit / Delete) */
+.card-top-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-card-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid #E2E8F0;
+  background: #F8FAFC;
+  display: grid;
+  place-items: center;
+  color: #64748B;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  padding: 0;
+}
+
+.btn-card-icon:hover {
+  background: #0A1B3D;
+  color: #ffffff;
+  border-color: #0A1B3D;
+}
+
+.btn-card-icon.delete:hover {
+  background: #DC2626;
+  color: #ffffff;
+  border-color: #DC2626;
+}
+
+/* Card Body Details */
+.student-details {
+  border-top: 1px solid #F1F5F9;
+  padding-top: 12px;
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+  font-size: 0.82rem;
+  flex: 1;
+}
+
+.s-detail-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.s-detail-row .lbl {
+  color: #64748B;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.s-detail-row .val {
+  font-weight: 600;
+  color: #0A1B3D;
+  text-align: right;
+  max-width: 68%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Contact Row with Inline Call & WhatsApp chips */
+.contact-inline-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.contact-icon-chip {
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: inline-grid;
+  place-items: center;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.contact-icon-chip.wa {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+
+.contact-icon-chip.wa:hover {
+  background: #10B981;
+  color: #ffffff;
+  border-color: #10B981;
+}
+
+.contact-icon-chip.phone {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}
+
+.contact-icon-chip.phone:hover {
+  background: #2563EB;
+  color: #ffffff;
+  border-color: #2563EB;
+}
+
+/* Uniform Medical Note Box (Always 30px high on every card!) */
+.med-box-slot {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+  padding: 0 10px;
+  font-size: 0.74rem;
+  margin-top: 2px;
+}
+
+.med-box-slot.alert {
+  background: #FEF2F2;
+  border: 1px solid #FEE2E2;
+  color: #B91C1C;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.med-box-slot.none {
+  background: #F8FAFC;
+  border: 1px dashed #E2E8F0;
+  color: #94A3B8;
+  font-weight: 500;
+}
+
+/* ============================================================
+   SINGLE UNIFIED ATTENDANCE CONTROL (BOTTOM OF CARD)
+   ============================================================ */
+.card-att-control {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 8px 10px;
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-att-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.att-segmented-bar {
+  display: inline-flex;
+  background: #E2E8F0;
+  padding: 2px;
+  border-radius: 10px;
+  gap: 2px;
+}
+
+.att-seg-item {
+  border: 0;
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #64748B;
+  transition: all 0.16s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.att-seg-item .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  background: currentColor;
+}
+
+.att-seg-item.present.active {
+  background: #16A34A;
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(22, 163, 74, 0.3);
+}
+
+.att-seg-item.absent.active {
+  background: #DC2626;
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(220, 38, 38, 0.3);
+}
+
+.att-seg-item.late.active {
+  background: #D97706;
+  color: #ffffff;
+  box-shadow: 0 1px 4px rgba(217, 119, 6, 0.3);
+}
+
+/* ============================================================
+   ATTENDANCE STATUS CHIPS (TABLES & SHEETS)
+   ============================================================ */
+.att-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.att-status-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.att-status-chip.att-present {
+  background: #DCFCE7;
+  color: #15803D;
+  border: 1px solid #BBF7D0;
+}
+
+.att-status-chip.att-present::before {
+  background: #15803D;
+}
+
+.att-status-chip.att-absent {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border: 1px solid #FECACA;
+}
+
+.att-status-chip.att-absent::before {
+  background: #B91C1C;
+}
+
+.att-status-chip.att-late {
+  background: #FEF3C7;
+  color: #B45309;
+  border: 1px solid #FDE68A;
+}
+
+.att-status-chip.att-late::before {
+  background: #B45309;
+}
+
+/* ============================================================
+   ATTENDANCE ROLL-CALL TABLE
+   ============================================================ */
+.att-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.att-table th {
+  background: #F8FAFC;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0A1B3D;
+  text-align: left;
+  border-bottom: 2px solid #E2E8F0;
+  white-space: nowrap;
+}
+
+.att-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 0.88rem;
+  vertical-align: middle;
+}
+
+.att-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.att-toggle-group {
+  display: inline-flex;
+  background: #E2E8F0;
+  padding: 3px;
+  border-radius: 999px;
+  gap: 2px;
+}
+
+.att-btn {
+  border: 0;
+  background: transparent;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #64748B;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.att-btn.present.active {
+  background: #16A34A;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(22, 163, 74, 0.35);
+}
+
+.att-btn.absent.active {
+  background: #DC2626;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.35);
+}
+
+.att-btn.late.active {
+  background: #D97706;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(217, 119, 6, 0.35);
+}
+
+/* ============================================================
+   STUDENT PHOTO UPLOAD ZONE (MODAL)
+   ============================================================ */
+.student-upload-banner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+.student-upload-preview {
+  position: relative;
+  width: 76px;
+  height: 76px;
+  flex-shrink: 0;
+}
+
+.student-upload-preview .preview-box {
+  width: 76px;
+  height: 76px;
+  border-radius: 16px;
+  background: #EDF2F7;
+  border: 2px dashed #CBD5E1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(10, 27, 61, 0.05);
+}
+
+.student-upload-preview .preview-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.student-upload-preview .rm-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #DC2626;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
+
+/* ============================================================
+   MOBILE BURGER & BACKDROP VEIL
+   ============================================================ */
+.t-burger {
+  background: #ffffff;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s ease;
+}
+
+.t-burger:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+}
+
+.t-burger i {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #0A1B3D;
+  border-radius: 2px;
+}
+
+.t-aside-veil {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 23, 54, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 95;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.t-aside-veil.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================================================
+   UNIVERSAL FORM & MODAL SYSTEM (STUDENTS, DIARY, PROFILE)
+   ============================================================ */
+.fgrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #1E293B;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.72rem 0.95rem;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  background: #F8FAFC;
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: #0A1B3D;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.field select {
+  cursor: pointer;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: #2563EB;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.field .err {
+  font-size: 0.76rem;
+  color: #DC2626;
+  font-weight: 600;
+  display: none;
+  margin-top: 3px;
+}
+
+.field.bad input,
+.field.bad select,
+.field.bad textarea {
+  border-color: #EF4444;
+  background: #FEF2F2;
+}
+
+.field.bad .err {
+  display: block;
+}
+
+.field.ok input,
+.field.ok select {
+  border-color: #22C55E;
+}
+
+/* Modal Window Polish */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+
+.modal.open {
+  display: flex;
+}
+
+.modal .veil {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 23, 54, 0.65);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  animation: fade .25s ease;
+}
+
+.modal .box {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  width: min(680px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 54px rgba(7, 23, 54, 0.28);
+  animation: mIn .35s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.modal .box.wide {
+  width: min(880px, 100%);
+}
+
+.modal .x {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #E2E8F0;
+  background: #F1F5F9;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: #0A1B3D;
+  transition: all 0.2s ease;
+}
+
+.modal .x:hover {
+  background: #DC2626;
+  color: #ffffff;
+  border-color: #DC2626;
+  transform: rotate(90deg);
+}
+
+.mhead {
+  padding: 26px 28px 0;
+}
+
+.mhead h3 {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  color: #0A1B3D;
+  margin: 0;
+  padding-right: 40px;
+}
+
+.mbody {
+  padding: 18px 28px 28px;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (BREAKPOINT: 860px)
+   ============================================================ */
+@media (max-width: 860px) {
+  .teacher-app {
+    grid-template-columns: 1fr;
+  }
+  .t-aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    box-shadow: 4px 0 28px rgba(7, 23, 54, 0.4);
+    transform: translateX(-100%);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+    display: flex;
+  }
+  .t-aside.show {
+    transform: translateX(0);
+  }
+  .t-burger {
+    display: flex !important;
+  }
+  .t-content {
+    padding: 20px 18px 40px;
+  }
+  .t-top {
+    padding: 12px 18px;
+  }
+  .student-grid {
+    grid-template-columns: 1fr;
+  }
+  .fgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .mhead {
+    padding: 20px 18px 0;
+  }
+  .mbody {
+    padding: 14px 18px 22px;
+  }
+  .student-upload-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .student-upload-banner div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}

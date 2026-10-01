@@ -1,0 +1,97 @@
+<section class="aview on" data-pane="teacher-reports">
+  <!-- Top KPI Cards -->
+  <div class="kpis" style="margin-bottom:1.5rem">
+    <div class="kpi">
+      <span class="ic"><svg class="i i-20"><use href="#ic-users"/></svg></span>
+      <div><b id="kRepTeachers">0</b><span>Total Staff Teachers</span></div>
+    </div>
+    <div class="kpi">
+      <span class="ic" style="background:#E7F1FF;color:#1D4ED8"><svg class="i i-20"><use href="#ic-lock"/></svg></span>
+      <div><b id="kRepActiveLogins">0</b><span>Portal Login Accounts</span></div>
+    </div>
+    <div class="kpi">
+      <span class="ic" style="background:#FFF3E0;color:#EF6C00"><svg class="i i-20"><use href="#ic-grad"/></svg></span>
+      <div><b id="kRepStudents">0</b><span>Enrolled Students</span></div>
+    </div>
+    <div class="kpi">
+      <span class="ic" style="background:#E8F5E9;color:#2E7D32"><svg class="i i-20"><use href="#ic-check"/></svg></span>
+      <div><b id="kRepAttRate">0%</b><span>Today's Attendance Rate</span></div>
+    </div>
+  </div>
+
+  <!-- Section 1: Teacher Classroom Summary -->
+  <div class="tbl-wrap" style="margin-top:0;margin-bottom:2rem">
+    <div class="tbl-top">
+      <div>
+        <h3 style="font-size:1.15rem;margin:0 0 4px;color:var(--navy)">Classroom Teachers &amp; Portal Status</h3>
+        <span style="font-size:.82rem;color:var(--ink-50)">Current status of teachers, portal credentials, class assignments, and attendance completion</span>
+      </div>
+      <div style="margin-left:auto;display:flex;gap:8px">
+        <button class="btn btn-soft btn-sm" type="button" id="btnExportAuditLog">
+          <svg class="i i-16"><use href="#ic-upload"/></svg> Export Activity Log
+        </button>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Teacher</th>
+            <th>Portal Username</th>
+            <th>Assigned Grade</th>
+            <th>Class Roster</th>
+            <th>Today's Attendance</th>
+            <th>Last Portal Activity</th>
+          </tr>
+        </thead>
+        <tbody id="aTeacherSummaryBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Section 2: Live Activity Audit Feed -->
+  <div class="tbl-wrap">
+    <div class="tbl-top" style="flex-wrap:wrap;gap:12px">
+      <div>
+        <h3 style="font-size:1.15rem;margin:0 0 4px;color:var(--navy)">Teacher Work &amp; Audit Log</h3>
+        <span style="font-size:.82rem;color:var(--ink-50)">Real-time timeline of attendance submissions, student profile updates, and diary entries</span>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <select id="aReportFilterAction" style="padding:.5rem .8rem;border-radius:var(--r-pill);border:1px solid var(--line);background:#fff;font-size:.85rem;color:var(--navy)">
+          <option value="All">All Activities</option>
+          <option value="attendance_marked">Attendance Submissions</option>
+          <option value="student_added">New Enrollments</option>
+          <option value="student_updated">Student Updates</option>
+          <option value="student_deleted">Student Deletions</option>
+          <option value="diary_posted">Classroom Diary Posts</option>
+          <option value="roster_exported">Roster Exports</option>
+        </select>
+        <select id="aReportFilterGrade" style="padding:.5rem .8rem;border-radius:var(--r-pill);border:1px solid var(--line);background:#fff;font-size:.85rem;color:var(--navy)">
+          <option value="All">All Grades</option>
+          <option value="Nursery">Nursery</option>
+          <option value="LKG">LKG</option>
+          <option value="UKG">UKG</option>
+          <option value="Grade 1">Grade 1</option>
+          <option value="Grade 2">Grade 2</option>
+          <option value="Grade 3">Grade 3</option>
+          <option value="Grade 4">Grade 4</option>
+          <option value="Grade 5">Grade 5</option>
+        </select>
+      </div>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:170px">Time &amp; Date</th>
+            <th>Teacher</th>
+            <th>Action Type</th>
+            <th>Class</th>
+            <th>Activity Details</th>
+          </tr>
+        </thead>
+        <tbody id="aTeacherAuditBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>

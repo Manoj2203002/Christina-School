@@ -6,11 +6,12 @@
 const { $, $$, REDUCED, esc, db, CATS, DEPTS, DOC_CATS, GAL_CATS, SCENES,
         TONES, fmt, dayOf, monOf, d2,
         scene, avatar, mountScenes,
-        toast, countUp, revealer, watch, sortStores } = window.App;
+        toast, countUp, revealer, watch, sortStores, isAnnActive } = window.App;
 
 const TITLES = {
   overview:   ['Dashboard', 'Everything happening on the Christina School website today'],
   staff:      ['Staff', 'Add, edit and retire teacher profiles shown on the website'],
+  'teacher-reports': ['Teacher Work Reports', 'Live activity updates, student enrollments, and classroom attendance submitted by teachers'],
   ann:        ['Announcements', 'Post notices to the board, the ticker and the homepage'],
   gal:        ['Gallery', 'Albums and photographs shown in the public gallery'],
   ev:         ['Events', 'The calendar parents see on the homepage'],
@@ -24,6 +25,19 @@ const TITLES = {
   set:        ['School settings', 'Details that appear across the public site']
 };
 
+function getCurrentAdminRoute() {
+  const raw = (window.location.hash || '').replace(/^#\/?/, '').split('?')[0].trim();
+  return raw || 'overview';
+}
+
+function onOnce(el, evt, handler) {
+  if (!el) return;
+  const key = `_has_${evt}_listener`;
+  if (el[key]) return;
+  el[key] = true;
+  el.addEventListener(evt, handler);
+}
+
 function closeAdmin() { 
   window.location.href = 'index.html'; 
 }
@@ -34,9 +48,11 @@ function syncBurger() {
 }
 
 function refreshAdminCounts() {
-  const live = db.ann.filter(a => a.status === 'published').length;
+  const isAct = typeof isAnnActive === 'function' ? isAnnActive : () => true;
+  const live = db.ann.filter(a => a.status === 'published' && isAct(a)).length;
   const set = (id, v) => { const el = $(id); if (el) el.textContent = v; };
   set('#cStaff', db.staff.length); set('#cAnn', db.ann.length); set('#cGal', db.gallery.length);
+  set('#cTeacherReports', (db.teacherReports ? db.teacherReports.length : 0));
   set('#cEv', db.events.length); set('#cAch', db.ach.length); set('#cNews', db.news.length); set('#cEnq', db.enquiries.length);
   set('#cDoc', db.documents.length);
   set('#cTst', db.testimonials.length); set('#cAlumni', db.alumni.length);
@@ -69,7 +85,8 @@ function renderFeed() {
   
   const pinnedAdmin = $('#pinnedAdmin');
   if (pinnedAdmin) {
-    const pinnedList = db.ann.filter(a => a.pinned && a.status === 'published');
+    const isAct = typeof isAnnActive === 'function' ? isAnnActive : () => true;
+    const pinnedList = db.ann.filter(a => a.pinned && a.status === 'published' && isAct(a));
     pinnedAdmin.innerHTML = pinnedList.length
       ? pinnedList.map(p => `
           <div style="background:var(--paper);border:1px solid var(--line);border-radius:var(--r-m);padding:1rem;margin-bottom:10px">
@@ -95,6 +112,14 @@ const SCHEMA = {
       { k: 'exp', l: 'Years of experience', t: 'number' },
       { k: 'classes', l: 'Classes handled', t: 'text' },
       { k: 'subjects', l: 'Subjects', t: 'text', full: 1 },
+      { k: 'username', l: 'Teacher Portal Username (e.g. deepa.r)', t: 'text' },
+      { k: 'password', l: 'Teacher Portal Password', t: 'text' },
+      { k: 'assignedGrade', l: 'Assigned Classroom Grade', t: 'select', opts: ['None', 'Nursery', 'LKG', 'UKG', 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4', 'Grade 5'] },
+      { k: 'assignedSection', l: 'Assigned Section', t: 'select', opts: ['A', 'B', 'C'] },
+      { k: 'roomNo', l: 'Classroom Room No (e.g. Room 102)', t: 'text' },
+      { k: 'phone', l: 'Contact Mobile Number', t: 'text' },
+      { k: 'email', l: 'Official Email Address', t: 'text' },
+      { k: 'bloodGroup', l: 'Blood Group', t: 'select', opts: ['O+', 'A+', 'B+', 'AB+', 'O-', 'A-', 'B-', 'AB-'] },
       { k: 'note', l: 'Short profile', t: 'textarea', full: 1 }
     ], photo: 1, toggle: { k: 'active', l: 'Shown on the public website' } },
   ann: { title: 'announcement', fields: [
@@ -191,13 +216,13 @@ function editor(kind, rec) {
     <div class="mbody">
       ${S.photo ? `<div class="drop" id="dropZone" tabindex="0" role="button" aria-label="Upload a picture">
           <span class="up-ic"><svg class="i i-24"><use href="#ic-upload"/></svg></span>
-          <b>Drop a picture here, or choose a file</b><span>JPG or PNG, up to about 2 MB</span>
+          <b>Drop a picture here, or choose a file</b><span>JPG or PNG, up to 800 KB</span>
           <input type="file" id="fileIn" accept="image/*" hidden />
         </div>
         <div class="prev-grid" id="prevGrid">${r.photo || r.src ? `<div class="pv"><img src="${r.photo || r.src}" alt="Current picture" style="width:100%;height:100%;object-fit:cover" /><button type="button" data-rmpic aria-label="Remove picture"><svg class="i i-14"><use href="#ic-close"/></svg></button></div>` : ''}</div>` : ''}
       ${S.file ? `<div class="drop" id="docDropZone" tabindex="0" role="button" aria-label="Upload a document">
           <span class="up-ic"><svg class="i i-24"><use href="#ic-upload"/></svg></span>
-          <b>Drop a file here, or choose a file</b><span>PDF, Word or Excel, up to about 5 MB</span>
+          <b>Drop a file here, or choose a file</b><span>PDF, Word or Excel, up to 800 KB</span>
           <input type="file" id="docFileIn" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden />
         </div>
         <div id="docPrevGrid">${r.file ? `<div class="filechip"><svg class="i i-20"><use href="#ic-doc"/></svg><span>${esc(r.fileName || 'Current file')}</span><button type="button" data-rmfile aria-label="Remove file"><svg class="i i-14"><use href="#ic-close"/></svg></button></div>` : ''}</div>` : ''}
@@ -221,6 +246,10 @@ function editor(kind, rec) {
     const dz = $('#dropZone'), fi = $('#fileIn');
     const readFile = file => {
       if (!file || !file.type.startsWith('image/')) { toast('That file is not a picture|Choose a JPG or PNG.', 'warn'); return; }
+      if (file.size > 800 * 1024) {
+        toast('Image is too large|Please choose an image under 800 KB to fit browser storage.', 'warn');
+        return;
+      }
       const fr = new FileReader();
       fr.onload = () => {
         pic = fr.result;
@@ -245,7 +274,10 @@ function editor(kind, rec) {
     const dz2 = $('#docDropZone'), fi2 = $('#docFileIn');
     const readDoc = file => {
       if (!file) return;
-      if (file.size > 5 * 1024 * 1024) { toast('That file is too large|Choose a file under 5 MB.', 'warn'); return; }
+      if (file.size > 800 * 1024) {
+        toast('File is too large|Please choose a file under 800 KB to fit browser storage.', 'warn');
+        return;
+      }
       const fr2 = new FileReader();
       fr2.onload = () => {
         docFile = fr2.result; docFileName = file.name;
@@ -295,9 +327,11 @@ function editor(kind, rec) {
     if (window.App && window.App.saveDb) window.App.saveDb();
     closeModal();
     // Re-render current route data based on hash
-    const hash = window.location.hash.slice(2) || 'overview';
-    const activeRoute = adminRouter.routes[hash];
+    const currentRoute = getCurrentAdminRoute();
+    const activeRoute = adminRouter.routes[currentRoute] || adminRouter.routes['overview'];
     if (activeRoute && activeRoute.onLoad) activeRoute.onLoad();
+    refreshAdminCounts();
+    drawBars();
     
     toast((isNew ? 'Added' : 'Saved') + '|' + (out.title || out.name || out.cap || out.comp || 'The record') + ' is live on the website.');
   });
@@ -321,9 +355,11 @@ function confirmDelete(kind, id) {
     if (window.App && window.App.saveDb) window.App.saveDb();
     closeModal(); 
     
-    const hash = window.location.hash.slice(2) || 'overview';
-    const activeRoute = adminRouter.routes[hash];
+    const currentRoute = getCurrentAdminRoute();
+    const activeRoute = adminRouter.routes[currentRoute] || adminRouter.routes['overview'];
     if (activeRoute && activeRoute.onLoad) activeRoute.onLoad();
+    refreshAdminCounts();
+    drawBars();
 
     toast('Deleted|' + label + ' is no longer on the website.', 'warn');
   });
@@ -374,9 +410,9 @@ function renderAdminStaff() {
         <td data-col="Staff"><span class="cellav"><span class="av">${staffPic(s)}</span><span><b>${esc(s.name)}</b><span>${esc(s.subjects || '')}</span></span></span></td>
         <td data-col="Designation">${esc(s.desig)}</td>
         <td data-col="Department"><span class="pillx">${esc(s.dept)}</span></td>
-        <td data-col="Qualification">${esc(s.qual || '—')}</td>
+        <td data-col="Assigned Class">${s.assignedGrade && s.assignedGrade !== 'None' ? `<span class="pillx ok" style="font-weight:600">${esc(s.assignedGrade)} (${esc(s.assignedSection || 'A')})</span>${s.roomNo ? `<div style="font-size:.72rem;color:var(--ink-50);margin-top:2px">${esc(s.roomNo.split('(')[0].trim())}</div>` : ''}` : `<span style="color:var(--ink-50)">—</span>`}</td>
+        <td data-col="Portal Login">${s.username ? `<span class="tag" style="background:#E7F1FF;color:#1D4ED8;font-size:.76rem;display:inline-flex;align-items:center;gap:4px"><svg class="i i-12"><use href="#ic-lock"/></svg> ${esc(s.username)}</span>${s.lastLogin ? `<div style="font-size:.72rem;color:#16A34A;margin-top:2px">● Signed in ${fmt(s.lastLogin)}</div>` : ''}` : `<span style="color:var(--ink-50);font-size:.78rem">No login</span>`}</td>
         <td data-col="Experience">${s.exp} yrs</td>
-        <td data-col="Classes">${esc(s.classes || '—')}</td>
         <td data-col="Website Status"><button class="toggle${s.active ? ' on' : ''}" type="button" data-tog="${s.id}"
               aria-pressed="${!!s.active}" aria-label="Show ${esc(s.name)} on the website"></button></td>
         <td data-col="Actions">${acts('staff', s.id)}</td>
@@ -518,9 +554,25 @@ function renderAdminDocs() {
 
 const ENQ_STATES = ['New', 'Called', 'Visit booked', 'Admitted'];
 function renderAdminEnq() {
+  const searchInput = $('#aEnqSearch');
+  const term = searchInput ? searchInput.value.trim().toLowerCase() : '';
+  const filterSel = $('#aEnqFilter');
+  const statusFilter = filterSel ? filterSel.value : 'All';
+
+  const list = (db.enquiries || [])
+    .filter(q => statusFilter === 'All' || q.status === statusFilter)
+    .filter(q => !term || (
+      (q.parent || '') + ' ' +
+      (q.child || '') + ' ' +
+      (q.email || '') + ' ' +
+      (q.phone || '') + ' ' +
+      (q.grade || '') + ' ' +
+      (q.msg || '')
+    ).toLowerCase().includes(term));
+
   const tbody = $('#aEnqBody');
   if (tbody) {
-    tbody.innerHTML = db.enquiries.length ? db.enquiries.map(q2 => `
+    tbody.innerHTML = list.length ? list.map(q2 => `
       <tr>
         <td data-col="Parent"><span class="cellav"><span class="av">${avatar(q2.parent, 'e' + q2.id)}</span><span><b>${esc(q2.parent)}</b><span>${esc(q2.email || '')}</span></span></span></td>
         <td data-col="Child">${esc(q2.child)}</td>
@@ -532,8 +584,39 @@ function renderAdminEnq() {
           <button class="mini" type="button" data-enq="${q2.id}" aria-label="Read enquiry"><svg class="i i-16"><use href="#ic-eye"/></svg></button>
           <button class="mini del" type="button" data-enqdel="${q2.id}" aria-label="Remove enquiry"><svg class="i i-16"><use href="#ic-trash"/></svg></button>
         </div></td>
-      </tr>`).join('') : blank(7, 'No enquiries yet');
+      </tr>`).join('') : blank(7, term || statusFilter !== 'All' ? 'No enquiries match this filter' : 'No enquiries yet');
   }
+}
+
+function exportEnquiriesCsv() {
+  const list = db.enquiries || [];
+  if (!list.length) {
+    toast('No enquiries to export|The enquiry list is currently empty.', 'warn');
+    return;
+  }
+  const headers = ['ID', 'Date', 'Parent', 'Child', 'Grade', 'Phone', 'Email', 'Status', 'Message'];
+  const rows = list.map(q => [
+    q.id,
+    q.date || '',
+    `"${(q.parent || '').replace(/"/g, '""')}"`,
+    `"${(q.child || '').replace(/"/g, '""')}"`,
+    `"${(q.grade || '').replace(/"/g, '""')}"`,
+    `"${(q.phone || '').replace(/"/g, '""')}"`,
+    `"${(q.email || '').replace(/"/g, '""')}"`,
+    `"${(q.status || '').replace(/"/g, '""')}"`,
+    `"${(q.msg || '').replace(/"/g, '""')}"`
+  ]);
+  const csvContent = '\uFEFF' + [headers.join(','), ...rows.map(r => r.join(','))].join('\r\n');
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `christina_enquiries_${new Date().toISOString().slice(0, 10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast('CSV Exported|Enquiries downloaded successfully.', 'ok');
 }
 
 function renderAdminTst() {
@@ -578,7 +661,10 @@ function openModal(html, wide) {
   document.body.classList.add('locked');
   mountScenes($('#modalContent'));
   const f = $('#modalContent input, #modalContent select, #modalContent textarea, #modalContent button');
-  setTimeout(() => (f || $('#modal .x')).focus(), 60);
+  setTimeout(() => {
+    const target = f || $('#modal .x');
+    if (target && typeof target.focus === 'function') target.focus();
+  }, 60);
 }
 function closeModal() {
   $('#modal').classList.remove('open');
@@ -598,14 +684,14 @@ function initOverview() {
 function initAdminStaff() {
   renderAdminStaff();
   const search = $('#aStaffSearch');
-  if (search) search.addEventListener('input', renderAdminStaff);
+  if (search) onOnce(search, 'input', renderAdminStaff);
   const deptSel = $('#aStaffDept');
-  if (deptSel) deptSel.addEventListener('change', renderAdminStaff);
+  if (deptSel) onOnce(deptSel, 'change', renderAdminStaff);
   const addBtn = $('#addStaff');
-  if (addBtn) addBtn.addEventListener('click', addStaff);
+  if (addBtn) onOnce(addBtn, 'click', addStaff);
   
   const tbody = $('#aStaffBody');
-  if (tbody) tbody.addEventListener('click', e => {
+  if (tbody) onOnce(tbody, 'click', e => {
     const t = e.target.closest('[data-tog]');
     if (!t) return;
     const s = db.staff.find(x => x.id === +t.dataset.tog);
@@ -622,7 +708,7 @@ function initAdminStaff() {
 function initAdminAnn() {
   renderAdminAnn();
   const seg = $('#annSeg');
-  if (seg) seg.addEventListener('click', e => {
+  if (seg) onOnce(seg, 'click', e => {
     const b = e.target.closest('[data-st]'); 
     if (!b) return;
     annSeg = b.dataset.st;
@@ -631,7 +717,7 @@ function initAdminAnn() {
   });
   
   const tbody = $('#aAnnBody');
-  if (tbody) tbody.addEventListener('click', e => {
+  if (tbody) onOnce(tbody, 'click', e => {
     const p = e.target.closest('[data-pin]'); 
     if (!p) return;
     const a = db.ann.find(x => x.id === +p.dataset.pin); 
@@ -644,16 +730,16 @@ function initAdminAnn() {
   });
 
   const addBtn = $('#addAnn');
-  if (addBtn) addBtn.addEventListener('click', addAnn);
+  if (addBtn) onOnce(addBtn, 'click', addAnn);
 }
 
 function initAdminGal() {
   renderAdminGal();
   const btnAddPhoto = $('#addPhoto');
-  if (btnAddPhoto) btnAddPhoto.addEventListener('click', addPhoto);
+  if (btnAddPhoto) onOnce(btnAddPhoto, 'click', addPhoto);
   
   const btnAddAlbum = $('#addAlbum');
-  if (btnAddAlbum) btnAddAlbum.addEventListener('click', () => {
+  if (btnAddAlbum) onOnce(btnAddAlbum, 'click', () => {
     openModal(`
       <div class="mhead"><h3 id="modalTitle">Create an album</h3></div>
       <div class="mbody"><form id="albForm" class="fgrid" style="margin-top:0">
@@ -679,32 +765,36 @@ function initAdminGal() {
 function initAdminEv() {
   renderAdminEv();
   const addBtn = $('#addEv');
-  if (addBtn) addBtn.addEventListener('click', addEv);
+  if (addBtn) onOnce(addBtn, 'click', addEv);
 }
 
 function initAdminAch() {
   renderAdminAch();
   const addBtn = $('#addAch');
-  if (addBtn) addBtn.addEventListener('click', addAch);
+  if (addBtn) onOnce(addBtn, 'click', addAch);
 }
 
 function initAdminNews() {
   renderAdminNews();
   const addBtn = $('#addNews');
-  if (addBtn) addBtn.addEventListener('click', addNews);
+  if (addBtn) onOnce(addBtn, 'click', addNews);
 }
 
 function initAdminDocs() {
   renderAdminDocs();
   const addBtn = $('#addDoc');
-  if (addBtn) addBtn.addEventListener('click', addDoc);
+  if (addBtn) onOnce(addBtn, 'click', addDoc);
 }
 
 function initAdminEnq() {
   renderAdminEnq();
+  onOnce($('#aEnqSearch'), 'input', renderAdminEnq);
+  onOnce($('#aEnqFilter'), 'change', renderAdminEnq);
+  onOnce($('#btnExportEnq'), 'click', exportEnquiriesCsv);
+
   const tbody = $('#aEnqBody');
   if (tbody) {
-    tbody.addEventListener('click', e => {
+    onOnce(tbody, 'click', e => {
       const v = e.target.closest('[data-enq]');
       if (v) {
         const q2 = db.enquiries.find(x => x.id === +v.dataset.enq); 
@@ -764,14 +854,22 @@ function initAdminEnq() {
 }
 
 function initAdminSettings() {
-  const sadm = $('#s-adm');
-  if (sadm) sadm.addEventListener('click', () => {
-    const t = $('#s-adm'), on = t.classList.toggle('on');
-    t.setAttribute('aria-pressed', String(on));
-    $$('.badge, .adm-flag').forEach(el => { el.style.display = on ? '' : 'none'; });
-  });
-
   const s = db.settings || {};
+  const sadm = $('#s-adm');
+  if (sadm) {
+    const isAdmOn = s.showAdmissionsBadge !== false;
+    sadm.classList.toggle('on', isAdmOn);
+    sadm.setAttribute('aria-pressed', String(isAdmOn));
+    
+    onOnce(sadm, 'click', () => {
+      const on = sadm.classList.toggle('on');
+      sadm.setAttribute('aria-pressed', String(on));
+      $$('.badge, .adm-flag, #topAdmissionsBadge, [data-badge="admissions"]').forEach(el => {
+        el.style.display = on ? '' : 'none';
+      });
+    });
+  }
+
   if ($('#s-name') && s.name) $('#s-name').value = s.name;
   if ($('#s-tag') && s.tag) $('#s-tag').value = s.tag;
   if ($('#s-addr') && s.addr) $('#s-addr').value = s.addr;
@@ -787,31 +885,35 @@ function initAdminSettings() {
   if ($('#s-statYears')) $('#s-statYears').value = s.statYears != null ? s.statYears : 34;
 
   const setForm = $('#setForm');
-  if (setForm) setForm.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = $('#s-name').value.trim() || 'Christina Nursery and Primary School';
-    const tag = $('#s-tag').value.trim();
-    const addr = $('#s-addr').value.trim();
-    const hours = $('#s-hours').value.trim();
-    const phone = $('#s-phone').value.trim();
-    const mail = $('#s-mail').value.trim();
-    const ticker = $('#s-ticker').value.trim();
-    const statStudents = parseInt($('#s-statStudents').value, 10) || 412;
-    const statTeachers = parseInt($('#s-statTeachers').value, 10) || 34;
-    const statLevels = parseInt($('#s-statLevels').value, 10) || 8;
-    const statLevelsLabel = $('#s-statLevelsLabel').value.trim() || 'Levels (Nur–Gr 5)';
-    const statClubs = parseInt($('#s-statClubs').value, 10) || 26;
-    const statYears = parseInt($('#s-statYears').value, 10) || 34;
+  if (setForm) {
+    onOnce(setForm, 'submit', e => {
+      e.preventDefault();
+      const name = $('#s-name').value.trim() || 'Christina Nursery and Primary School';
+      const tag = $('#s-tag').value.trim();
+      const addr = $('#s-addr').value.trim();
+      const hours = $('#s-hours').value.trim();
+      const phone = $('#s-phone').value.trim();
+      const mail = $('#s-mail').value.trim();
+      const ticker = $('#s-ticker').value.trim();
+      const statStudents = parseInt($('#s-statStudents').value, 10) || 412;
+      const statTeachers = parseInt($('#s-statTeachers').value, 10) || 34;
+      const statLevels = parseInt($('#s-statLevels').value, 10) || 8;
+      const statLevelsLabel = $('#s-statLevelsLabel').value.trim() || 'Levels (Nur–Gr 5)';
+      const statClubs = parseInt($('#s-statClubs').value, 10) || 26;
+      const statYears = parseInt($('#s-statYears').value, 10) || 34;
+      const showAdmissionsBadge = $('#s-adm') ? $('#s-adm').classList.contains('on') : true;
 
-    db.settings = {
-      ...(db.settings || {}),
-      name, tag, addr, hours, phone, mail, ticker,
-      statStudents, statTeachers, statLevels, statLevelsLabel, statClubs, statYears
-    };
-    if (window.App && window.App.saveDb) window.App.saveDb();
-    
-    toast('Settings saved|School details and key statistics have been updated.');
-  });
+      db.settings = {
+        ...(db.settings || {}),
+        name, tag, addr, hours, phone, mail, ticker,
+        statStudents, statTeachers, statLevels, statLevelsLabel, statClubs, statYears,
+        showAdmissionsBadge
+      };
+      if (window.App && window.App.saveDb) window.App.saveDb();
+      
+      toast('Settings saved|School details and key statistics have been updated.');
+    });
+  }
 }
 
 function renderAdminClubs() {
@@ -877,25 +979,194 @@ function initAdminActivities() {
   renderAdminClubs();
   renderAdminSports();
   const search = $('#aClubSearch');
-  if (search) search.addEventListener('input', renderAdminClubs);
+  if (search) onOnce(search, 'input', renderAdminClubs);
   const addClubBtn = $('#addClub');
-  if (addClubBtn) addClubBtn.addEventListener('click', addClub);
+  if (addClubBtn) onOnce(addClubBtn, 'click', addClub);
   const addSportBtn = $('#addSport');
-  if (addSportBtn) addSportBtn.addEventListener('click', addSport);
+  if (addSportBtn) onOnce(addSportBtn, 'click', addSport);
 }
 
 function initAdminTst() {
   renderAdminTst();
   const addBtn = $('#addTst');
-  if (addBtn) addBtn.addEventListener('click', addTst);
+  if (addBtn) onOnce(addBtn, 'click', addTst);
 }
 
 function initAdminAlumni() {
   renderAdminAlumni();
   const search = $('#aAlumniSearch');
-  if (search) search.addEventListener('input', renderAdminAlumni);
+  if (search) onOnce(search, 'input', renderAdminAlumni);
   const addBtn = $('#addAlumni');
-  if (addBtn) addBtn.addEventListener('click', addAlumni);
+  if (addBtn) onOnce(addBtn, 'click', addAlumni);
+}
+
+function renderTeacherAuditFeed() {
+  const tbody = $('#aTeacherAuditBody');
+  if (!tbody) return;
+
+  const actionFilter = ($('#aReportFilterAction') ? $('#aReportFilterAction').value : 'All');
+  const gradeFilter = ($('#aReportFilterGrade') ? $('#aReportFilterGrade').value : 'All');
+
+  let list = db.teacherReports || [];
+  if (actionFilter !== 'All') list = list.filter(r => r.action === actionFilter);
+  if (gradeFilter !== 'All') list = list.filter(r => r.grade === gradeFilter);
+
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--ink-50)">No teacher activity logs match the selected filter.</td></tr>`;
+    return;
+  }
+
+  const actionBadge = act => {
+    switch (act) {
+      case 'attendance_marked':
+        return '<span class="tag" style="background:#E8F5E9;color:#2E7D32">Attendance</span>';
+      case 'student_added':
+        return '<span class="tag" style="background:#E7F1FF;color:#1D4ED8">New Student</span>';
+      case 'student_updated':
+        return '<span class="tag" style="background:#EDE7F6;color:#5E35B1">Student Updated</span>';
+      case 'student_deleted':
+        return '<span class="tag" style="background:#FFEBEE;color:#C62828">Student Deleted</span>';
+      case 'diary_posted':
+        return '<span class="tag" style="background:#FFF3E0;color:#EF6C00">Class Diary</span>';
+      case 'roster_exported':
+        return '<span class="tag" style="background:#E0F7F4;color:#0B4A42">CSV Export</span>';
+      default:
+        return `<span class="tag">${esc(act)}</span>`;
+    }
+  };
+
+  tbody.innerHTML = list.map(r => `
+    <tr>
+      <td>
+        <b style="font-size:.85rem;color:var(--navy);display:block">${fmt(r.timestamp)}</b>
+        <span style="font-size:.74rem;color:var(--ink-50)">${r.timestamp && r.timestamp.includes('T') ? r.timestamp.split('T')[1].slice(0, 5) : ''}</span>
+      </td>
+      <td>
+        <b>${esc(r.teacherName)}</b>
+        <span style="font-size:.74rem;color:var(--ink-50);display:block">@${esc(r.teacherUsername || '')}</span>
+      </td>
+      <td>${actionBadge(r.action)}</td>
+      <td><span class="pillx">${esc(r.grade || '—')}</span></td>
+      <td><span style="font-size:.88rem;color:var(--ink-80);line-height:1.4">${esc(r.summary)}</span></td>
+    </tr>
+  `).join('');
+}
+
+function exportTeacherReportsCsv() {
+  const list = db.teacherReports || [];
+  if (!list.length) {
+    toast('No activity records|There are no teacher activity logs to export.', 'warn');
+    return;
+  }
+
+  const headers = ['Report ID', 'Timestamp', 'Teacher Name', 'Username', 'Class / Grade', 'Action Type', 'Summary'];
+  const rows = list.map(r => [
+    `"${r.id || ''}"`,
+    `"${r.timestamp || ''}"`,
+    `"${(r.teacherName || '').replace(/"/g, '""')}"`,
+    `"${r.teacherUsername || ''}"`,
+    `"${r.grade || ''}"`,
+    `"${r.action || ''}"`,
+    `"${(r.summary || '').replace(/"/g, '""')}"`
+  ]);
+
+  const csv = [headers.join(','), ...rows.map(row => row.join(','))].join('\r\n');
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `Christina_School_Teacher_Activity_Audit_${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
+
+  toast(`Audit log exported|Downloaded ${list.length} teacher activity records.`);
+}
+
+function renderAdminTeacherReports() {
+  // Update KPIs
+  const totalTeachers = db.staff.length;
+  const activeLogins = db.staff.filter(s => s.username).length;
+  const totalStudents = (db.students || []).length;
+  const presentStudents = (db.students || []).filter(s => (s.attendanceToday || 'Present') === 'Present').length;
+  const attRate = totalStudents > 0 ? Math.round((presentStudents / totalStudents) * 100) : 0;
+
+  const kTeachers = $('#kRepTeachers');
+  if (kTeachers) kTeachers.textContent = totalTeachers;
+
+  const kLogins = $('#kRepActiveLogins');
+  if (kLogins) kLogins.textContent = activeLogins;
+
+  const kStudents = $('#kRepStudents');
+  if (kStudents) kStudents.textContent = totalStudents;
+
+  const kRate = $('#kRepAttRate');
+  if (kRate) kRate.textContent = `${attRate}%`;
+
+  // Render Teacher Summary Table
+  const sumBody = $('#aTeacherSummaryBody');
+  if (sumBody) {
+    const teachers = db.staff.filter(s => s.username || s.assignedGrade);
+    if (!teachers.length) {
+      sumBody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--ink-50)">No teachers assigned with portal logins yet. Use Staff view to configure credentials.</td></tr>`;
+    } else {
+      sumBody.innerHTML = teachers.map(s => {
+        const gradeStudents = (db.students || []).filter(st => st.grade === s.assignedGrade);
+        const presentCount = gradeStudents.filter(st => (st.attendanceToday || 'Present') === 'Present').length;
+        const totalCount = gradeStudents.length;
+        const pct = totalCount > 0 ? Math.round((presentCount / totalCount) * 100) : 0;
+
+        // Last activity
+        const lastAct = (db.teacherReports || []).find(r => r.teacherUsername === s.username || r.teacherName === s.name);
+
+        return `
+          <tr>
+            <td>
+              <span class="cellav">
+                <span class="av">${staffPic(s)}</span>
+                <span><b>${esc(s.name)}</b><span>${esc(s.desig)}</span></span>
+              </span>
+            </td>
+            <td>
+              ${s.username ? `<span class="tag" style="background:#E7F1FF;color:#1D4ED8;font-size:.78rem;display:inline-flex;align-items:center;gap:4px"><svg class="i i-12"><use href="#ic-lock"/></svg> ${esc(s.username)}</span>` : `<span style="color:var(--ink-50);font-size:.76rem">No login</span>`}
+            </td>
+            <td>
+              ${s.assignedGrade ? `<span class="pillx ok" style="font-weight:600">${esc(s.assignedGrade)} (${esc(s.assignedSection || 'A')})</span>` : `<span style="color:var(--ink-50)">—</span>`}
+            </td>
+            <td>
+              <b style="color:var(--navy);font-size:.88rem">${totalCount}</b> <span style="font-size:.76rem;color:var(--ink-50)">students</span>
+            </td>
+            <td>
+              ${totalCount > 0 ? `<span class="pillx ok" style="font-size:.75rem">${presentCount}/${totalCount} Present (${pct}%)</span>` : `<span style="color:var(--ink-50);font-size:.78rem">No students</span>`}
+            </td>
+            <td>
+              ${lastAct ? `
+                <div style="font-size:.8rem;color:var(--navy);font-weight:600">${fmt(lastAct.timestamp)}</div>
+                <div style="font-size:.74rem;color:var(--ink-50);max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(lastAct.summary)}</div>
+              ` : `<span style="color:var(--ink-50);font-size:.76rem">No reports logged</span>`}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+  }
+
+  // Render Audit feed
+  renderTeacherAuditFeed();
+}
+
+function initAdminTeacherReports() {
+  renderAdminTeacherReports();
+
+  const actionFilter = $('#aReportFilterAction');
+  if (actionFilter) onOnce(actionFilter, 'change', renderTeacherAuditFeed);
+
+  const gradeFilter = $('#aReportFilterGrade');
+  if (gradeFilter) onOnce(gradeFilter, 'change', renderTeacherAuditFeed);
+
+  const exportBtn = $('#btnExportAuditLog');
+  if (exportBtn) onOnce(exportBtn, 'click', exportTeacherReportsCsv);
 }
 
 
@@ -903,9 +1174,10 @@ function initAdminAlumni() {
 const adminRouter = window.Router.init({
   container: '#admin-app',
   routes: {
-    'home':       { page: 'pages/admin-overview.html', onLoad: initOverview },
-    'overview':   { page: 'pages/admin-overview.html', onLoad: initOverview },
-    'staff':      { page: 'pages/admin-staff.html', onLoad: initAdminStaff },
+    'home':            { page: 'pages/admin-overview.html', onLoad: initOverview },
+    'overview':        { page: 'pages/admin-overview.html', onLoad: initOverview },
+    'staff':           { page: 'pages/admin-staff.html', onLoad: initAdminStaff },
+    'teacher-reports': { page: 'pages/admin-teacher-reports.html', onLoad: initAdminTeacherReports },
     'ann':        { page: 'pages/admin-announcements.html', onLoad: initAdminAnn },
     'gal':        { page: 'pages/admin-gallery.html', onLoad: initAdminGal },
     'ev':         { page: 'pages/admin-events.html', onLoad: initAdminEv },
@@ -971,7 +1243,13 @@ window.addEventListener('keydown', e => {
 
 // Logout and view site
 const logoutBtn = $('#logout');
-if (logoutBtn) logoutBtn.addEventListener('click', () => { window.location.href = 'index.html'; });
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', e => {
+    e.preventDefault();
+    sessionStorage.removeItem('christina_admin_auth');
+    window.location.href = 'index.html';
+  });
+}
 
 const viewSiteBtn = $('#viewSite');
 if (viewSiteBtn) viewSiteBtn.addEventListener('click', () => { window.location.href = 'index.html'; });

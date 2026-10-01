@@ -837,6 +837,84 @@ p {
   padding: clamp(22px, 3vw, 34px)
 }
 
+/* ---------- Universal Form Grid & Field Styles ---------- */
+.fgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 1rem;
+  position: relative;
+}
+.field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.field.full {
+  grid-column: 1 / -1;
+}
+.field label {
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--ink-70);
+  display: block;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.72rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: var(--r-s);
+  background: var(--paper);
+  font-size: 0.92rem;
+  font-family: inherit;
+  color: var(--navy);
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+.field select {
+  cursor: pointer;
+}
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--royal);
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+}
+.field .err {
+  font-size: 0.75rem;
+  color: #DC2626;
+  font-weight: 600;
+  display: none;
+  margin-top: 2px;
+}
+.field.bad input,
+.field.bad select,
+.field.bad textarea {
+  border-color: #EF4444;
+  background: #FEF2F2;
+}
+.field.bad .err {
+  display: block;
+}
+.field.ok input,
+.field.ok select {
+  border-color: #22C55E;
+}
+@media (max-width: 600px) {
+  .fgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .check {
   display: flex;
   align-items: center;
@@ -875,6 +953,130 @@ p {
   border: 0;
   cursor: pointer;
   font-weight: 600
+}
+
+/* Teacher Demo Cards in Login Modal */
+.teacher-demo-grid {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.teacher-demo-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 12px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.18s ease;
+  width: 100%;
+}
+.teacher-demo-card:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px);
+}
+.teacher-demo-card.active {
+  background: rgba(255, 122, 26, 0.22);
+  border-color: #FF7A1A;
+  box-shadow: 0 0 12px rgba(255, 122, 26, 0.35);
+}
+.teacher-demo-card .tdc-av {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.teacher-demo-card .tdc-meta {
+  flex: 1;
+  min-width: 0;
+}
+.teacher-demo-card .tdc-name {
+  font-weight: 700;
+  font-size: 0.84rem;
+  color: #fff;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.teacher-demo-card .tdc-desc {
+  font-size: 0.72rem;
+  color: #A9C3E8;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.teacher-demo-card .tdc-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFC24A;
+  flex-shrink: 0;
+}
+.teacher-demo-card.active .tdc-tag {
+  background: #FF7A1A;
+  color: #fff;
+}
+
+/* Teacher Live Confirmation Banner */
+.teacher-active-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: #EFF6FF;
+  border: 1px solid #BFDBFE;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.teacher-active-banner .live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16A34A;
+  display: inline-block;
+  box-shadow: 0 0 6px rgba(22, 163, 74, 0.6);
+  flex-shrink: 0;
+}
+
+/* Login Inline Alert */
+.login-inline-alert {
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  display: none;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.login-inline-alert.error {
+  background: #FEF2F2;
+  border: 1px solid #FEE2E2;
+  color: #B91C1C;
+  display: flex;
+}
+.login-inline-alert.shake {
+  animation: alertShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+@keyframes alertShake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
 }
 
 /* ---------- modal responsive overrides ---------- */

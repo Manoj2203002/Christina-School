@@ -97,12 +97,15 @@ function closeDrawer() {
   document.body.classList.remove('locked');
 }
 
+let lastBurgerTouch = 0;
+
 document.addEventListener('click', e => {
   // 1. Burger button toggle
   const b = e.target.closest('#burger');
   if (b) {
     e.preventDefault();
     e.stopPropagation();
+    if (Date.now() - lastBurgerTouch < 450) return;
     const d = $('#drawer');
     if (d && d.classList.contains('open')) {
       closeDrawer();
@@ -124,6 +127,7 @@ document.addEventListener('click', e => {
   if (g) {
     e.preventDefault();
     closeDrawer();
+    if (typeof closeModal === 'function') closeModal();
     goto(g.dataset.goto);
     return;
   }
@@ -137,11 +141,13 @@ document.addEventListener('click', e => {
     if (el && !href.startsWith('#/')) {
       e.preventDefault();
       closeDrawer();
+      if (typeof closeModal === 'function') closeModal();
       goto('#' + clean);
       history.replaceState(null, '', '#' + clean);
     } else {
       e.preventDefault();
       closeDrawer();
+      if (typeof closeModal === 'function') closeModal();
       window.Router.go(clean);
     }
   }
@@ -159,6 +165,7 @@ document.addEventListener('touchstart', e => {
   if (b) {
     e.preventDefault();
     e.stopPropagation();
+    lastBurgerTouch = Date.now();
     const d = $('#drawer');
     if (d && d.classList.contains('open')) {
       closeDrawer();
@@ -218,7 +225,14 @@ function updateActiveNav(hash) {
    ------------------------------------------------------------ */
 function renderTicker() {
   const t = $('#ticker'); if(!t) return;
-  const live = db.ann.filter(a => a.status === 'published').slice(0, 6).map(a => a.title);
+  const s = db.settings || {};
+  const live = [];
+  if (s.ticker) live.push(s.ticker);
+  const activeNotices = (db.ann || [])
+    .filter(a => a.status === 'published' && (typeof isAnnActive === 'function' ? isAnnActive(a) : true))
+    .slice(0, 6)
+    .map(a => a.title);
+  activeNotices.forEach(item => { if (!live.includes(item)) live.push(item); });
   live.push('Campus tours run at 10 am and 2 pm on weekdays');
   const html = live.map(text => `<span>${esc(text)}</span>`).join('');
   t.innerHTML = html + html;
@@ -479,7 +493,7 @@ function renderAnnChips() {
 }
 function renderPinned() {
   const pw = $('#pinnedWrap'); if(!pw) return;
-  const pinnedList = db.ann.filter(a => a.pinned && a.status === 'published');
+  const pinnedList = db.ann.filter(a => a.pinned && a.status === 'published' && (typeof isAnnActive === 'function' ? isAnnActive(a) : true));
   if (!pinnedList.length) { pw.innerHTML = ''; return; }
   if (pinnedList.length === 1) {
     const p = pinnedList[0];
@@ -525,7 +539,9 @@ function renderPinned() {
 }
 function renderAnn() {
   const ag = $('#annGrid'); if(!ag) return;
-  const list = db.ann.filter(a => a.status === 'published' && !a.pinned).filter(a => annCat === 'All' || a.cat === annCat);
+  const list = db.ann
+    .filter(a => a.status === 'published' && !a.pinned && (typeof isAnnActive === 'function' ? isAnnActive(a) : true))
+    .filter(a => annCat === 'All' || a.cat === annCat);
   ag.innerHTML = list.length ? list.map((a, i) => `
     <article class="ann rv" data-d="${i % 3}" style="--cat:${CATS[a.cat].c}">
       <div class="hd">
@@ -765,7 +781,7 @@ function renderDocs() {
         <span class="meta">${esc(d.category)} · For ${esc((d.audience || 'Everyone').toLowerCase())} · ${fmt(d.date)}</span>
         ${d.desc ? `<p>${esc(d.desc)}</p>` : ''}
         ${d.file
-          ? `<a class="btn btn-soft btn-sm" href="${d.file}" download="${esc(d.fileName || d.title)}"><svg class="i i-16"><use href="#ic-arrow-u"/></svg> Download</a>`
+          ? `<a class="btn btn-soft btn-sm" href="${d.file}" download="${esc(d.fileName || d.title)}"><svg class="i i-16"><use href="#ic-arrow-r"/></svg> Download</a>`
           : `<button class="btn btn-soft btn-sm" type="button" data-toast="Coming soon|This document will be uploaded shortly. Please check back.">Download</button>`}
       </div>
     </div>`).join('')
@@ -799,7 +815,10 @@ function openModal(html, wide) {
   document.body.classList.add('locked');
   if(mc) mountScenes(mc);
   const f = $('#modalContent input, #modalContent select, #modalContent textarea, #modalContent button');
-  setTimeout(() => (f || $('#modal .x')).focus(), 60);
+  setTimeout(() => {
+    const target = f || $('#modal .x');
+    if (target && typeof target.focus === 'function') target.focus();
+  }, 60);
 }
 function closeModal() {
   const m = $('#modal'); if(m) m.classList.remove('open');
@@ -1008,9 +1027,18 @@ document.addEventListener('submit', e => {
       { sel: '#c-name', test: notEmpty }, { sel: '#c-phone', test: isPhone }, { sel: '#c-msg', test: notEmpty }
     ]);
     if (!ok) { toast('Check the highlighted fields|The office needs a name, number and message.', 'warn'); return; }
+    const d = new Date();
+    const sub = $('#c-sub') ? $('#c-sub').value : 'General message';
+    db.enquiries.unshift({
+      id: Date.now(), parent: $('#c-name').value.trim(), child: '—', grade: 'Contact Enquiry',
+      phone: $('#c-phone').value.trim(), email: '',
+      date: `${d.getFullYear()}-${d2(d.getMonth() + 1)}-${d2(d.getDate())}`, status: 'New',
+      msg: '[' + sub + '] ' + $('#c-msg').value.trim()
+    });
+    if (window.App && window.App.saveDb) window.App.saveDb();
     e.target.reset();
     $$('#ctForm .field').forEach(f => f.classList.remove('ok', 'bad'));
-    toast('Message sent to the office|Someone will reply within one working day.');
+    toast('Message sent to the office|Your note has been received by our administration team.');
   }
   else if(e.target.id === 'visitForm') {
     e.preventDefault();
@@ -1060,18 +1088,149 @@ document.addEventListener('click', e => {
 /* ------------------------------------------------------------
    LOGIN
    ------------------------------------------------------------ */
-function openLogin() {
+function setLoginRole(role) {
+  currentLoginRole = role;
+  const isTeacher = role === 'teacher';
+  
+  const tabT = $('#roleTabTeacher'), tabA = $('#roleTabAdmin');
+  if (tabT && tabA) {
+    tabT.style.background = isTeacher ? 'var(--mari)' : 'transparent';
+    tabT.style.color = isTeacher ? '#fff' : 'var(--ink-70)';
+    tabT.classList.toggle('active', isTeacher);
+    tabA.style.background = !isTeacher ? 'var(--mari)' : 'transparent';
+    tabA.style.color = !isTeacher ? '#fff' : 'var(--ink-70)';
+    tabA.classList.toggle('active', !isTeacher);
+  }
+  
+  const sideTitle = $('#loginSideTitle');
+  const sideDesc = $('#loginSideDesc');
+  const sideHint = $('#loginDemoHint');
+  const mainTitle = $('#loginMainTitle');
+  const mainSub = $('#loginMainSub');
+  const userLabel = $('#lUserLabel');
+  const userInput = $('#l-user');
+  const passInput = $('#l-pass');
+  const submitBtn = $('#loginSubmitBtn');
+  const banner = $('#teacherActiveBanner');
+  const alertBox = $('#loginInlineAlert');
+  if (alertBox) { alertBox.style.display = 'none'; alertBox.classList.remove('shake', 'error'); }
+
+  if (isTeacher) {
+    if (sideTitle) sideTitle.textContent = 'Teacher Portal';
+    if (sideDesc) sideDesc.textContent = 'For class teachers to manage student rosters, attendance roll-calls, and daily classroom updates.';
+    if (banner) banner.style.display = 'flex';
+    if (sideHint) {
+      sideHint.innerHTML = `
+        <div style="font-weight:700;margin-bottom:8px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:5px;display:flex;align-items:center;justify-content:space-between">
+          <span>Select Demo Teacher:</span>
+          <span style="font-size:.72rem;color:#FFC24A">1-Click Sign-in</span>
+        </div>
+        <div class="teacher-demo-grid" id="teacherDemoGrid">
+          <button type="button" class="teacher-demo-card active" data-fill-user="deepa.r" data-teacher-name="Ms. Deepa Rangarajan" data-teacher-grade="Grade 1 · Room 102">
+            <div class="tdc-av" style="background:#1D4ED8">DR</div>
+            <div class="tdc-meta">
+              <span class="tdc-name">Ms. Deepa Rangarajan</span>
+              <span class="tdc-desc">Grade 1 · Room 102 · Computing</span>
+            </div>
+            <span class="tdc-tag">G1</span>
+          </button>
+          <button type="button" class="teacher-demo-card" data-fill-user="sharmitha" data-teacher-name="Ms. Sharmitha S" data-teacher-grade="UKG · Sunshine Wing">
+            <div class="tdc-av" style="background:#BE185D">SS</div>
+            <div class="tdc-meta">
+              <span class="tdc-name">Ms. Sharmitha S</span>
+              <span class="tdc-desc">UKG · Sunshine Wing · Phonics</span>
+            </div>
+            <span class="tdc-tag">UKG</span>
+          </button>
+          <button type="button" class="teacher-demo-card" data-fill-user="gayathri" data-teacher-name="Ms. Gayathri N" data-teacher-grade="Grade 2 · Room 201">
+            <div class="tdc-av" style="background:#059669">GN</div>
+            <div class="tdc-meta">
+              <span class="tdc-name">Ms. Gayathri N</span>
+              <span class="tdc-desc">Grade 2 · Room 201 · English</span>
+            </div>
+            <span class="tdc-tag">G2</span>
+          </button>
+          <button type="button" class="teacher-demo-card" data-fill-user="keerthina" data-teacher-name="Ms. Keerthina M" data-teacher-grade="Grade 3 · Room 205">
+            <div class="tdc-av" style="background:#7C3AED">KM</div>
+            <div class="tdc-meta">
+              <span class="tdc-name">Ms. Keerthina M</span>
+              <span class="tdc-desc">Grade 3 · Room 205 · Math</span>
+            </div>
+            <span class="tdc-tag">G3</span>
+          </button>
+        </div>`;
+    }
+    if (mainTitle) mainTitle.textContent = 'Teacher Sign-in';
+    if (mainSub) mainSub.textContent = 'Sign in to manage your students and classroom attendance.';
+    if (userLabel) userLabel.textContent = 'Teacher Username';
+    if (userInput) { userInput.placeholder = 'e.g. deepa.r'; userInput.value = 'deepa.r'; }
+    if (passInput) passInput.value = 'teacher123';
+    if (submitBtn) submitBtn.innerHTML = 'Sign in to Teacher Portal <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg>';
+  } else {
+    if (sideTitle) sideTitle.textContent = 'School Office Sign-in';
+    if (sideDesc) sideDesc.textContent = 'For school principal and administrators to manage website content, staff credentials, and school settings.';
+    if (banner) banner.style.display = 'none';
+    if (sideHint) {
+      sideHint.innerHTML = `
+        <div style="font-weight:700;margin-bottom:6px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px">Demo Administrator</div>
+        <div style="font-size:.84rem;line-height:1.5;background:rgba(255,255,255,.08);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.15)">
+          <div>Username: <b>admin</b></div>
+          <div>Password: <b>christina</b></div>
+          <div style="font-size:.74rem;color:#FFC24A;margin-top:4px">Full administrative access</div>
+        </div>`;
+    }
+    if (mainTitle) mainTitle.textContent = 'Administrator Sign-in';
+    if (mainSub) mainSub.textContent = 'Sign in to access the full school administration dashboard.';
+    if (userLabel) userLabel.textContent = 'Admin Username or Email';
+    if (userInput) { userInput.placeholder = 'admin'; userInput.value = 'admin'; }
+    if (passInput) passInput.value = 'christina';
+    if (submitBtn) submitBtn.innerHTML = 'Sign in to School Admin <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg>';
+  }
+  $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
+}
+
+function openLogin(role) {
   const l = $('#login'); if(!l) return;
   l.classList.add('open'); document.body.classList.add('locked');
   $('#forgotPane').style.display = 'none'; $('#loginForm').style.display = 'grid';
+  const alertBox = $('#loginInlineAlert');
+  if (alertBox) { alertBox.style.display = 'none'; alertBox.classList.remove('shake', 'error'); }
+
+  setLoginRole(role || currentLoginRole || 'teacher');
+
+  // Check remembered teacher from localStorage
+  try {
+    const rem = localStorage.getItem('christina_teacher_remembered');
+    if (rem && currentLoginRole === 'teacher') {
+      const data = JSON.parse(rem);
+      if (data && data.username) {
+        const userInput = $('#l-user');
+        const passInput = $('#l-pass');
+        if (userInput) userInput.value = data.username;
+        if (passInput) passInput.value = 'teacher123';
+        
+        $$('.teacher-demo-card').forEach(c => {
+          c.classList.toggle('active', c.dataset.fillUser === data.username);
+        });
+        const bName = $('#activeTeacherName');
+        const bGrade = $('#activeTeacherGrade');
+        if (bName && data.name) bName.textContent = data.name;
+        if (bGrade && data.grade) bGrade.textContent = `(${data.grade})`;
+      }
+    }
+  } catch (err) {}
+
   setTimeout(() => $('#l-user').focus(), 80);
 }
+
 function closeLogin() {
   const l = $('#login'); if(!l) return;
   l.classList.remove('open');
   const a = $('#admin');
   if (!a || !a.classList.contains('open')) document.body.classList.remove('locked');
 }
+let currentLoginRole = 'teacher';
+
 document.addEventListener('click', e => {
   if (e.target.closest('.login-open') || e.target.closest('.tb-login-js')) { e.preventDefault(); closeDrawer(); openLogin(); }
   if (e.target.closest('[data-close-login]')) closeLogin();
@@ -1080,33 +1239,162 @@ document.addEventListener('click', e => {
     i.type = show ? 'text' : 'password';
     $('#pwToggle').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
   }
-  if (e.target.closest('#forgotBtn')) { $('#loginForm').style.display = 'none'; $('#forgotPane').style.display = 'block'; $('#f-mail').focus(); }
+  const roleTab = e.target.closest('[data-role]');
+  if (roleTab) {
+    setLoginRole(roleTab.dataset.role);
+    return;
+  }
+  const fillBtn = e.target.closest('[data-fill-user]');
+  if (fillBtn) {
+    const uname = fillBtn.dataset.fillUser;
+    const tName = fillBtn.dataset.teacherName || uname;
+    const tGrade = fillBtn.dataset.teacherGrade || '';
+    const userInput = $('#l-user');
+    const passInput = $('#l-pass');
+    if (userInput) userInput.value = uname;
+    if (passInput) passInput.value = 'teacher123';
+
+    // Highlight active card
+    $$('.teacher-demo-card').forEach(c => c.classList.remove('active'));
+    fillBtn.classList.add('active');
+
+    // Update banner
+    const bName = $('#activeTeacherName');
+    const bGrade = $('#activeTeacherGrade');
+    if (bName) bName.textContent = tName;
+    if (bGrade) bGrade.textContent = `(${tGrade})`;
+    const banner = $('#teacherActiveBanner');
+    if (banner) banner.style.display = 'flex';
+
+    const alertBox = $('#loginInlineAlert');
+    if (alertBox) { alertBox.style.display = 'none'; alertBox.classList.remove('shake', 'error'); }
+
+    toast(`Teacher selected|Ready to sign in as ${tName}.`, 'info');
+    return;
+  }
+  if (e.target.closest('#forgotBtn')) { $('#loginForm').style.display = 'none'; $('#forgotPane').style.display = 'block'; }
   if (e.target.closest('#backToLogin')) { $('#forgotPane').style.display = 'none'; $('#loginForm').style.display = 'grid'; }
 });
+
 document.addEventListener('submit', e => {
   if (e.target.id === 'forgotForm') {
     e.preventDefault();
-    if (!isMail($('#f-mail').value.trim())) { toast('Check the email address|It needs to be the address on your staff record.', 'warn'); return; }
-    toast('Reset link sent|Check your inbox in the next few minutes.');
+    toast('Staff Support|Please contact the school office to reset your portal password.', 'info');
     $('#backToLogin').click();
   }
   else if (e.target.id === 'loginForm') {
     e.preventDefault();
     const u = $('#l-user').value.trim(), p = $('#l-pass').value;
     const ok = validate(e.target, [{ sel: '#l-user', test: notEmpty }, { sel: '#l-pass', test: v => v.length > 0 }]);
-    if (!ok) { toast('Enter your username and password|Demo access: admin / christina.', 'warn'); return; }
-    const validUsers = ['admin', 'admin@christinaschool.in'];
-    const validPass = ['christina', 'admin'];
-    if (validUsers.includes(u.toLowerCase()) && validPass.includes(p)) {
+    const alertBox = $('#loginInlineAlert');
+    const alertText = $('#loginAlertText');
+
+    if (!ok) {
+      if (alertBox && alertText) {
+        alertText.textContent = 'Please enter both your username and password.';
+        alertBox.className = 'login-inline-alert error shake';
+      }
+      toast('Enter your username and password', 'warn');
+      return;
+    }
+
+    if (currentLoginRole === 'teacher') {
+      const teacher = (db.staff || []).find(s => 
+        (s.username && s.username.toLowerCase() === u.toLowerCase()) && 
+        (s.password === p || p === 'teacher123')
+      );
+
+      if (!teacher) {
+        $('#l-pass').closest('.field').classList.add('bad');
+        if (alertBox && alertText) {
+          alertText.innerHTML = '<b>Invalid credentials:</b> Username or password did not match. Please choose a demo teacher above or verify your details.';
+          alertBox.className = 'login-inline-alert error shake';
+        }
+        toast('Teacher credentials not found|Try deepa.r, sharmitha, gayathri, or keerthina with password teacher123.', 'warn');
+        return;
+      }
+
+      if (teacher.canLogin === false || teacher.active === false) {
+        if (alertBox && alertText) {
+          alertText.innerHTML = '<b>Account Suspended:</b> This teacher account has been deactivated by the Principal. Please contact the front office.';
+          alertBox.className = 'login-inline-alert error shake';
+        }
+        toast('Teacher account inactive|Please consult the school administrator.', 'warn');
+        return;
+      }
+
+      // Handle Remember Me
+      const rememberCheckbox = $('#l-remember');
+      if (rememberCheckbox && rememberCheckbox.checked) {
+        try {
+          localStorage.setItem('christina_teacher_remembered', JSON.stringify({
+            username: teacher.username,
+            name: teacher.name,
+            grade: teacher.assignedGrade || 'Grade 1'
+          }));
+        } catch (err) {}
+      } else {
+        try { localStorage.removeItem('christina_teacher_remembered'); } catch (err) {}
+      }
+
+      // Record last login & audit report
+      teacher.lastLogin = new Date().toISOString();
+      db.teacherReports = db.teacherReports || [];
+      db.teacherReports.unshift({
+        id: Date.now(),
+        timestamp: new Date().toISOString(),
+        teacherName: teacher.name,
+        teacherUsername: teacher.username,
+        grade: teacher.assignedGrade || 'Grade 1',
+        action: 'login',
+        summary: `Teacher ${teacher.name} signed into the Teacher Portal (${teacher.assignedGrade || 'Grade 1'})`,
+        device: 'Web Portal · Desktop'
+      });
+      if (window.App && window.App.saveDb) window.App.saveDb();
+
+      const authData = {
+        id: teacher.id,
+        name: teacher.name,
+        username: teacher.username,
+        assignedGrade: teacher.assignedGrade || 'Grade 1',
+        assignedSection: teacher.assignedSection || 'A',
+        roomNo: teacher.roomNo || 'Room 102',
+        email: teacher.email || '',
+        phone: teacher.phone || '',
+        bloodGroup: teacher.bloodGroup || '',
+        desig: teacher.desig
+      };
+      sessionStorage.setItem('christina_teacher_auth', JSON.stringify(authData));
       closeLogin(); e.target.reset();
       $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
-      window.location.href = 'admin-dashboard.html';
+      toast('Welcome back, ' + teacher.name + '|Signed in as Class Teacher for ' + (teacher.assignedGrade || 'Grade 1') + '.', 'ok');
+      setTimeout(() => { window.location.href = 'teacher-dashboard.html'; }, 300);
+
     } else {
-      $('#l-pass').closest('.field').classList.add('bad');
-      toast('Invalid credentials|Use admin / christina for this demo.', 'warn');
+      const validUsers = ['admin', 'admin@christinaschool.in', 'principal'];
+      const validPass = ['christina', 'admin'];
+      if (validUsers.includes(u.toLowerCase()) && validPass.includes(p)) {
+        sessionStorage.setItem('christina_admin_auth', '1');
+        closeLogin(); e.target.reset();
+        $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
+        toast('Welcome back, Principal|Signed in to School Admin Dashboard.', 'ok');
+        setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 300);
+      } else {
+        $('#l-pass').closest('.field').classList.add('bad');
+        if (alertBox && alertText) {
+          alertText.innerHTML = '<b>Invalid admin credentials:</b> Demo username is <b>admin</b> and password is <b>christina</b>.';
+          alertBox.className = 'login-inline-alert error shake';
+        }
+        toast('Invalid admin credentials|Demo username is "admin" and password is "christina".', 'warn');
+      }
     }
   }
 });
+
+// Auto-open teacher login modal if URL indicates teacher portal request
+if (window.location.search.includes('login=teacher') || window.location.hash === '#/login-teacher') {
+  setTimeout(() => openLogin('teacher'), 150);
+}
 
 /* ------------------------------------------------------------
    ANNOUNCEMENT POP-UP DIALOG (MULTI-ANNOUNCEMENT SUPPORT)
@@ -1481,11 +1769,31 @@ function initTestimonials() {
 }
 
 let newsCat = 'All', newsQuery = '';
+function matchNewsCategory(n, cat) {
+  if (!cat || cat === 'All') return true;
+  const c = cat.toLowerCase();
+  const theme = (n.theme || '').toLowerCase();
+  const title = (n.title || '').toLowerCase();
+  const text = (n.text || '').toLowerCase();
+  if (c === 'academic') {
+    return theme === 'reading' || theme === 'computer' || title.includes('reading') || title.includes('robotics') || title.includes('phonics');
+  }
+  if (c === 'science') {
+    return theme === 'science' || theme === 'lab' || theme === 'computer' || title.includes('science') || title.includes('robotics') || title.includes('garden');
+  }
+  if (c === 'campus') {
+    return theme === 'library' || theme === 'campus' || theme === 'art' || title.includes('library') || title.includes('corridor') || text.includes('campus');
+  }
+  if (c === 'arts') {
+    return theme === 'art' || theme === 'music' || theme === 'dance' || title.includes('mural') || title.includes('paint') || text.includes('paint');
+  }
+  return theme.includes(c) || title.includes(c) || text.includes(c);
+}
 function renderFilteredNews() {
   const ng = $('#newsGrid'); if(!ng) return;
-  const list = db.news
-    .filter(n => newsCat === 'All' || (n.theme && n.theme.toLowerCase().includes(newsCat.toLowerCase())) || (n.by && n.by.toLowerCase().includes(newsCat.toLowerCase())) || (n.title && n.title.toLowerCase().includes(newsCat.toLowerCase())))
-    .filter(n => !newsQuery || (n.title + ' ' + n.text + ' ' + n.by).toLowerCase().includes(newsQuery));
+  const list = (db.news || [])
+    .filter(n => matchNewsCategory(n, newsCat))
+    .filter(n => !newsQuery || (n.title + ' ' + n.text + ' ' + (n.by || '')).toLowerCase().includes(newsQuery));
     
   ng.innerHTML = list.length ? list.map((n, i) => `
     <article class="news zoom rv" data-d="${i % 3}">
@@ -1653,6 +1961,7 @@ const router = window.Router.init({
   onRouteChange: function(hash, route) {
     updateActiveNav(hash);
     closeDrawer();
+    hydrateSchoolSettings();
     if (hash === 'events') {
       setTimeout(() => {
         const ev = $('#events');
@@ -1662,10 +1971,50 @@ const router = window.Router.init({
   }
 });
 
+function hydrateSchoolSettings() {
+  const s = db.settings || {};
+  if (s.phone) {
+    $$('.tb-phone span').forEach(el => el.textContent = s.phone);
+    $$('.tb-phone').forEach(el => el.setAttribute('href', 'tel:' + s.phone.replace(/[^0-9+]/g, '')));
+  }
+  if (s.mail) {
+    $$('.tb-email span').forEach(el => el.textContent = s.mail);
+    $$('.tb-email').forEach(el => el.setAttribute('href', 'mailto:' + s.mail));
+  }
+  if (s.hours) {
+    $$('.tb-hours span').forEach(el => el.textContent = s.hours);
+  }
+  if (s.showAdmissionsBadge !== undefined) {
+    const note = $('.tb-note');
+    if (note) note.style.display = s.showAdmissionsBadge ? '' : 'none';
+  }
+  // If contact page elements are loaded, hydrate them
+  const ctItems = $$('#contact .ct-item');
+  if (ctItems.length >= 4) {
+    if (s.addr) {
+      const sp = $('span span', ctItems[0]);
+      if (sp) sp.textContent = s.addr;
+    }
+    if (s.phone) {
+      const sp = $('span span', ctItems[1]);
+      if (sp) sp.textContent = 'Office ' + s.phone + ' · Mobile +91 94432 75738';
+    }
+    if (s.mail) {
+      const sp = $('span span', ctItems[2]);
+      if (sp) sp.textContent = s.mail + ' · admissions@christinaschool.in';
+    }
+    if (s.hours) {
+      const sp = $('span span', ctItems[3]);
+      if (sp) sp.textContent = s.hours;
+    }
+  }
+}
+
 // Boot
 const yr = document.getElementById('yr');
 if(yr) yr.textContent = new Date().getFullYear();
 if (sortStores) sortStores();
+hydrateSchoolSettings();
 renderTicker();
 onScroll();
 

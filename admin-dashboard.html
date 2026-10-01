@@ -11,6 +11,11 @@
 <link rel="stylesheet" href="css/global.css" />
 <link rel="stylesheet" href="css/admin.css" />
 <link rel="stylesheet" href="css/style.css" />
+<script>
+  if (!sessionStorage.getItem('christina_admin_auth')) {
+    window.location.replace('index.html');
+  }
+</script>
 </head>
 <body class="admin-body">
 
@@ -89,6 +94,7 @@
     <nav aria-label="Dashboard sections">
       <button data-view="overview" class="on"><svg class="i i-18"><use href="#ic-grid"/></svg> Dashboard</button>
       <button data-view="staff"><svg class="i i-18"><use href="#ic-users"/></svg> Staff <span class="cnt" id="cStaff">0</span></button>
+      <button data-view="teacher-reports"><svg class="i i-18"><use href="#ic-sparkle"/></svg> Teacher Reports <span class="cnt" id="cTeacherReports">0</span></button>
       <button data-view="ann"><svg class="i i-18"><use href="#ic-mega"/></svg> Announcements <span class="cnt" id="cAnn">0</span></button>
       <button data-view="gal"><svg class="i i-18"><use href="#ic-image"/></svg> Gallery <span class="cnt" id="cGal">0</span></button>
       <button data-view="ev"><svg class="i i-18"><use href="#ic-cal"/></svg> Events <span class="cnt" id="cEv">0</span></button>

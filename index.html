@@ -125,13 +125,14 @@
       <a href="#/announcements">Notices</a>
       <a href="#/events">Events</a>
       <a href="#/gallery">Gallery</a>
+      <a href="#/documents">Documents</a>
       <a href="#/alumni">Alumni</a>
       <a href="#/news">News</a>
       <a href="#/admissions">Admissions</a>
       <a href="#/contact">Contact</a>
     </nav>
     <div class="nav-cta">
-      <button class="btn btn-soft btn-sm login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Admin login</button>
+      <button class="btn btn-soft btn-sm login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Login</button>
       <button class="btn btn-primary btn-sm" type="button" data-goto="#/admissions">Enquire now</button>
       <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><i></i><i></i><i></i></button>
     </div>
@@ -168,7 +169,7 @@
     </nav>
     <div class="drawer-foot">
       <button class="btn btn-primary" type="button" data-goto="#/admissions">Start an enquiry</button>
-      <button class="btn btn-ghost login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Admin login</button>
+      <button class="btn btn-ghost login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Login</button>
       <p class="small" style="color:var(--ink-50)">Rasipuram Main Road, Gopalapuram, Attur Salem – 636102</p>
     </div>
   </div>
@@ -237,7 +238,7 @@
         <a href="javascript:void(0)" class="policy-link" data-policy="privacy">Privacy</a>
         <a href="javascript:void(0)" class="policy-link" data-policy="child">Child protection policy</a>
         <a href="javascript:void(0)" class="policy-link" data-policy="fee">Fee policy</a>
-        <button class="login-open" style="background:none;border:0;color:inherit;cursor:pointer;font-weight:600">Admin login</button>
+        <button class="login-open" style="background:none;border:0;color:inherit;cursor:pointer;font-weight:600">Staff &amp; Admin login</button>
       </span>
     </div>
   </div>
@@ -315,36 +316,97 @@
     <div class="login-side">
       <span class="brand-mark" style="width:54px;height:54px" aria-hidden="true"><img src="assets/logo.png" alt="Christina School" class="brand-logo" style="width:52px;height:52px" /></span>
       <div>
-        <h3 id="loginTitle">School office sign-in</h3>
-        <p>For staff and administrators. Parents use the app link sent by the class teacher.</p>
-        <div class="login-demo">Demo access — username <b>admin</b>, password <b>christina</b></div>
+        <h3 id="loginSideTitle">Teacher Portal</h3>
+        <p id="loginSideDesc">For class teachers to manage student rosters, attendance roll-calls, and daily classroom updates.</p>
+        <div class="login-demo" id="loginDemoHint">
+          <div style="font-weight:700;margin-bottom:8px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:5px;display:flex;align-items:center;justify-content:space-between">
+            <span>Select Demo Teacher:</span>
+            <span style="font-size:.72rem;color:#FFC24A">1-Click Sign-in</span>
+          </div>
+          <div class="teacher-demo-grid" id="teacherDemoGrid">
+            <button type="button" class="teacher-demo-card active" data-fill-user="deepa.r" data-teacher-name="Ms. Deepa Rangarajan" data-teacher-grade="Grade 1 · Room 102">
+              <div class="tdc-av" style="background:#1D4ED8">DR</div>
+              <div class="tdc-meta">
+                <span class="tdc-name">Ms. Deepa Rangarajan</span>
+                <span class="tdc-desc">Grade 1 · Room 102 · Computing</span>
+              </div>
+              <span class="tdc-tag">G1</span>
+            </button>
+            <button type="button" class="teacher-demo-card" data-fill-user="sharmitha" data-teacher-name="Ms. Sharmitha S" data-teacher-grade="UKG · Sunshine Wing">
+              <div class="tdc-av" style="background:#BE185D">SS</div>
+              <div class="tdc-meta">
+                <span class="tdc-name">Ms. Sharmitha S</span>
+                <span class="tdc-desc">UKG · Sunshine Wing · Phonics</span>
+              </div>
+              <span class="tdc-tag">UKG</span>
+            </button>
+            <button type="button" class="teacher-demo-card" data-fill-user="gayathri" data-teacher-name="Ms. Gayathri N" data-teacher-grade="Grade 2 · Room 201">
+              <div class="tdc-av" style="background:#059669">GN</div>
+              <div class="tdc-meta">
+                <span class="tdc-name">Ms. Gayathri N</span>
+                <span class="tdc-desc">Grade 2 · Room 201 · English</span>
+              </div>
+              <span class="tdc-tag">G2</span>
+            </button>
+            <button type="button" class="teacher-demo-card" data-fill-user="keerthina" data-teacher-name="Ms. Keerthina M" data-teacher-grade="Grade 3 · Room 205">
+              <div class="tdc-av" style="background:#7C3AED">KM</div>
+              <div class="tdc-meta">
+                <span class="tdc-name">Ms. Keerthina M</span>
+                <span class="tdc-desc">Grade 3 · Room 205 · Math</span>
+              </div>
+              <span class="tdc-tag">G3</span>
+            </button>
+          </div>
+        </div>
       </div>
-      <p class="small" style="color:#8FAAD2">Locked out? Call the office on 0427 225 4053.</p>
+      <p class="small" style="color:#8FAAD2">Staff support: Call the office on 0427 225 4053.</p>
     </div>
     <div class="login-main">
-      <h3 class="d3">Welcome back</h3>
-      <p class="small" style="color:var(--ink-50);margin-top:.3rem">Sign in to manage the school website.</p>
-      <form id="loginForm" novalidate style="margin-top:1.4rem;display:grid;gap:14px">
-        <div class="field"><label for="l-user">Username or email</label><input id="l-user" autocomplete="username" placeholder="admin" /><span class="err">Enter your username.</span></div>
+      <div class="role-toggle-bar" id="roleToggleBar" style="display:flex;background:var(--mist);padding:4px;border-radius:var(--r-pill);margin-bottom:1.2rem;border:1px solid var(--line)">
+        <button type="button" class="role-tab active" data-role="teacher" id="roleTabTeacher" style="flex:1;border:0;background:var(--mari);color:#fff;padding:.6rem .8rem;border-radius:var(--r-pill);font-weight:700;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .2s ease">
+          <svg class="i i-16"><use href="#ic-user"/></svg> Teacher Portal
+        </button>
+        <button type="button" class="role-tab" data-role="admin" id="roleTabAdmin" style="flex:1;border:0;background:transparent;color:var(--ink-70);padding:.6rem .8rem;border-radius:var(--r-pill);font-weight:700;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .2s ease">
+          <svg class="i i-16"><use href="#ic-shield"/></svg> School Admin
+        </button>
+      </div>
+
+      <!-- Live Teacher Preview Banner -->
+      <div id="teacherActiveBanner" class="teacher-active-banner">
+        <span class="live-dot"></span>
+        <div style="font-size:.82rem;color:#1E40AF;flex:1;min-width:0">
+          Account: <b id="activeTeacherName">Ms. Deepa Rangarajan</b> <span id="activeTeacherGrade" style="color:#3B82F6">(Grade 1 · Room 102)</span>
+        </div>
+        <span style="font-size:.72rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:6px;font-weight:700">Verified</span>
+      </div>
+
+      <!-- Inline Alert Box (for invalid login or inactive accounts) -->
+      <div id="loginInlineAlert" class="login-inline-alert" role="alert">
+        <svg class="i i-16" style="flex-shrink:0;margin-top:1px"><use href="#ic-close"/></svg>
+        <div id="loginAlertText" style="flex:1">Invalid credentials.</div>
+      </div>
+
+      <h3 class="d3" id="loginMainTitle">Teacher Sign-in</h3>
+      <p class="small" id="loginMainSub" style="color:var(--ink-50);margin-top:.3rem">Sign in to manage your students and classroom attendance.</p>
+      <form id="loginForm" novalidate style="margin-top:1.2rem;display:grid;gap:14px">
+        <div class="field"><label for="l-user" id="lUserLabel">Teacher Username</label><input id="l-user" autocomplete="username" placeholder="e.g. deepa.r" value="deepa.r" /><span class="err">Enter your username.</span></div>
         <div class="field"><label for="l-pass">Password</label>
-          <span class="pw-wrap"><input id="l-pass" type="password" autocomplete="current-password" placeholder="••••••••" />
+          <span class="pw-wrap"><input id="l-pass" type="password" autocomplete="current-password" placeholder="••••••••" value="teacher123" />
           <button type="button" id="pwToggle" aria-label="Show password"><svg class="i i-18"><use href="#ic-eye"/></svg></button></span>
           <span class="err">Enter your password.</span></div>
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <label class="check"><input type="checkbox" id="l-remember" checked /> Keep me signed in</label>
-          <button type="button" class="forgot" id="forgotBtn">Forgot password?</button>
+          <label class="check"><input type="checkbox" id="l-remember" checked /> Keep me signed in on this device</label>
+          <button type="button" class="forgot" id="forgotBtn">Need help?</button>
         </div>
-        <button class="btn btn-primary" type="submit" style="width:100%">Sign in <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg></button>
-        <p class="small" style="color:var(--ink-50);text-align:center">This demo runs entirely in your browser. Nothing is sent anywhere.</p>
+        <button class="btn btn-primary" type="submit" id="loginSubmitBtn" style="width:100%">Sign in to Teacher Portal <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg></button>
+        <p class="small" style="color:var(--ink-50);text-align:center">Pre-loaded with demo teacher credentials for instant testing.</p>
       </form>
       <div id="forgotPane" style="display:none;margin-top:1.4rem">
-        <h3 class="d3">Reset your password</h3>
-        <p class="small" style="color:var(--ink-50);margin-top:.3rem">We will email a reset link to the address on your staff record.</p>
-        <form id="forgotForm" style="margin-top:1rem;display:grid;gap:14px">
-          <div class="field"><label for="f-mail">Work email</label><input id="f-mail" type="email" placeholder="name@christinaschool.in" required /></div>
-          <button class="btn btn-navy" type="submit">Send reset link</button>
-          <button class="btn btn-soft" type="button" id="backToLogin">Back to sign in</button>
-        </form>
+        <h3 class="d3">Need credentials?</h3>
+        <p class="small" style="color:var(--ink-50);margin-top:.3rem">Teacher accounts are managed by the school administrator. Please contact the administrative office to create or reset your password.</p>
+        <div style="margin-top:1rem;display:flex;gap:10px">
+          <button class="btn btn-primary btn-sm" type="button" id="backToLogin">Back to sign in</button>
+        </div>
       </div>
     </div>
   </div>

@@ -68,13 +68,48 @@ const db = {
     { id: 3, name: 'Fatima Sheikh', desig: 'Senior teacher, Primary', dept: 'Primary years', qual: 'B.El.Ed., Montessori diploma', exp: 13, classes: 'Grades 1, 2', subjects: 'Early literacy, Environmental studies', note: 'Built the phonics programme used across early years and Grades 1 and 2. Keeps a reading nest in her classroom.', active: true },
     { id: 4, name: 'Joseph Mathew', desig: 'Science teacher', dept: 'Science', qual: 'M.Sc. Physics, B.Ed.', exp: 11, classes: 'Grades 3, 4, 5', subjects: 'General Science, Nature Studies', note: 'Directs the campus nature club and rooftop plant nursery, helping kids explore living science.', active: true },
     { id: 5, name: 'Lakshmi Venkatesan', desig: 'Tamil language teacher', dept: 'Languages', qual: 'M.A. Tamil, B.Ed.', exp: 16, classes: 'Nursery to Grade 5', subjects: 'Tamil, Rhymes & Literature', note: 'Directs the Tamil drama for Cultural Day and has coached three state-level recitation winners.', active: true },
-    { id: 6, name: 'Deepa Rangarajan', desig: 'Computer science teacher', dept: 'Computer science', qual: 'B.E. Computer Science, PGDE', exp: 9, classes: 'Grades 1 to 5', subjects: 'Computing, Scratch & Block Coding', note: 'Started the junior robotics club and builds coding curiosity through story-based logic.', active: true },
-    { id: 7, name: 'Samuel Peter', desig: 'Physical education instructor', dept: 'Physical education', qual: 'B.P.Ed., NIS football certification', exp: 14, classes: 'Nursery to Grade 5', subjects: 'Games, Athletics, Junior Football', note: 'Former district-level footballer. Runs the morning sports exercises before assembly.', active: true },
-    { id: 8, name: 'Meenakshi Iyer', desig: 'Art and craft teacher', dept: 'Arts and music', qual: 'B.F.A., Diploma in Art Education', exp: 8, classes: 'Nursery to Grade 5', subjects: 'Drawing, Craft, Clay modeling', note: 'Turned the corridor outside the activity room into a rotating gallery of children\u2019s artwork.', active: true },
-    { id: 9, name: 'Nikhil Bhaskar', desig: 'Social studies teacher', dept: 'Social studies', qual: 'M.A. History, B.Ed.', exp: 10, classes: 'Grades 3, 4, 5', subjects: 'Social Studies, Community Awareness', note: 'Plans every field trip. Believes our neighbourhood is a textbook children can walk through.', active: true },
-    { id: 10, name: 'Sunita Rao', desig: 'School counsellor & Early Childcare', dept: 'Student support', qual: 'M.Phil. Child Psychology', exp: 12, classes: 'Nursery to Grade 5', subjects: 'Wellbeing, Circle time, Emotional literacy', note: 'Available to any child or parent without an appointment. Trains staff in child protection every August.', active: true },
-    { id: 11, name: 'Arjun Nair', desig: 'Music teacher', dept: 'Arts and music', qual: 'B.A. Music, Trinity Grade 8 piano', exp: 7, classes: 'Nursery to Grade 5', subjects: 'Choir, Keyboard, Rhymes & Rhythm', note: 'Conducts the junior school choir and writes original songs for the Annual Day.', active: true },
-    { id: 12, name: 'Priya Chandrasekar', desig: 'Primary teacher', dept: 'Primary years', qual: 'B.Ed., Diploma in Early Childhood', exp: 6, classes: 'Grades 3, 4, 5', subjects: 'English, Mathematics', note: 'Runs the junior newsletter, printed on real newsprint four times a year.', active: false }
+    { id: 6, name: 'Deepa Rangarajan', desig: 'Primary Coordinator & Computer Science Lead', dept: 'Computer science', qual: 'B.E. Computer Science, PGDE', exp: 9, classes: 'Grade 1', subjects: 'Computing, Early Logic & Storytelling', note: 'Class teacher for Grade 1. Builds early problem-solving curiosity through hands-on learning and interactive logic games.', username: 'deepa.r', password: 'teacher123', assignedGrade: 'Grade 1', assignedSection: 'A', roomNo: 'Room 102 (First Floor, East Wing)', phone: '+91 98401 22334', email: 'deepa.r@christinaschool.edu.in', bloodGroup: 'B+', joinDate: '2017-06-01', lastLogin: '2026-10-01T08:30:00', avatarColor: '#1D4ED8', schedule: [
+      { period: 1, time: '08:45 – 09:30', subject: 'Morning Assembly & Circle Time', room: 'Room 102' },
+      { period: 2, time: '09:30 – 10:15', subject: 'Foundational Phonics & Storytelling', room: 'Room 102' },
+      { period: 3, time: '10:30 – 11:15', subject: 'Early Number Sense & Counting', room: 'Room 102' },
+      { period: 4, time: '11:15 – 12:00', subject: 'Interactive Computer Logic & Puzzles', room: 'Computer Lab' },
+      { period: 5, time: '12:45 – 01:30', subject: 'Environmental Studies & Plant Life', room: 'Campus Garden' },
+      { period: 6, time: '01:30 – 02:15', subject: 'Creative Arts & Rhymes', room: 'Room 102' },
+      { period: 7, time: '02:15 – 03:00', subject: 'Diary Entry & Guided Pack-up', room: 'Room 102' }
+    ], canLogin: true, active: true },
+    { id: 7, name: 'Samuel Peter', desig: 'Physical education instructor', dept: 'Physical education', qual: 'B.P.Ed., NIS football certification', exp: 14, classes: 'Nursery to Grade 5', subjects: 'Games, Athletics, Junior Football', note: 'Former district-level footballer. Runs the morning sports exercises before assembly.', phone: '+91 98405 66778', email: 'samuel.p@christinaschool.edu.in', roomNo: 'Sports Pavilion', active: true },
+    { id: 8, name: 'Meenakshi Iyer', desig: 'Art and craft teacher', dept: 'Arts and music', qual: 'B.F.A., Diploma in Art Education', exp: 8, classes: 'Nursery to Grade 5', subjects: 'Drawing, Craft, Clay modeling', note: 'Turned the corridor outside the activity room into a rotating gallery of children\u2019s artwork.', phone: '+91 98406 77889', email: 'meenakshi.i@christinaschool.edu.in', roomNo: 'Creative Art Studio', active: true },
+    { id: 9, name: 'Nikhil Bhaskar', desig: 'Social studies teacher', dept: 'Social studies', qual: 'M.A. History, B.Ed.', exp: 10, classes: 'Grades 3, 4, 5', subjects: 'Social Studies, Community Awareness', note: 'Plans every field trip. Believes our neighbourhood is a textbook children can walk through.', phone: '+91 98407 88990', email: 'nikhil.b@christinaschool.edu.in', roomNo: 'Room 203', active: true },
+    { id: 10, name: 'Sunita Rao', desig: 'School counsellor & Early Childcare', dept: 'Student support', qual: 'M.Phil. Child Psychology', exp: 12, classes: 'Nursery to Grade 5', subjects: 'Wellbeing, Circle time, Emotional literacy', note: 'Available to any child or parent without an appointment. Trains staff in child protection every August.', phone: '+91 98408 99001', email: 'sunita.r@christinaschool.edu.in', roomNo: 'Counselling Nest', active: true },
+    { id: 11, name: 'Arjun Nair', desig: 'Music teacher', dept: 'Arts and music', qual: 'B.A. Music, Trinity Grade 8 piano', exp: 7, classes: 'Nursery to Grade 5', subjects: 'Choir, Keyboard, Rhymes & Rhythm', note: 'Conducts the junior school choir and writes original songs for the Annual Day.', phone: '+91 98409 00112', email: 'arjun.n@christinaschool.edu.in', roomNo: 'Music Room', active: true },
+    { id: 12, name: 'Priya Chandrasekar', desig: 'Primary teacher', dept: 'Primary years', qual: 'B.Ed., Diploma in Early Childhood', exp: 6, classes: 'Grades 3, 4, 5', subjects: 'English, Mathematics', note: 'Runs the junior newsletter, printed on real newsprint four times a year.', active: false },
+    { id: 13, name: 'Sharmitha S', desig: 'Senior Pre-primary Educator', dept: 'Primary years', qual: 'M.Sc. Child Development, B.Ed.', exp: 8, classes: 'UKG', subjects: 'Phonics, Early Numeracy, Rhymes', note: 'Class teacher for UKG. Engages young learners through multisensory storytelling, nature observation, and creative motor play.', username: 'sharmitha', password: 'teacher123', assignedGrade: 'UKG', assignedSection: 'A', roomNo: 'UKG Sunshine Wing (Ground Floor)', phone: '+91 98402 33445', email: 'sharmitha.s@christinaschool.edu.in', bloodGroup: 'O+', joinDate: '2018-06-05', lastLogin: '2026-10-01T08:15:00', avatarColor: '#BE185D', schedule: [
+      { period: 1, time: '08:45 – 09:30', subject: 'Sensory Morning & Welcome Rhymes', room: 'UKG Sunshine Room' },
+      { period: 2, time: '09:30 – 10:15', subject: 'Jolly Phonics Letter Sounds', room: 'UKG Sunshine Room' },
+      { period: 3, time: '10:30 – 11:15', subject: 'Number Play & Natural Counters', room: 'UKG Sunshine Room' },
+      { period: 4, time: '11:15 – 12:00', subject: 'Motor Skills & Play Dough Station', room: 'Play Zone' },
+      { period: 5, time: '12:45 – 01:30', subject: 'Big Book Picture Reading', room: 'UKG Sunshine Room' },
+      { period: 6, time: '01:30 – 02:15', subject: 'Action Rhymes & Story Drama', room: 'Activity Room' },
+      { period: 7, time: '02:15 – 03:00', subject: 'Snack Review & Dismissal Circle', room: 'UKG Sunshine Room' }
+    ], canLogin: true, active: true },
+    { id: 14, name: 'Gayathri N', desig: 'Primary Years Teacher', dept: 'Languages', qual: 'B.A. English, B.Ed.', exp: 6, classes: 'Grade 2', subjects: 'English Literature, Storytelling, Phonics', note: 'Class teacher for Grade 2. Specialises in early literacy and expressive English vocabulary building through interactive reading circles.', username: 'gayathri', password: 'teacher123', assignedGrade: 'Grade 2', assignedSection: 'A', roomNo: 'Room 201 (Second Floor, West Wing)', phone: '+91 98403 44556', email: 'gayathri.n@christinaschool.edu.in', bloodGroup: 'A+', joinDate: '2020-07-15', lastLogin: '2026-09-30T16:00:00', avatarColor: '#059669', schedule: [
+      { period: 1, time: '08:45 – 09:30', subject: 'Morning Assembly & Reading Circle', room: 'Room 201' },
+      { period: 2, time: '09:30 – 10:15', subject: 'English Grammar & Vocabulary Building', room: 'Room 201' },
+      { period: 3, time: '10:30 – 11:15', subject: 'Tamil Language & Recitation', room: 'Room 201' },
+      { period: 4, time: '11:15 – 12:00', subject: 'Mathematics — Addition & Subtraction', room: 'Room 201' },
+      { period: 5, time: '12:45 – 01:30', subject: 'EVS Scrapbook Activity', room: 'Room 201' },
+      { period: 6, time: '01:30 – 02:15', subject: 'Junior Library Borrowing & Silent Reading', room: 'Junior Library' },
+      { period: 7, time: '02:15 – 03:00', subject: 'Homework Logging & Day Reflection', room: 'Room 201' }
+    ], canLogin: true, active: true },
+    { id: 15, name: 'Keerthina M', desig: 'Primary Mathematics Teacher', dept: 'Mathematics', qual: 'M.Sc. Mathematics, B.Ed.', exp: 7, classes: 'Grade 3', subjects: 'Mathematics, Science', note: 'Class teacher for Grade 3. Introduces hands-on math puzzles, geometric games, and experiential problem solving for junior grades.', username: 'keerthina', password: 'teacher123', assignedGrade: 'Grade 3', assignedSection: 'A', roomNo: 'Room 205 (Second Floor, Math Wing)', phone: '+91 98404 55667', email: 'keerthina.m@christinaschool.edu.in', bloodGroup: 'AB+', joinDate: '2019-06-10', lastLogin: '2026-09-30T11:45:00', avatarColor: '#7C3AED', schedule: [
+      { period: 1, time: '08:45 – 09:30', subject: 'Morning Assembly & Mental Math Quiz', room: 'Room 205' },
+      { period: 2, time: '09:30 – 10:15', subject: 'Multiplication & Geometric Patterns', room: 'Room 205' },
+      { period: 3, time: '10:30 – 11:15', subject: 'General Science & Experiment Station', room: 'Junior Science Lab' },
+      { period: 4, time: '11:15 – 12:00', subject: 'English Reading Comprehension', room: 'Room 205' },
+      { period: 5, time: '12:45 – 01:30', subject: 'Introduction to Scratch Visual Coding', room: 'Computer Lab' },
+      { period: 6, time: '01:30 – 02:15', subject: 'Social Studies — Attur Neighbourhood Project', room: 'Room 205' },
+      { period: 7, time: '02:15 – 03:00', subject: 'Diary Signing & Wrap-up', room: 'Room 205' }
+    ], canLogin: true, active: true }
   ],
   ann: [
     { id: 1, cat: 'Parent meeting', title: 'Term 1 parent–teacher meeting, Nursery to Grade 5', date: '2026-10-03', expiry: '2026-10-31', startDate: '2026-09-01T08:00', endDate: '2026-10-31T23:59', pinned: true, popup: true, status: 'published', text: 'Slots of fifteen minutes, booked through the class teacher. Report cards will be handed over in person.', body: 'The Term 1 parent–teacher meeting will be held on Saturday, 3 October, from 9:00 am to 1:00 pm.\n\nEach family gets a fifteen-minute slot with the class teacher. Subject teachers will be available in the assembly hall through the morning, without appointment.\n\nReport cards are handed over in person and are not sent home in advance. If you cannot attend, please write to the class teacher before 30 September and we will arrange a call during the following week.\n\nChildren are welcome to accompany their parents and share their classroom portfolio.' },
@@ -199,13 +234,68 @@ const db = {
       { g: 4, label: 'Grade 4', focus: 'Writing to explain, not just to describe', subjects: ['English', 'Tamil', 'Hindi', 'Mathematics', 'Science', 'Social Studies', 'Computing & Coding', 'Art', 'Games'], acts: ['The Grade 4 junior newspaper, published each term', 'Fractions with paper folding and measuring tools', 'First science experiments with written observations', 'Map reading and a walking survey of the school campus'], size: 28, hw: '35 min', teachers: 6 },
       { g: 5, label: 'Grade 5', focus: 'Foundational mastery and primary graduation', subjects: ['English', 'Tamil', 'Hindi', 'Mathematics', 'Science', 'Social Studies', 'Computing & Coding', 'Art', 'Games'], acts: ['Rooftop garden project with weekly measurements', 'Debate and presentation practice on everyday topics', 'Mathematics mastery and problem solving before graduation', 'Full-day educational trip to historical and nature reserves'], size: 28, hw: '40 min', teachers: 6 }
     ]
-  }
+  },
+  students: [
+    { id: 101, admNo: 'CS-2026-001', rollNo: '01', name: 'Aadhya Rajesh', gender: 'Female', grade: 'Grade 1', section: 'A', dob: '2020-04-15', bloodGroup: 'B+', parentName: 'Rajesh Kumar & Meena Rajesh', phone: '+91 98412 34567', altPhone: '+91 94432 12345', email: 'rajesh.k@gmail.com', address: '14, Gandhi Road, Attur, Salem – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 102, admNo: 'CS-2026-002', rollNo: '02', name: 'Aarav Senthil', gender: 'Male', grade: 'Grade 1', section: 'A', dob: '2020-07-22', bloodGroup: 'O+', parentName: 'Senthil Nathan & Kavitha S', phone: '+91 98401 55678', altPhone: '+91 98401 55678', email: 'senthil.n@gmail.com', address: '28, Bazaar Street, Attur, Salem – 636102', medicalNotes: 'Mild pollen allergy in winter', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 103, admNo: 'CS-2026-003', rollNo: '03', name: 'Diya Lakshmi M', gender: 'Female', grade: 'Grade 1', section: 'A', dob: '2020-03-11', bloodGroup: 'A+', parentName: 'Lakshmanan M & Deepa L', phone: '+91 97890 23412', altPhone: '+91 97890 23412', email: 'lakshman.m@yahoo.com', address: '5, Anna Nagar, Attur, Salem – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-02', attendanceToday: 'Present' },
+    { id: 104, admNo: 'CS-2026-004', rollNo: '04', name: 'Kavin Raj P', gender: 'Male', grade: 'Grade 1', section: 'A', dob: '2020-09-05', bloodGroup: 'AB+', parentName: 'Rajendran P & Selvi R', phone: '+91 94441 87654', altPhone: '+91 94441 87654', email: 'rajendran.p@gmail.com', address: '102, Rasipuram Main Road, Attur – 636102', medicalNotes: 'Wears reading spectacles', dateEnrolled: '2026-06-03', attendanceToday: 'Present' },
+    { id: 105, admNo: 'CS-2026-005', rollNo: '05', name: 'Mithran Vijay', gender: 'Male', grade: 'Grade 1', section: 'A', dob: '2020-01-19', bloodGroup: 'B+', parentName: 'Vijay Anand & Sandhya V', phone: '+91 99622 34510', altPhone: '+91 99622 34510', email: 'vijayanand@outlook.com', address: '44, Kamarajar Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-03', attendanceToday: 'Present' },
+    { id: 106, admNo: 'CS-2026-006', rollNo: '01', name: 'Ananya Sri T', gender: 'Female', grade: 'UKG', section: 'A', dob: '2021-05-14', bloodGroup: 'O+', parentName: 'Srinivasan T & Rekha S', phone: '+91 98402 11987', altPhone: '+91 98402 11987', email: 'srini.t@gmail.com', address: '19, South Car Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 107, admNo: 'CS-2026-007', rollNo: '02', name: 'Bhuvanesh Karthik', gender: 'Male', grade: 'UKG', section: 'A', dob: '2021-08-30', bloodGroup: 'B+', parentName: 'Karthikeyan G & Malini K', phone: '+91 99401 22334', altPhone: '+91 99401 22334', email: 'karthi.g@gmail.com', address: '8, Periyar Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 108, admNo: 'CS-2026-008', rollNo: '03', name: 'Harini Prakash', gender: 'Female', grade: 'UKG', section: 'A', dob: '2021-02-17', bloodGroup: 'A+', parentName: 'Prakash R & Divya P', phone: '+91 97910 88765', altPhone: '+91 97910 88765', email: 'prakash.r@gmail.com', address: '33, New Colony, Attur – 636102', medicalNotes: 'Asthma inhaler in bag', dateEnrolled: '2026-06-02', attendanceToday: 'Absent' },
+    { id: 109, admNo: 'CS-2026-009', rollNo: '04', name: 'Nithin Sai V', gender: 'Male', grade: 'UKG', section: 'A', dob: '2021-11-09', bloodGroup: 'O+', parentName: 'Sai Kumar V & Gayathri S', phone: '+91 94432 99881', altPhone: '+91 94432 99881', email: 'saikumar@gmail.com', address: '61, Railway Station Road, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-02', attendanceToday: 'Present' },
+    { id: 110, admNo: 'CS-2026-010', rollNo: '01', name: 'Janani Ramesh', gender: 'Female', grade: 'Grade 2', section: 'A', dob: '2019-06-25', bloodGroup: 'B+', parentName: 'Ramesh Babu & Usha R', phone: '+91 98415 67890', altPhone: '+91 98415 67890', email: 'ramesh.babu@gmail.com', address: '12, Kottai Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 111, admNo: 'CS-2026-011', rollNo: '02', name: 'Lokesh Vignesh', gender: 'Male', grade: 'Grade 2', section: 'A', dob: '2019-10-14', bloodGroup: 'A+', parentName: 'Vigneshwaran S & Priya V', phone: '+91 97899 44321', altPhone: '+91 97899 44321', email: 'vignesh.s@gmail.com', address: '77, Salem Main Road, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 112, admNo: 'CS-2026-012', rollNo: '03', name: 'Pranav Krishna D', gender: 'Male', grade: 'Grade 2', section: 'A', dob: '2019-02-08', bloodGroup: 'O+', parentName: 'Krishnamoorthy D & Padma K', phone: '+91 99625 11223', altPhone: '+91 99625 11223', email: 'krishna.d@gmail.com', address: '23, North Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-02', attendanceToday: 'Present' },
+    { id: 113, admNo: 'CS-2026-013', rollNo: '04', name: 'Rithika Mani', gender: 'Female', grade: 'Grade 2', section: 'A', dob: '2019-12-03', bloodGroup: 'AB+', parentName: 'Manikandan K & Suganya M', phone: '+91 94443 55667', altPhone: '+91 94443 55667', email: 'mani.k@gmail.com', address: '90, Thammampatti Road, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-02', attendanceToday: 'Present' },
+    { id: 114, admNo: 'CS-2026-014', rollNo: '01', name: 'Rohan Venkatesh', gender: 'Male', grade: 'Grade 3', section: 'A', dob: '2018-04-18', bloodGroup: 'B+', parentName: 'Venkatesh S & Revathi V', phone: '+91 98408 77665', altPhone: '+91 98408 77665', email: 'venkat.s@gmail.com', address: '52, Teachers Colony, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 115, admNo: 'CS-2026-015', rollNo: '02', name: 'Samyuktha Thangavel', gender: 'Female', grade: 'Grade 3', section: 'A', dob: '2018-08-29', bloodGroup: 'O+', parentName: 'Thangavelu P & Shanthi T', phone: '+91 99405 88990', altPhone: '+91 99405 88990', email: 'thangavel.p@gmail.com', address: '15, Hospital Road, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 116, admNo: 'CS-2026-016', rollNo: '03', name: 'Tarun Kumaran', gender: 'Male', grade: 'Grade 3', section: 'A', dob: '2018-01-05', bloodGroup: 'A+', parentName: 'Kumaran N & Bhuvaneswari K', phone: '+91 97909 33221', altPhone: '+91 97909 33221', email: 'kumaran.n@gmail.com', address: '41, Post Office Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-02', attendanceToday: 'Present' },
+    { id: 117, admNo: 'CS-2026-017', rollNo: '04', name: 'Varsha Shanmugam', gender: 'Female', grade: 'Grade 3', section: 'A', dob: '2018-11-20', bloodGroup: 'B+', parentName: 'Shanmugam M & Karpagam S', phone: '+91 94435 66778', altPhone: '+91 94435 66778', email: 'shanmugam.m@gmail.com', address: '6, Mullai Nagar, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-03', attendanceToday: 'Late' },
+    { id: 118, admNo: 'CS-2026-018', rollNo: '01', name: 'Aayush Murugan', gender: 'Male', grade: 'Nursery', section: 'A', dob: '2023-03-10', bloodGroup: 'O+', parentName: 'Murugan R & Gomathi M', phone: '+91 98418 22114', altPhone: '+91 98418 22114', email: 'murugan.r@gmail.com', address: '88, West Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 119, admNo: 'CS-2026-019', rollNo: '02', name: 'Yazhini Kalidass', gender: 'Female', grade: 'Nursery', section: 'A', dob: '2023-06-19', bloodGroup: 'A+', parentName: 'Kalidass P & Radhika K', phone: '+91 97892 44556', altPhone: '+91 97892 44556', email: 'kalidass.p@gmail.com', address: '17, Chetty Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-02', attendanceToday: 'Present' },
+    { id: 120, admNo: 'CS-2026-020', rollNo: '01', name: 'Dhavan Saravanan', gender: 'Male', grade: 'LKG', section: 'A', dob: '2022-04-12', bloodGroup: 'B+', parentName: 'Saravanan K & Deepa S', phone: '+91 99628 33445', altPhone: '+91 99628 33445', email: 'saravanan.k@gmail.com', address: '31, Mettu Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 121, admNo: 'CS-2026-021', rollNo: '02', name: 'Kaniha Velmurugan', gender: 'Female', grade: 'LKG', section: 'A', dob: '2022-09-28', bloodGroup: 'O+', parentName: 'Velmurugan S & Sudha V', phone: '+91 94447 11223', altPhone: '+91 94447 11223', email: 'velmurugan.s@gmail.com', address: '9, VOC Nagar, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 122, admNo: 'CS-2026-022', rollNo: '01', name: 'Ananya Pillai', gender: 'Female', grade: 'Grade 4', section: 'A', dob: '2017-07-11', bloodGroup: 'A+', parentName: 'Pillai S & Geetha P', phone: '+91 98409 66554', altPhone: '+91 98409 66554', email: 'pillai.s@gmail.com', address: '25, Court Road, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 123, admNo: 'CS-2026-023', rollNo: '02', name: 'Gokul Rajesh', gender: 'Male', grade: 'Grade 4', section: 'A', dob: '2017-10-30', bloodGroup: 'B+', parentName: 'Rajesh S & Sumathi R', phone: '+91 97918 55443', altPhone: '+91 97918 55443', email: 'rajesh.s@gmail.com', address: '50, Cuddalore Main Road, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 124, admNo: 'CS-2026-024', rollNo: '01', name: 'Ishaan Verma', gender: 'Male', grade: 'Grade 5', section: 'A', dob: '2016-08-22', bloodGroup: 'O+', parentName: 'Verma R & Sunita V', phone: '+91 99407 11889', altPhone: '+91 99407 11889', email: 'verma.r@gmail.com', address: '11, Green Park, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' },
+    { id: 125, admNo: 'CS-2026-025', rollNo: '02', name: 'Kavya Balan', gender: 'Female', grade: 'Grade 5', section: 'A', dob: '2016-04-09', bloodGroup: 'B+', parentName: 'Balan N & Vasanthi B', phone: '+91 94439 88776', altPhone: '+91 94439 88776', email: 'balan.n@gmail.com', address: '84, Thiyagigal Street, Attur – 636102', medicalNotes: 'None', dateEnrolled: '2026-06-01', attendanceToday: 'Present' }
+  ],
+  teacherReports: [
+    { id: 1, timestamp: '2026-10-01T09:10:00', teacherName: 'Deepa Rangarajan', teacherUsername: 'deepa.r', grade: 'Grade 1', action: 'attendance_marked', summary: 'Marked Grade 1 morning attendance: 5 Present, 0 Absent (100% turnout)', device: 'Chrome · Desktop Portal' },
+    { id: 2, timestamp: '2026-10-01T08:55:00', teacherName: 'Sharmitha S', teacherUsername: 'sharmitha', grade: 'UKG', action: 'attendance_marked', summary: 'Marked UKG morning attendance: 3 Present, 1 Absent (75% turnout)', device: 'Mobile Safari · Tablet' },
+    { id: 3, timestamp: '2026-10-01T08:30:00', teacherName: 'Deepa Rangarajan', teacherUsername: 'deepa.r', grade: 'Grade 1', action: 'login', summary: 'Teacher Ms. Deepa Rangarajan signed into the Teacher Portal (Grade 1)', device: 'Chrome · Desktop Portal' },
+    { id: 4, timestamp: '2026-09-30T14:20:00', teacherName: 'Deepa Rangarajan', teacherUsername: 'deepa.r', grade: 'Grade 1', action: 'student_added', summary: 'Enrolled new student Aadhya Rajesh in Grade 1 - Section A', device: 'Chrome · Desktop Portal' },
+    { id: 5, timestamp: '2026-09-30T11:45:00', teacherName: 'Keerthina M', teacherUsername: 'keerthina', grade: 'Grade 3', action: 'student_updated', summary: 'Updated parent emergency contact for Rohan Venkatesh (Grade 3)', device: 'Edge · Desktop Portal' },
+    { id: 6, timestamp: '2026-09-29T16:00:00', teacherName: 'Gayathri N', teacherUsername: 'gayathri', grade: 'Grade 2', action: 'roster_exported', summary: 'Exported Grade 2 student directory to CSV', device: 'Chrome · Desktop Portal' }
+  ],
+  diary: [
+    { id: 1, date: '2026-10-01', grade: 'Grade 1', teacher: 'Deepa Rangarajan', subject: 'Mathematics & Phonics', homeworkType: 'Workbook Exercise', dueDate: '2026-10-02', notes: 'Practice numbers 1 to 50 on workbook page 12. Read "The Clever Fox" story 2 times.' },
+    { id: 2, date: '2026-10-01', grade: 'UKG', teacher: 'Sharmitha S', subject: 'Drawing & Rhymes', homeworkType: 'Art & Craft Activity', dueDate: '2026-10-02', notes: 'Bring green & yellow crayons tomorrow for leaf coloring activity. Sing "Teddy Bear" rhyme.' },
+    { id: 3, date: '2026-09-30', grade: 'Grade 2', teacher: 'Gayathri N', subject: 'Environmental Studies', homeworkType: 'Scrapbook Project', dueDate: '2026-10-03', notes: 'Collect 3 different fallen leaves from home garden and paste in EVS scrapbook.' },
+    { id: 4, date: '2026-09-30', grade: 'Grade 3', teacher: 'Keerthina M', subject: 'Mathematics', homeworkType: 'Practice Worksheet', dueDate: '2026-10-02', notes: 'Complete multiplication table 4 & 5 puzzle sheet. Prepare for Friday 5-minute speed quiz.' }
+  ]
 };
 
 const d2 = n => String(n).padStart(2, '0');
-function fmt(iso) { const d = new Date(iso + 'T00:00'); return `${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}`; }
-function dayOf(iso) { return d2(new Date(iso + 'T00:00').getDate()); }
-function monOf(iso) { return MON[new Date(iso + 'T00:00').getMonth()].toUpperCase(); }
+function parseIsoDate(iso) {
+  if (!iso) return null;
+  const d = new Date(iso.includes('T') ? iso : iso + 'T00:00');
+  return isNaN(d.getTime()) ? null : d;
+}
+function fmt(iso) {
+  const d = parseIsoDate(iso);
+  return d ? `${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()}` : '—';
+}
+function dayOf(iso) {
+  const d = parseIsoDate(iso);
+  return d ? d2(d.getDate()) : '—';
+}
+function monOf(iso) {
+  const d = parseIsoDate(iso);
+  return d ? MON[d.getMonth()].toUpperCase() : '—';
+}
 function scene(theme, alt) {
   const t = SCENES[theme] || SCENES.general, h = hash(theme + (alt || '')), id = 'sc' + (++uid);
   const r = n => (h * (n + 3) % 100) / 100;
@@ -338,11 +428,13 @@ function watch(root) {
   $$('[data-count]').forEach(c => { if (!revealer && !c.dataset.done) { c.dataset.done = '1'; c.textContent = c.dataset.count; } });
 }
 function sortStores() {
-  db.ann.sort((a, b) => b.date.localeCompare(a.date));
-  db.events.sort((a, b) => a.date.localeCompare(b.date));
-  db.ach.sort((a, b) => b.date.localeCompare(a.date));
-  db.news.sort((a, b) => b.date.localeCompare(a.date));
-  db.documents.sort((a, b) => b.date.localeCompare(a.date));
+  const cmp = (a, b) => String(b && b.date || '').localeCompare(String(a && a.date || ''));
+  const cmpAsc = (a, b) => String(a && a.date || '').localeCompare(String(b && b.date || ''));
+  if (Array.isArray(db.ann)) db.ann.sort(cmp);
+  if (Array.isArray(db.events)) db.events.sort(cmpAsc);
+  if (Array.isArray(db.ach)) db.ach.sort(cmp);
+  if (Array.isArray(db.news)) db.news.sort(cmp);
+  if (Array.isArray(db.documents)) db.documents.sort(cmp);
 }
 (function petals() {
   const mk = (n, r1, r2, colA, colB) => {
@@ -386,7 +478,8 @@ if (!db.settings) {
     statLevels: 8,
     statLevelsLabel: 'Levels (Nur–Gr 5)',
     statClubs: 26,
-    statYears: 34
+    statYears: 34,
+    showAdmissionsBadge: true
   };
 }
 
@@ -396,9 +489,34 @@ function loadDb() {
     if (!raw) return;
     const saved = JSON.parse(raw);
     if (saved && typeof saved === 'object') {
-      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'clubs', 'sports', 'settings'].forEach(k => {
+      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'clubs', 'sports', 'settings', 'students', 'teacherReports', 'diary'].forEach(k => {
         if (saved[k] !== undefined) {
           db[k] = saved[k];
+        }
+      });
+      // Ensure the 4 demo teachers exist and have login credentials even if older staff array was loaded
+      const demoTeachers = [
+        { id: 6, username: 'deepa.r', name: 'Deepa Rangarajan', grade: 'Grade 1', sec: 'A', desig: 'Primary Coordinator & Computer Science Lead' },
+        { id: 13, username: 'sharmitha', name: 'Sharmitha S', grade: 'UKG', sec: 'A', desig: 'Senior Pre-primary Educator' },
+        { id: 14, username: 'gayathri', name: 'Gayathri N', grade: 'Grade 2', sec: 'A', desig: 'Primary Years Teacher' },
+        { id: 15, username: 'keerthina', name: 'Keerthina M', grade: 'Grade 3', sec: 'A', desig: 'Primary Mathematics Teacher' }
+      ];
+      demoTeachers.forEach(dt => {
+        let t = db.staff.find(s => s.username === dt.username || (s.name && s.name.toLowerCase().includes(dt.name.toLowerCase().split(' ')[0])));
+        if (t) {
+          t.username = dt.username;
+          if (!t.password) t.password = 'teacher123';
+          if (!t.assignedGrade) t.assignedGrade = dt.grade;
+          if (!t.assignedSection) t.assignedSection = dt.sec;
+          t.canLogin = true;
+        } else {
+          db.staff.push({
+            id: dt.id, name: dt.name, desig: dt.desig, dept: 'Primary years',
+            qual: 'B.Ed.', exp: 7, classes: dt.grade, subjects: 'Core Curriculum',
+            note: 'Class teacher for ' + dt.grade + '.', username: dt.username,
+            password: 'teacher123', assignedGrade: dt.grade, assignedSection: dt.sec,
+            canLogin: true, active: true
+          });
         }
       });
       if (db.clubs) {
@@ -414,6 +532,7 @@ function loadDb() {
         if (db.settings.statLevelsLabel === undefined) db.settings.statLevelsLabel = 'Levels (Nur–Gr 5)';
         if (db.settings.statClubs === undefined) db.settings.statClubs = 26;
         if (db.settings.statYears === undefined) db.settings.statYears = 34;
+        if (db.settings.showAdmissionsBadge === undefined) db.settings.showAdmissionsBadge = true;
       }
       sortStores();
     }
@@ -425,8 +544,15 @@ function loadDb() {
 function saveDb() {
   try {
     localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(db));
+    return true;
   } catch (err) {
     console.warn('[ChristinaSchool] Storage save warning:', err);
+    if (err && (err.name === 'QuotaExceededError' || err.code === 22 || err.code === 1014)) {
+      if (typeof toast === 'function') {
+        toast('Storage limit reached|A large file exceeded browser storage. Choose a smaller file under 800 KB.', 'warn');
+      }
+    }
+    return false;
   }
 }
 

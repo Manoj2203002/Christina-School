@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Christina Nursery and Primary School — Teacher Portal</title>
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/admin.css" />
+<link rel="stylesheet" href="css/teacher.css" />
+<script>
+  if (!sessionStorage.getItem('christina_teacher_auth')) {
+    window.location.replace('index.html?login=teacher');
+  }
+</script>
+</head>
+<body class="teacher-body">
+
+<!-- SVG Sprite -->
+<svg id="sprite" aria-hidden="true" style="display:none"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6L16.5 12l4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></symbol>
+<symbol id="ic-wa" viewBox="0 0 24 24"><path d="M12.04 2.6a9.3 9.3 0 0 0-8 14.05L2.8 21.4l4.9-1.2a9.3 9.3 0 1 0 4.34-17.6z"/><path d="M8.8 8c.25-.6.5-.6.85-.6h.6c.2 0 .45 0 .65.5l.75 1.8c.1.25 0 .5-.15.7l-.5.55c-.15.2-.3.4-.15.7a6.6 6.6 0 0 0 3.05 2.65c.35.15.55.1.75-.1l.6-.7c.2-.25.4-.2.65-.1l1.75.85c.25.1.4.2.45.3.05.25 0 .9-.35 1.4-.35.5-1.15 1-1.95 1a8.2 8.2 0 0 1-7-6.6c-.05-.85.3-1.75.8-2.35z"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.6 7.2 8.4 5.6 8.4-5.6"/></symbol>
+<symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 1.9"/></symbol>
+<symbol id="ic-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7.2a4 4 0 0 1 8 0V10"/></symbol>
+<symbol id="ic-arrow-r" viewBox="0 0 24 24"><path d="M5 12h13m-5.5-6 6 6-6 6"/></symbol>
+<symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.2-4.2"/></symbol>
+<symbol id="ic-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path d="m5 12.6 4.4 4.4L19 7.4"/></symbol>
+<symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="ic-pencil" viewBox="0 0 24 24"><path d="M4.5 19.5h4L20 8a2.1 2.1 0 0 0 0-3l-1.5-1.5a2.1 2.1 0 0 0-3 0L4.5 15.5v4z"/></symbol>
+<symbol id="ic-trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V4.8h5V7m-8.2 0 1 12.5h8.4L18.7 7"/></symbol>
+<symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+<symbol id="ic-upload" viewBox="0 0 24 24"><path d="M12 16.5V4.5M7.2 9.3 12 4.5l4.8 4.8M4 19.5h16"/></symbol>
+<symbol id="ic-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 20.2a6 6 0 0 1 12 0M15.8 5.1a3.4 3.4 0 0 1 0 6.5M17.4 14.4a6 6 0 0 1 3.6 5.8"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20.8a7 7 0 0 1 14 0"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24"><path d="M4.5 5.2A2.2 2.2 0 0 1 6.7 3H19.5v14.2H6.7a2.2 2.2 0 0 0-2.2 2.2V5.2zM19.5 17.2v3.6H6.7"/></symbol>
+<symbol id="ic-grad" viewBox="0 0 24 24"><path d="m2.5 9 9.5-3.8L21.5 9 12 12.8 2.5 9z"/><path d="M6.3 10.6v4.2c0 1.7 2.6 3 5.7 3s5.7-1.3 5.7-3v-4.2M21 9.4v5"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24"><path d="M12 3.4 13.8 8.6 19 10.4 13.8 12.2 12 17.4 10.2 12.2 5 10.4 10.2 8.6 12 3.4z"/></symbol>
+<symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10.2h18"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M7 3.2h7l4 4v13.6H7V3.2zM14 3.2v4h4"/></symbol>
+<symbol id="ic-logout" viewBox="0 0 24 24"><path d="M14.5 4H17a2.5 2.5 0 0 1 2.5 2.5v11A2.5 2.5 0 0 1 17 20h-2.5M10 15.5 6.5 12 10 8.5M6.5 12H15"/></symbol>
+<symbol id="ic-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+</defs></svg>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- Modal Container -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="veil" data-close-modal></div>
+  <div class="box" id="modalBox">
+    <button class="x" data-close-modal aria-label="Close"><svg class="i"><use href="#ic-close"/></svg></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<div class="teacher-app">
+  <!-- Mobile Drawer Backdrop Veil -->
+  <div class="t-aside-veil" id="tAsideVeil"></div>
+
+  <!-- Sidebar -->
+  <aside class="t-aside" id="tAside">
+    <a href="#/students" class="t-brand">
+      <span class="brand-mark" style="width:38px;height:38px;background:#fff;border-radius:10px;display:grid;place-items:center"><img src="assets/logo.png" alt="Logo" style="width:34px;height:34px" /></span>
+      <div>
+        <b>Christina School</b>
+        <span>Teacher Portal</span>
+      </div>
+    </a>
+
+    <!-- Teacher Profile Card (Interactive) -->
+    <div class="t-profile-card" id="tProfileCard" role="button" tabindex="0" title="Click to view full teacher profile and daily timetable schedule" style="cursor:pointer;transition:transform .18s ease,border-color .18s ease">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="tAvatar" style="width:42px;height:42px;border-radius:50%;background:var(--mari);color:#fff;font-weight:700;display:grid;place-items:center;font-size:1.1rem">DR</div>
+        <div style="min-width:0;flex:1">
+          <b id="tTeacherName" style="color:#fff;display:block;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Ms. Deepa Rangarajan</b>
+          <span id="tTeacherDesig" style="color:#8FAAD2;display:block;font-size:.76rem">Class Teacher</span>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between">
+        <span class="pillx ok" id="tAssignedGradePill" style="font-size:.7rem;padding:2px 8px">Grade 1 - Sec A</span>
+        <span style="font-size:.74rem;color:#8FAAD2" id="tRoomNoPill">Room 102</span>
+      </div>
+      <div style="margin-top:8px;font-size:.72rem;color:#FFC24A;display:flex;align-items:center;gap:5px">
+        <svg class="i i-12"><use href="#ic-user"/></svg> Profile &amp; Timetable &rarr;
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="t-nav">
+      <button type="button" class="active" id="navStudents" data-tab="students">
+        <svg class="i i-18"><use href="#ic-users"/></svg> Student Directory
+        <span class="badge" id="cntStudents">0</span>
+      </button>
+      <button type="button" id="navAttendance" data-tab="attendance">
+        <svg class="i i-18"><use href="#ic-cal"/></svg> Daily Roll-Call
+        <span class="badge" id="cntAttStatus">Today</span>
+      </button>
+      <button type="button" id="navDiary" data-tab="diary">
+        <svg class="i i-18"><use href="#ic-book"/></svg> Classroom Diary
+      </button>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="t-aside-foot">
+      <a href="index.html" class="btn btn-ghost on-navy btn-sm" style="display:inline-flex;align-items:center;gap:8px">
+        <svg class="i i-16"><use href="#ic-eye"/></svg> View Website
+      </a>
+      <button type="button" class="btn btn-primary btn-sm" id="btnLogoutTeacher" style="display:inline-flex;align-items:center;gap:8px">
+        <svg class="i i-16"><use href="#ic-logout"/></svg> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main View Area -->
+  <div class="t-main">
+    <!-- Top Header -->
+    <header class="t-top">
+      <button class="burger t-burger" id="tBurger" style="display:none" aria-label="Open portal menu"><i></i><i></i><i></i></button>
+      <div>
+        <h2 style="font-family:var(--serif);font-size:1.35rem;margin:0;color:var(--navy)" id="topTitle">Student Directory</h2>
+        <span style="font-size:.8rem;color:var(--ink-50)">Manage classroom students, parent contacts, and daily attendance</span>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <!-- Class Selector Dropdown -->
+        <label style="display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:600;color:var(--ink-70)">
+          <span>Class:</span>
+          <select id="tClassSelect" style="padding:.5rem .9rem;border-radius:var(--r-pill);border:1px solid var(--line);background:#fff;font-weight:700;font-size:.86rem;color:var(--navy);outline:none;cursor:pointer">
+            <option value="assigned" selected>My Assigned Class</option>
+            <option value="All">All Grades (Full School)</option>
+            <option value="Nursery">Nursery</option>
+            <option value="LKG">LKG</option>
+            <option value="UKG">UKG</option>
+            <option value="Grade 1">Grade 1</option>
+            <option value="Grade 2">Grade 2</option>
+            <option value="Grade 3">Grade 3</option>
+            <option value="Grade 4">Grade 4</option>
+            <option value="Grade 5">Grade 5</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <div class="t-content">
+      <!-- Classroom Welcome Banner -->
+      <div class="t-banner">
+        <div>
+          <span class="tag on-navy" id="bannerGradeTag">Classroom Overview</span>
+          <h2 style="font-family:var(--serif);font-size:1.6rem;margin:.5rem 0 .3rem;color:#fff" id="bannerTitle">Grade 1 — Section A</h2>
+          <p style="color:#B6CBEB;margin:0;font-size:.9rem" id="bannerSubtitle">Nurturing young minds through curiosity, foundational numeracy, and joyful phonics.</p>
+        </div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" type="button" id="btnQuickAdd">
+            <svg class="i i-16"><use href="#ic-plus"/></svg> Add Student
+          </button>
+          <button class="btn btn-soft btn-sm" type="button" id="btnQuickAttendance" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.3)">
+            <svg class="i i-16"><use href="#ic-check"/></svg> Take Roll-Call
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Statistics KPIs -->
+      <div class="t-kpis">
+        <div class="t-kpi">
+          <div class="kpi-info">
+            <span class="kpi-label">Class Roster</span>
+            <b id="kTotalStudents">0</b>
+            <span class="kpi-sub">Total enrolled pupils</span>
+          </div>
+          <span class="ic" style="background:#EFF6FF;color:#2563EB"><svg class="i i-20"><use href="#ic-users"/></svg></span>
+        </div>
+        <div class="t-kpi">
+          <div class="kpi-info">
+            <span class="kpi-label">Turnout Today</span>
+            <b id="kPresentToday">0</b>
+            <span class="kpi-sub" id="kPresentRate" style="color:#16A34A;font-weight:700">Present (0%)</span>
+          </div>
+          <span class="ic" style="background:#DCFCE7;color:#16A34A"><svg class="i i-20"><use href="#ic-check"/></svg></span>
+        </div>
+        <div class="t-kpi">
+          <div class="kpi-info">
+            <span class="kpi-label">Boys</span>
+            <b id="kBoysCount">0</b>
+            <span class="kpi-sub">Boys enrolled</span>
+          </div>
+          <span class="ic" style="background:#EEF2FF;color:#4F46E5"><svg class="i i-20"><use href="#ic-user"/></svg></span>
+        </div>
+        <div class="t-kpi">
+          <div class="kpi-info">
+            <span class="kpi-label">Girls</span>
+            <b id="kGirlsCount">0</b>
+            <span class="kpi-sub">Girls enrolled</span>
+          </div>
+          <span class="ic" style="background:#FFF1F2;color:#E11D48"><svg class="i i-20"><use href="#ic-sparkle"/></svg></span>
+        </div>
+      </div>
+
+      <!-- PANE 1: Students Directory -->
+      <section id="paneStudents" class="t-pane">
+        <!-- Toolbar -->
+        <div class="t-toolbar">
+          <div class="t-search">
+            <svg class="i i-18"><use href="#ic-search"/></svg>
+            <input type="search" id="tStudentSearch" placeholder="Search student name, roll no, parent phone..." />
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <!-- Gender Filter -->
+            <select id="tGenderFilter" style="padding:.54rem .9rem;border-radius:var(--r-pill);border:1px solid #CBD5E1;background:#fff;font-size:.85rem;color:var(--navy);font-weight:600">
+              <option value="All">All Students</option>
+              <option value="Male">Boys Only</option>
+              <option value="Female">Girls Only</option>
+            </select>
+
+            <!-- View Switcher -->
+            <div class="view-seg-bar">
+              <button type="button" class="view-seg-btn active" id="btnViewCards">Cards</button>
+              <button type="button" class="view-seg-btn" id="btnViewTable">Table</button>
+            </div>
+
+            <!-- Export CSV -->
+            <button class="btn btn-soft btn-sm" type="button" id="btnExportStudents" style="display:inline-flex;align-items:center;gap:6px">
+              <svg class="i i-16"><use href="#ic-upload"/></svg> Export CSV
+            </button>
+
+            <!-- Add Student Primary Button -->
+            <button class="btn btn-primary btn-sm" type="button" id="btnAddStudentMain">
+              <svg class="i i-16"><use href="#ic-plus"/></svg> Add Student
+            </button>
+          </div>
+        </div>
+
+        <!-- Cards View Grid -->
+        <div class="student-grid" id="studentCardsGrid"></div>
+
+        <!-- Table View Grid (Hidden by default) -->
+        <div id="studentTableWrap" style="display:none;background:#fff;border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;box-shadow:var(--sh-1)">
+          <div style="overflow-x:auto">
+            <table class="att-table">
+              <thead>
+                <tr>
+                  <th>Roll No</th>
+                  <th>Student Name</th>
+                  <th>Adm No</th>
+                  <th>Gender</th>
+                  <th>Grade</th>
+                  <th>Parents</th>
+                  <th>Phone</th>
+                  <th>Attendance Today</th>
+                  <th style="text-align:right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="studentTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 2: Daily Attendance Roll-Call -->
+      <section id="paneAttendance" class="t-pane" style="display:none">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:20px;box-shadow:var(--sh-1)">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px">
+            <div>
+              <h3 style="margin:0;font-size:1.15rem;color:var(--navy)">Daily Attendance Roll-Call</h3>
+              <span style="font-size:.82rem;color:var(--ink-50)" id="attDateLabel">Date: Today</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <button class="btn btn-soft btn-sm" type="button" id="btnMarkAllPresent" style="color:#2E7D32">
+                <svg class="i i-16"><use href="#ic-check"/></svg> Mark All Present
+              </button>
+              <button class="btn btn-primary btn-sm" type="button" id="btnSaveAttendance">
+                Save &amp; Submit Attendance
+              </button>
+            </div>
+          </div>
+
+          <div id="attStatsStrip" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:12px 18px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span style="font-weight:700;color:var(--navy);font-size:.86rem">Live Roll-Call:</span>
+              <span class="pillx ok" id="attLivePresent" style="font-size:.76rem">0 Present</span>
+              <span class="pillx" id="attLiveAbsent" style="font-size:.76rem;background:#FEE2E2;color:#B91C1C">0 Absent</span>
+              <span class="pillx" id="attLiveLate" style="font-size:.76rem;background:#FEF3C7;color:#B45309">0 Late</span>
+            </div>
+            <div style="font-weight:700;font-size:.84rem;color:#0A1B3D" id="attLiveRate">Turnout: 0%</div>
+          </div>
+
+          <div style="overflow-x:auto">
+            <table class="att-table">
+              <thead>
+                <tr>
+                  <th style="width:70px">Roll No</th>
+                  <th>Student Name</th>
+                  <th>Grade &amp; Section</th>
+                  <th>Status Indicator</th>
+                  <th style="text-align:right">Mark Attendance</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 3: Classroom Diary -->
+      <section id="paneDiary" class="t-pane" style="display:none">
+        <div style="background:#fff;border:1px solid #E2E8F0;border-radius:16px;padding:18px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 3px;font-size:1.2rem;color:var(--navy)">Classroom Diary &amp; Homework Board</h3>
+            <span style="font-size:.82rem;color:var(--ink-50)">Official communication log for parents and students · Managed by Class Teacher</span>
+          </div>
+          <span class="pillx ok" style="font-size:.76rem">● Live Broadcast</span>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:20px;align-items:start">
+          <!-- Diary Entry Form -->
+          <div style="background:#fff;border:1px solid #E2E8F0;border-radius:18px;padding:22px;box-shadow:0 1px 4px rgba(10,27,61,0.03)">
+            <h3 style="margin:0 0 .4rem;font-size:1.15rem;color:var(--navy)">Post Today's Class Note / Homework</h3>
+            <p class="small" style="color:var(--ink-50);margin-bottom:1.2rem">Daily notices and homework reminders posted here will be available to parents.</p>
+            <form id="diaryForm" class="fgrid">
+              <div class="field">
+                <label for="diarySubject">Subject / Topic *</label>
+                <input id="diarySubject" placeholder="e.g. Mathematics" required />
+              </div>
+              <div class="field">
+                <label for="diaryHwType">Category / Work Type</label>
+                <select id="diaryHwType">
+                  <option value="Workbook Exercise">Workbook Exercise</option>
+                  <option value="Reading &amp; Phonics">Reading &amp; Phonics</option>
+                  <option value="Art &amp; Craft Activity">Art &amp; Craft Activity</option>
+                  <option value="Practice Worksheet">Practice Worksheet</option>
+                  <option value="Project / Scrapbook">Project / Scrapbook</option>
+                  <option value="General Classroom Notice">General Classroom Notice</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="diaryDueDate">Due / Submission Date</label>
+                <input id="diaryDueDate" type="date" />
+              </div>
+              <div class="field full">
+                <label for="diaryNotes">Homework &amp; Classroom Instructions *</label>
+                <textarea id="diaryNotes" style="min-height:90px" placeholder="e.g. Complete textbook page 14 exercises 1-5. Bring colouring crayons tomorrow." required></textarea>
+              </div>
+              <div class="field full">
+                <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center">Publish to Class Diary</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Diary History List -->
+          <div style="background:#fff;border:1px solid #E2E8F0;border-radius:18px;padding:22px;box-shadow:0 1px 4px rgba(10,27,61,0.03)">
+            <h3 style="margin:0 0 .4rem;font-size:1.15rem;color:var(--navy)">Recent Classroom Notes</h3>
+            <p class="small" style="color:var(--ink-50);margin-bottom:1rem">Historical archive of notes and homework tasks published for this grade.</p>
+            <div id="diaryList" style="display:grid;gap:12px">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/teacher.js"></script>
+</body>
+</html>
