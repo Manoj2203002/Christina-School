@@ -271,10 +271,97 @@ const db = {
     { id: 6, timestamp: '2026-09-29T16:00:00', teacherName: 'Gayathri N', teacherUsername: 'gayathri', grade: 'Grade 2', action: 'roster_exported', summary: 'Exported Grade 2 student directory to CSV', device: 'Chrome · Desktop Portal' }
   ],
   diary: [
-    { id: 1, date: '2026-10-01', grade: 'Grade 1', teacher: 'Deepa Rangarajan', subject: 'Mathematics & Phonics', homeworkType: 'Workbook Exercise', dueDate: '2026-10-02', notes: 'Practice numbers 1 to 50 on workbook page 12. Read "The Clever Fox" story 2 times.' },
-    { id: 2, date: '2026-10-01', grade: 'UKG', teacher: 'Sharmitha S', subject: 'Drawing & Rhymes', homeworkType: 'Art & Craft Activity', dueDate: '2026-10-02', notes: 'Bring green & yellow crayons tomorrow for leaf coloring activity. Sing "Teddy Bear" rhyme.' },
+    { id: 1, date: '2026-10-01', grade: 'Grade 1', teacher: 'Deepa Rangarajan', subject: 'Mathematics & Phonics', homeworkType: 'Workbook Exercise', dueDate: '2026-10-02', notes: 'Practice numbers 1 to 50 on workbook page 12. Read "The Clever Fox" story 2 times.', submissions: { 101: 'Completed', 102: 'Completed', 103: 'Completed', 104: 'Completed', 105: 'Completed' } },
+    { id: 2, date: '2026-10-01', grade: 'UKG', teacher: 'Sharmitha S', subject: 'Drawing & Rhymes', homeworkType: 'Art & Craft Activity', dueDate: '2026-10-02', notes: 'Bring green & yellow crayons tomorrow for leaf coloring activity. Sing "Teddy Bear" rhyme.', submissions: { 106: 'Completed', 107: 'Completed', 108: 'Completed', 109: 'Completed' } },
     { id: 3, date: '2026-09-30', grade: 'Grade 2', teacher: 'Gayathri N', subject: 'Environmental Studies', homeworkType: 'Scrapbook Project', dueDate: '2026-10-03', notes: 'Collect 3 different fallen leaves from home garden and paste in EVS scrapbook.' },
-    { id: 4, date: '2026-09-30', grade: 'Grade 3', teacher: 'Keerthina M', subject: 'Mathematics', homeworkType: 'Practice Worksheet', dueDate: '2026-10-02', notes: 'Complete multiplication table 4 & 5 puzzle sheet. Prepare for Friday 5-minute speed quiz.' }
+    { id: 4, date: '2026-09-30', grade: 'Grade 3', teacher: 'Keerthina M', subject: 'Mathematics', homeworkType: 'Practice Worksheet', dueDate: '2026-10-02', notes: 'Complete multiplication table 4 & 5 puzzle sheet. Prepare for Friday 5-minute speed quiz.' },
+    { id: 1001, date: '2026-10-14', grade: 'Grade 1', teacher: 'Ms. Deepa Rangarajan', subject: 'Mathematics', homeworkType: 'Workbook Exercise', dueDate: '2026-10-15', notes: 'Complete textbook page 14 exercises 1-5.', submissions: { 101: 'Completed', 102: 'Completed', 103: 'Pending', 104: 'Completed', 105: 'Late' } },
+    { id: 1002, date: '2026-10-13', grade: 'Grade 1', teacher: 'Ms. Deepa Rangarajan', subject: 'English', homeworkType: 'Reading & Phonics', dueDate: '2026-10-14', notes: 'Read story "The Little Red Hen" and identify 5 new words.', submissions: { 101: 'Completed', 102: 'Completed', 103: 'Completed', 104: 'Completed', 105: 'Completed' } },
+    { id: 1003, date: '2026-10-12', grade: 'Grade 1', teacher: 'Ms. Deepa Rangarajan', subject: 'EVS', homeworkType: 'Art & Craft Activity', dueDate: '2026-10-14', notes: 'Draw and colour 5 fruits found in your kitchen. Label each one.', submissions: { 101: 'Completed', 102: 'Pending', 103: 'Completed', 104: 'Late', 105: 'Pending' } },
+    { id: 1004, date: '2026-10-10', grade: 'UKG', teacher: 'Ms. Sharmitha S', subject: 'Numeracy', homeworkType: 'Practice Worksheet', dueDate: '2026-10-11', notes: 'Practice writing numbers 1 to 20 in the ruled notebook.', submissions: { 106: 'Completed', 107: 'Completed', 108: 'Pending', 109: 'Completed' } }
+  ],
+  subjectsByGrade: {
+    'Nursery': ['Pre-Reading', 'Numeracy', 'Art & Craft', 'Rhymes & Music'],
+    'LKG': ['English', 'Tamil', 'Numeracy', 'EVS', 'Art'],
+    'UKG': ['English', 'Tamil', 'Mathematics', 'EVS', 'Art'],
+    'Grade 1': ['English', 'Tamil', 'Mathematics', 'EVS', 'Art & Craft', 'Music'],
+    'Grade 2': ['English', 'Tamil', 'Mathematics', 'EVS', 'Art & Craft', 'Music'],
+    'Grade 3': ['English', 'Tamil', 'Hindi', 'Mathematics', 'Science', 'Social Studies', 'Computing'],
+    'Grade 4': ['English', 'Tamil', 'Hindi', 'Mathematics', 'Science', 'Social Studies', 'Computing'],
+    'Grade 5': ['English', 'Tamil', 'Hindi', 'Mathematics', 'Science', 'Social Studies', 'Computing']
+  },
+  gradeScale: [
+    { min: 90, max: 100, grade: 'A+', label: 'Outstanding', color: '#059669' },
+    { min: 80, max: 89, grade: 'A', label: 'Excellent', color: '#16A34A' },
+    { min: 70, max: 79, grade: 'B+', label: 'Very Good', color: '#2563EB' },
+    { min: 60, max: 69, grade: 'B', label: 'Good', color: '#7C3AED' },
+    { min: 50, max: 59, grade: 'C', label: 'Average', color: '#CA8A04' },
+    { min: 40, max: 49, grade: 'D', label: 'Below Average', color: '#EA580C' },
+    { min: 0, max: 39, grade: 'F', label: 'Needs Improvement', color: '#DC2626' }
+  ],
+  examTypes: ['Term 1', 'Term 2', 'Half Yearly', 'Annual'],
+  marks: [
+    { id: 1, studentId: 101, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 92, grade: 'A+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 2, studentId: 101, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 88, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 3, studentId: 101, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 95, grade: 'A+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 4, studentId: 101, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 90, grade: 'A+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 5, studentId: 101, examType: 'Term 1', subject: 'Art & Craft', maxMarks: 100, obtained: 85, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 6, studentId: 101, examType: 'Term 1', subject: 'Music', maxMarks: 100, obtained: 91, grade: 'A+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 7, studentId: 102, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 84, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 8, studentId: 102, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 78, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 9, studentId: 102, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 88, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 10, studentId: 102, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 82, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 11, studentId: 102, examType: 'Term 1', subject: 'Art & Craft', maxMarks: 100, obtained: 76, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 12, studentId: 102, examType: 'Term 1', subject: 'Music', maxMarks: 100, obtained: 80, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 13, studentId: 103, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 78, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 14, studentId: 103, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 82, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 15, studentId: 103, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 70, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 16, studentId: 103, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 75, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 17, studentId: 103, examType: 'Term 1', subject: 'Art & Craft', maxMarks: 100, obtained: 88, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 18, studentId: 103, examType: 'Term 1', subject: 'Music', maxMarks: 100, obtained: 84, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 19, studentId: 104, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 68, grade: 'B', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 20, studentId: 104, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 62, grade: 'B', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 21, studentId: 104, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 58, grade: 'C', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 22, studentId: 104, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 65, grade: 'B', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 23, studentId: 104, examType: 'Term 1', subject: 'Art & Craft', maxMarks: 100, obtained: 72, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 24, studentId: 104, examType: 'Term 1', subject: 'Music', maxMarks: 100, obtained: 70, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 25, studentId: 105, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 86, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 26, studentId: 105, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 80, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 27, studentId: 105, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 92, grade: 'A+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 28, studentId: 105, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 89, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 29, studentId: 105, examType: 'Term 1', subject: 'Art & Craft', maxMarks: 100, obtained: 80, grade: 'A', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 30, studentId: 105, examType: 'Term 1', subject: 'Music', maxMarks: 100, obtained: 78, grade: 'B+', enteredBy: 'deepa.r', date: '2026-10-01' },
+    { id: 31, studentId: 106, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 94, grade: 'A+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 32, studentId: 106, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 90, grade: 'A+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 33, studentId: 106, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 88, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 34, studentId: 106, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 92, grade: 'A+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 35, studentId: 106, examType: 'Term 1', subject: 'Art', maxMarks: 100, obtained: 95, grade: 'A+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 36, studentId: 107, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 82, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 37, studentId: 107, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 76, grade: 'B+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 38, studentId: 107, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 85, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 39, studentId: 107, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 80, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 40, studentId: 107, examType: 'Term 1', subject: 'Art', maxMarks: 100, obtained: 78, grade: 'B+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 41, studentId: 108, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 74, grade: 'B+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 42, studentId: 108, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 70, grade: 'B+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 43, studentId: 108, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 72, grade: 'B+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 44, studentId: 108, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 68, grade: 'B', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 45, studentId: 108, examType: 'Term 1', subject: 'Art', maxMarks: 100, obtained: 82, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 46, studentId: 109, examType: 'Term 1', subject: 'English', maxMarks: 100, obtained: 88, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 47, studentId: 109, examType: 'Term 1', subject: 'Tamil', maxMarks: 100, obtained: 84, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 48, studentId: 109, examType: 'Term 1', subject: 'Mathematics', maxMarks: 100, obtained: 90, grade: 'A+', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 49, studentId: 109, examType: 'Term 1', subject: 'EVS', maxMarks: 100, obtained: 86, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' },
+    { id: 50, studentId: 109, examType: 'Term 1', subject: 'Art', maxMarks: 100, obtained: 85, grade: 'A', enteredBy: 'sharmitha', date: '2026-10-01' }
+  ],
+  parents: [
+    { id: 1, studentIds: [101], username: 'parent.aadhya', password: 'CS2026001', parentName: 'Rajesh Kumar & Meena Rajesh', phone: '+91 98412 34567', email: 'rajesh.k@gmail.com', role: 'parent', lastLogin: null, createdBy: 'deepa.r', active: true },
+    { id: 2, studentIds: [102], username: 'parent.aarav', password: 'CS2026002', parentName: 'Senthil Nathan & Kavitha S', phone: '+91 98401 55678', email: 'senthil.n@gmail.com', role: 'parent', lastLogin: null, createdBy: 'deepa.r', active: true },
+    { id: 3, studentIds: [103], username: 'parent.diya', password: 'CS2026003', parentName: 'Lakshmanan M & Deepa L', phone: '+91 97890 23412', email: 'lakshman.m@yahoo.com', role: 'parent', lastLogin: null, createdBy: 'deepa.r', active: true },
+    { id: 4, studentIds: [104], username: 'parent.kavin', password: 'CS2026004', parentName: 'Rajendran P & Selvi R', phone: '+91 94441 87654', email: 'rajendran.p@gmail.com', role: 'parent', lastLogin: null, createdBy: 'deepa.r', active: true },
+    { id: 5, studentIds: [105], username: 'parent.mithran', password: 'CS2026005', parentName: 'Vijay Anand & Sandhya V', phone: '+91 99622 34510', email: 'vijayanand@outlook.com', role: 'parent', lastLogin: null, createdBy: 'deepa.r', active: true },
+    { id: 6, studentIds: [106], username: 'parent.ananya', password: 'CS2026006', parentName: 'Srinivasan T & Rekha S', phone: '+91 98402 11987', email: 'srini.t@gmail.com', role: 'parent', lastLogin: null, createdBy: 'sharmitha', active: true },
+    { id: 7, studentIds: [107], username: 'parent.bhuvanesh', password: 'CS2026007', parentName: 'Karthikeyan G & Malini K', phone: '+91 99401 22334', email: 'karthi.g@gmail.com', role: 'parent', lastLogin: null, createdBy: 'sharmitha', active: true },
+    { id: 8, studentIds: [108], username: 'parent.harini', password: 'CS2026008', parentName: 'Prakash R & Divya P', phone: '+91 97910 88765', email: 'prakash.r@gmail.com', role: 'parent', lastLogin: null, createdBy: 'sharmitha', active: true },
+    { id: 9, studentIds: [109], username: 'parent.nithin', password: 'CS2026009', parentName: 'Sai Kumar V & Gayathri S', phone: '+91 94432 99881', email: 'saikumar@gmail.com', role: 'parent', lastLogin: null, createdBy: 'sharmitha', active: true }
   ]
 };
 
@@ -489,7 +576,7 @@ function loadDb() {
     if (!raw) return;
     const saved = JSON.parse(raw);
     if (saved && typeof saved === 'object') {
-      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'clubs', 'sports', 'settings', 'students', 'teacherReports', 'diary'].forEach(k => {
+      ['staff', 'ann', 'events', 'ach', 'albums', 'gallery', 'news', 'documents', 'enquiries', 'testimonials', 'alumni', 'academics', 'clubs', 'sports', 'settings', 'students', 'teacherReports', 'diary', 'subjectsByGrade', 'gradeScale', 'examTypes', 'marks', 'parents'].forEach(k => {
         if (saved[k] !== undefined) {
           db[k] = saved[k];
         }

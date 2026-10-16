@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Christina Nursery and Primary School — Parent Portal</title>
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,400..800&family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/global.css" />
+<link rel="stylesheet" href="css/admin.css" />
+<link rel="stylesheet" href="css/parent.css" />
+<script>
+  if (!sessionStorage.getItem('christina_parent_auth')) {
+    window.location.replace('index.html?login=parent');
+  }
+</script>
+</head>
+<body class="parent-body">
+
+<!-- SVG Sprite -->
+<svg id="sprite" aria-hidden="true" style="display:none"><defs>
+<symbol id="ic-phone" viewBox="0 0 24 24"><path d="M6.5 3h3l1.5 4-2 1.5a12 12 0 0 0 6 6L16.5 12l4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/></symbol>
+<symbol id="ic-wa" viewBox="0 0 24 24"><path d="M12.04 2.6a9.3 9.3 0 0 0-8 14.05L2.8 21.4l4.9-1.2a9.3 9.3 0 1 0 4.34-17.6z"/><path d="M8.8 8c.25-.6.5-.6.85-.6h.6c.2 0 .45 0 .65.5l.75 1.8c.1.25 0 .5-.15.7l-.5.55c-.15.2-.3.4-.15.7a6.6 6.6 0 0 0 3.05 2.65c.35.15.55.1.75-.1l.6-.7c.2-.25.4-.2.65-.1l1.75.85c.25.1.4.2.45.3.05.25 0 .9-.35 1.4-.35.5-1.15 1-1.95 1a8.2 8.2 0 0 1-7-6.6c-.05-.85.3-1.75.8-2.35z"/></symbol>
+<symbol id="ic-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.6 7.2 8.4 5.6 8.4-5.6"/></symbol>
+<symbol id="ic-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.2 1.9"/></symbol>
+<symbol id="ic-lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7.2a4 4 0 0 1 8 0V10"/></symbol>
+<symbol id="ic-arrow-r" viewBox="0 0 24 24"><path d="M5 12h13m-5.5-6 6 6-6 6"/></symbol>
+<symbol id="ic-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20.5 20.5-4.2-4.2"/></symbol>
+<symbol id="ic-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+<symbol id="ic-check" viewBox="0 0 24 24"><path d="m5 12.6 4.4 4.4L19 7.4"/></symbol>
+<symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="ic-pencil" viewBox="0 0 24 24"><path d="M4.5 19.5h4L20 8a2.1 2.1 0 0 0 0-3l-1.5-1.5a2.1 2.1 0 0 0-3 0L4.5 15.5v4z"/></symbol>
+<symbol id="ic-trash" viewBox="0 0 24 24"><path d="M4 7h16M9.5 7V4.8h5V7m-8.2 0 1 12.5h8.4L18.7 7"/></symbol>
+<symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 6.2 12 6.2 21.5 12 21.5 12 18 17.8 12 17.8 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></symbol>
+<symbol id="ic-upload" viewBox="0 0 24 24"><path d="M12 16.5V4.5M7.2 9.3 12 4.5l4.8 4.8M4 19.5h16"/></symbol>
+<symbol id="ic-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.4"/><path d="M3 20.2a6 6 0 0 1 12 0M15.8 5.1a3.4 3.4 0 0 1 0 6.5M17.4 14.4a6 6 0 0 1 3.6 5.8"/></symbol>
+<symbol id="ic-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.6"/><path d="M5 20.8a7 7 0 0 1 14 0"/></symbol>
+<symbol id="ic-book" viewBox="0 0 24 24"><path d="M4.5 5.2A2.2 2.2 0 0 1 6.7 3H19.5v14.2H6.7a2.2 2.2 0 0 0-2.2 2.2V5.2zM19.5 17.2v3.6H6.7"/></symbol>
+<symbol id="ic-grad" viewBox="0 0 24 24"><path d="m2.5 9 9.5-3.8L21.5 9 12 12.8 2.5 9z"/><path d="M6.3 10.6v4.2c0 1.7 2.6 3 5.7 3s5.7-1.3 5.7-3v-4.2M21 9.4v5"/></symbol>
+<symbol id="ic-sparkle" viewBox="0 0 24 24"><path d="M12 3.4 13.8 8.6 19 10.4 13.8 12.2 12 17.4 10.2 12.2 5 10.4 10.2 8.6 12 3.4z"/></symbol>
+<symbol id="ic-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10.2h18"/></symbol>
+<symbol id="ic-doc" viewBox="0 0 24 24"><path d="M7 3.2h7l4 4v13.6H7V3.2zM14 3.2v4h4"/></symbol>
+<symbol id="ic-logout" viewBox="0 0 24 24"><path d="M14.5 4H17a2.5 2.5 0 0 1 2.5 2.5v11A2.5 2.5 0 0 1 17 20h-2.5M10 15.5 6.5 12 10 8.5M6.5 12H15"/></symbol>
+<symbol id="ic-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></symbol>
+<symbol id="ic-printer" viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></symbol>
+<symbol id="ic-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+<symbol id="ic-chevron-l" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+<symbol id="ic-chevron-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+<symbol id="ic-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+</defs></svg>
+
+<!-- Toast Notifications Container -->
+<div class="toasts" id="toasts" aria-live="polite"></div>
+
+<!-- Modal Container -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="veil" data-close-modal></div>
+  <div class="box" id="modalBox">
+    <button class="x" data-close-modal aria-label="Close"><svg class="i"><use href="#ic-close"/></svg></button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<div class="parent-app">
+  <!-- Mobile Drawer Backdrop Veil -->
+  <div class="p-aside-veil" id="pAsideVeil"></div>
+
+  <!-- Sidebar -->
+  <aside class="p-aside" id="pAside">
+    <!-- Branding -->
+    <a href="#/overview" class="p-brand">
+      <span class="brand-mark" style="width:38px;height:38px;background:#fff;border-radius:10px;display:grid;place-items:center">
+        <img src="assets/logo.png" alt="Logo" style="width:34px;height:34px" />
+      </span>
+      <div>
+        <b>Christina School</b>
+        <span>Parent Portal</span>
+      </div>
+    </a>
+
+    <!-- Parent Profile & Child Info Card -->
+    <div class="p-profile-card" id="pProfileCard">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div id="pParentAvatar">PR</div>
+        <div style="min-width:0;flex:1">
+          <b id="pParentName" style="color:#fff;display:block;font-size:.94rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Parent Name</b>
+          <span id="pParentRole" style="color:#8FAAD2;display:block;font-size:.76rem">Parent / Guardian</span>
+        </div>
+      </div>
+
+      <!-- Linked Child Selector Area -->
+      <div class="p-child-selector-box" id="childSelectorWrap">
+        <span class="p-child-label">Enrolled Student</span>
+        <div id="childSelectorContainer">
+          <!-- Dynamically populated: select dropdown if multiple children, or single child info -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="p-nav">
+      <button type="button" class="active" id="navOverview" data-tab="overview">
+        <svg class="i i-18"><use href="#ic-grid"/></svg> Overview
+      </button>
+      <button type="button" id="navMarks" data-tab="marks">
+        <svg class="i i-18"><use href="#ic-pencil"/></svg> Academic Marks
+      </button>
+      <button type="button" id="navAttendance" data-tab="attendance">
+        <svg class="i i-18"><use href="#ic-cal"/></svg> Attendance
+      </button>
+      <button type="button" id="navHomework" data-tab="homework">
+        <svg class="i i-18"><use href="#ic-book"/></svg> Homework
+        <span class="badge" id="cntHomeworkPending">0</span>
+      </button>
+      <button type="button" id="navReport" data-tab="report">
+        <svg class="i i-18"><use href="#ic-doc"/></svg> Report Card
+      </button>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="p-aside-foot">
+      <a href="index.html" class="btn btn-ghost on-navy btn-sm" style="display:inline-flex;align-items:center;gap:8px">
+        <svg class="i i-16"><use href="#ic-eye"/></svg> View Website
+      </a>
+      <button type="button" class="btn btn-primary btn-sm" id="btnLogoutParent" style="background:linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);border-color:#7C3AED;display:inline-flex;align-items:center;gap:8px">
+        <svg class="i i-16"><use href="#ic-logout"/></svg> Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main View Area -->
+  <div class="p-main">
+    <!-- Top Header -->
+    <header class="p-top">
+      <button class="burger p-burger" id="pBurger" style="display:none" aria-label="Open portal menu"><i></i><i></i><i></i></button>
+      <div>
+        <h2 style="font-family:var(--serif);font-size:1.35rem;margin:0;color:var(--navy)" id="topTitle">Overview</h2>
+        <span style="font-size:.8rem;color:var(--ink-50)" id="topSubtitle">Welcome to your child's academic dashboard</span>
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <!-- Student Quick Badge -->
+        <div id="topChildBadge" style="display:flex;align-items:center;gap:10px;background:#F5F3FF;border:1px solid #DDD6FE;padding:6px 14px;border-radius:999px">
+          <div id="topChildAvatar" style="width:26px;height:26px;border-radius:50%;background:#7C3AED;color:#fff;font-size:.72rem;font-weight:700;display:grid;place-items:center">CS</div>
+          <span style="font-size:.82rem;font-weight:700;color:#4C1D95" id="topChildName">Student</span>
+          <span style="font-size:.72rem;background:#EDE9FE;color:#7C3AED;padding:2px 7px;border-radius:999px;font-weight:700" id="topChildGrade">Grade 1</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Body -->
+    <div class="p-content">
+
+      <!-- ============================================================
+           PANE 1: OVERVIEW
+           ============================================================ -->
+      <section id="paneOverview" class="p-pane">
+        <!-- Welcome Hero Banner -->
+        <div class="p-banner">
+          <div>
+            <span class="tag">Official Parent Portal</span>
+            <h2 style="font-family:var(--serif);font-size:1.65rem;margin:.5rem 0 .3rem;color:#fff" id="bannerGreeting">Welcome back!</h2>
+            <p style="color:#B6CBEB;margin:0;font-size:.92rem" id="bannerStudentSummary">Viewing academic progress, daily attendance, and classroom notices.</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-sm" type="button" id="btnQuickReport" style="background:#7C3AED;border-color:#7C3AED;display:inline-flex;align-items:center;gap:8px">
+              <svg class="i i-16"><use href="#ic-doc"/></svg> View Report Card
+            </button>
+            <button class="btn btn-soft btn-sm" type="button" id="btnQuickHomework" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.3);display:inline-flex;align-items:center;gap:8px">
+              <svg class="i i-16"><use href="#ic-book"/></svg> Daily Homework
+            </button>
+          </div>
+        </div>
+
+        <!-- Student Profile Hero Card -->
+        <div class="child-hero-card" id="childHeroCard">
+          <div class="child-hero-left">
+            <div class="child-avatar-lg" id="overviewChildAvatar">AR</div>
+            <div>
+              <h3 style="margin:0 0 2px;font-size:1.35rem;color:var(--navy)" id="overviewChildName">Aadhya Rajesh</h3>
+              <div class="child-details-meta">
+                <span class="child-meta-badge" id="overviewChildGrade">Grade 1 — Section A</span>
+                <span class="child-meta-badge" id="overviewChildRoll">Roll No: 01</span>
+                <span class="child-meta-badge" id="overviewChildAdm">Adm: CS-2026-001</span>
+                <span class="child-meta-badge" id="overviewChildBlood">Blood: B+</span>
+              </div>
+            </div>
+          </div>
+          <div class="child-hero-right">
+            <div class="teacher-contact-pill">
+              <div style="width:36px;height:36px;border-radius:50%;background:#6D28D9;color:#fff;display:grid;place-items:center;font-weight:700;font-size:.85rem">DR</div>
+              <div>
+                <span style="display:block;font-size:.72rem;color:var(--ink-50);font-weight:700;text-transform:uppercase">Class Teacher</span>
+                <b style="display:block;font-size:.88rem;color:var(--navy)" id="overviewTeacherName">Ms. Deepa Rangarajan</b>
+                <span style="font-size:.74rem;color:#6D28D9" id="overviewTeacherRoom">Room 102 (East Wing)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Statistics KPIs -->
+        <div class="p-kpis">
+          <!-- KPI 1: Today's Roll-Call -->
+          <div class="p-kpi">
+            <div class="kpi-info">
+              <span class="kpi-label">Today's Attendance</span>
+              <b id="kpiTodayStatus" style="font-size:1.45rem;color:#16A34A">Present</b>
+              <span class="kpi-sub" id="kpiTodaySub">Marked at 09:10 AM</span>
+            </div>
+            <span class="ic" style="background:#DCFCE7;color:#16A34A" id="kpiTodayIc">
+              <svg class="i i-20"><use href="#ic-check"/></svg>
+            </span>
+          </div>
+
+          <!-- KPI 2: Overall Attendance % -->
+          <div class="p-kpi">
+            <div class="kpi-info">
+              <span class="kpi-label">Overall Attendance</span>
+              <b id="kpiAttRate">96%</b>
+              <span class="kpi-sub" id="kpiAttRatio">42 of 44 days attended</span>
+            </div>
+            <span class="ic" style="background:#EFF6FF;color:#2563EB">
+              <svg class="i i-20"><use href="#ic-cal"/></svg>
+            </span>
+          </div>
+
+          <!-- KPI 3: Latest Exam Grade -->
+          <div class="p-kpi">
+            <div class="kpi-info">
+              <span class="kpi-label">Latest Exam Grade</span>
+              <b id="kpiExamGrade">A+</b>
+              <span class="kpi-sub" id="kpiExamSub">Term 1 Assessment (93%)</span>
+            </div>
+            <span class="ic" style="background:#F5F3FF;color:#6D28D9">
+              <svg class="i i-20"><use href="#ic-grad"/></svg>
+            </span>
+          </div>
+
+          <!-- KPI 4: Homework Completion -->
+          <div class="p-kpi">
+            <div class="kpi-info">
+              <span class="kpi-label">Homework Completion</span>
+              <b id="kpiHwRate">100%</b>
+              <span class="kpi-sub" id="kpiHwSub">All tasks submitted</span>
+            </div>
+            <span class="ic" style="background:#FEF3C7;color:#D97706">
+              <svg class="i i-20"><use href="#ic-book"/></svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- 2-Column Activity Grid -->
+        <div class="p-activity-grid">
+          <!-- Card 1: Recent Homework Tasks -->
+          <div class="p-card">
+            <div class="p-card-head">
+              <h3><svg class="i i-18" style="color:#6D28D9"><use href="#ic-book"/></svg> Recent Homework &amp; Diary</h3>
+              <a href="#/homework" class="small" style="color:#6D28D9;font-weight:700">View All &rarr;</a>
+            </div>
+            <div id="recentHwList" style="display:grid;gap:10px">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Card 2: Latest Assessment Performance -->
+          <div class="p-card">
+            <div class="p-card-head">
+              <h3><svg class="i i-18" style="color:#6D28D9"><use href="#ic-pencil"/></svg> Term 1 Marks Summary</h3>
+              <a href="#/marks" class="small" style="color:#6D28D9;font-weight:700">Detailed Marks &rarr;</a>
+            </div>
+            <div id="recentMarksList" style="display:grid;gap:12px">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PANE 2: ACADEMIC MARKS
+           ============================================================ */
+      -->
+      <section id="paneMarks" class="p-pane" style="display:none">
+        <div class="p-card" style="margin-bottom:20px">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-bottom:1px solid #F1F5F9;padding-bottom:16px;margin-bottom:18px">
+            <div>
+              <h3 style="margin:0 0 3px;font-size:1.25rem;color:var(--navy)">Assessment Records &amp; Academic Scores</h3>
+              <span style="font-size:.82rem;color:var(--ink-50)">Detailed subject-wise breakdown and official term evaluations</span>
+            </div>
+            <!-- Exam Selector Segments -->
+            <div class="exam-seg-bar" id="examSegmentBar">
+              <button type="button" class="exam-seg-btn active" data-exam="Term 1">Term 1</button>
+              <button type="button" class="exam-seg-btn" data-exam="Term 2">Term 2</button>
+              <button type="button" class="exam-seg-btn" data-exam="Half Yearly">Half Yearly</button>
+              <button type="button" class="exam-seg-btn" data-exam="Annual">Annual</button>
+            </div>
+          </div>
+
+          <!-- Exam Metrics Banner -->
+          <div id="marksMetricsStrip" style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+              <span style="font-size:.85rem;color:var(--ink-70);font-weight:600">Total Marks:</span>
+              <b style="font-size:1.15rem;color:var(--navy)" id="marksTotalScored">0 / 0</b>
+              <span class="pillx ok" id="marksPercentagePill">0%</span>
+              <span class="grade-badge aplus" id="marksGradeBadge">A+ Outstanding</span>
+            </div>
+            <div style="font-size:.85rem;color:var(--ink-50);font-weight:600" id="marksEvaluationNote">
+              Official evaluation verified by Class Teacher
+            </div>
+          </div>
+
+          <!-- Subject Marks Table -->
+          <div class="marks-table-wrap">
+            <div style="overflow-x:auto">
+              <table class="p-table">
+                <thead>
+                  <tr>
+                    <th>Subject</th>
+                    <th style="text-align:center">Max Marks</th>
+                    <th style="text-align:center">Obtained</th>
+                    <th style="text-align:center">Percentage</th>
+                    <th style="text-align:center">Grade</th>
+                    <th>Performance Level</th>
+                    <th style="text-align:center">Class Average</th>
+                  </tr>
+                </thead>
+                <tbody id="marksTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Grand Total &amp; Overall Performance</td>
+                    <td style="text-align:center" id="footMaxMarks">600</td>
+                    <td style="text-align:center" id="footObtained">562</td>
+                    <td style="text-align:center" id="footPercentage">93.7%</td>
+                    <td style="text-align:center" id="footGrade"><span class="grade-badge aplus">A+</span></td>
+                    <td colspan="2" id="footSummary">Outstanding Academic Achievement</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grading System Reference Scale -->
+        <div class="p-card">
+          <h4 style="margin:0 0 12px;font-size:1rem;color:var(--navy);font-family:var(--serif)">Grading Scale &amp; Performance Standards</h4>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));gap:10px">
+            <div style="background:#ECFDF5;border:1px solid #A7F3D0;padding:10px 14px;border-radius:10px;text-align:center">
+              <b style="color:#059669;display:block;font-size:1.1rem">A+ (90-100)</b>
+              <span style="font-size:.76rem;color:#047857">Outstanding</span>
+            </div>
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;padding:10px 14px;border-radius:10px;text-align:center">
+              <b style="color:#10B981;display:block;font-size:1.1rem">A (80-89)</b>
+              <span style="font-size:.76rem;color:#065F46">Excellent</span>
+            </div>
+            <div style="background:#EFF6FF;border:1px solid #BFDBFE;padding:10px 14px;border-radius:10px;text-align:center">
+              <b style="color:#2563EB;display:block;font-size:1.1rem">B+ (70-79)</b>
+              <span style="font-size:.76rem;color:#1E40AF">Very Good</span>
+            </div>
+            <div style="background:#F0F9FF;border:1px solid #BAE6FD;padding:10px 14px;border-radius:10px;text-align:center">
+              <b style="color:#0284C7;display:block;font-size:1.1rem">B (60-69)</b>
+              <span style="font-size:.76rem;color:#075985">Good</span>
+            </div>
+            <div style="background:#FFFBEB;border:1px solid #FDE68A;padding:10px 14px;border-radius:10px;text-align:center">
+              <b style="color:#D97706;display:block;font-size:1.1rem">C (50-59)</b>
+              <span style="font-size:.76rem;color:#92400E">Satisfactory</span>
+            </div>
+            <div style="background:#FFF7ED;border:1px solid #FFEDD5;padding:10px 14px;border-radius:10px;text-align:center">
+              <b style="color:#EA580C;display:block;font-size:1.1rem">D (40-49)</b>
+              <span style="font-size:.76rem;color:#9A3412">Needs Improvement</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PANE 3: ATTENDANCE
+           ============================================================ -->
+      <section id="paneAttendance" class="p-pane" style="display:none">
+        <!-- Attendance Summary Strip -->
+        <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:16px;padding:20px;margin-bottom:20px;box-shadow:0 1px 4px rgba(0,0,0,0.03)">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;margin-bottom:16px;border-bottom:1px solid #F1F5F9;padding-bottom:14px">
+            <div>
+              <h3 style="margin:0 0 2px;font-size:1.2rem;color:var(--navy)">Student Attendance Tracker</h3>
+              <span style="font-size:.82rem;color:var(--ink-50)">Daily morning roll-call logs and cumulative attendance records</span>
+            </div>
+            <span class="pillx ok" id="attOverallBadge" style="font-size:.8rem;padding:4px 12px">Turnout: 96%</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:12px">
+            <div style="background:#F8FAFC;border:1px solid #E2E8F0;padding:12px 14px;border-radius:12px;text-align:center">
+              <span style="font-size:.76rem;color:var(--ink-50);display:block">Working Days</span>
+              <b style="font-size:1.4rem;color:var(--navy)" id="attSummaryTotal">44</b>
+            </div>
+            <div style="background:#F0FDF4;border:1px solid #BBF7D0;padding:12px 14px;border-radius:12px;text-align:center">
+              <span style="font-size:.76rem;color:#16A34A;display:block">Days Present</span>
+              <b style="font-size:1.4rem;color:#16A34A" id="attSummaryPresent">42</b>
+            </div>
+            <div style="background:#FEF2F2;border:1px solid #FECACA;padding:12px 14px;border-radius:12px;text-align:center">
+              <span style="font-size:.76rem;color:#DC2626;display:block">Days Absent</span>
+              <b style="font-size:1.4rem;color:#DC2626" id="attSummaryAbsent">1</b>
+            </div>
+            <div style="background:#FFFBEB;border:1px solid #FDE68A;padding:12px 14px;border-radius:12px;text-align:center">
+              <span style="font-size:.76rem;color:#D97706;display:block">Days Late</span>
+              <b style="font-size:1.4rem;color:#D97706" id="attSummaryLate">1</b>
+            </div>
+            <div style="background:#F5F3FF;border:1px solid #DDD6FE;padding:12px 14px;border-radius:12px;text-align:center">
+              <span style="font-size:.76rem;color:#6D28D9;display:block">Attendance %</span>
+              <b style="font-size:1.4rem;color:#6D28D9" id="attSummaryRate">95.5%</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- Monthly Calendar Grid Card -->
+        <div class="att-cal-card">
+          <div class="att-cal-header">
+            <div>
+              <h3 style="margin:0;font-size:1.15rem;color:var(--navy);display:flex;align-items:center;gap:8px">
+                <svg class="i i-18" style="color:#6D28D9"><use href="#ic-cal"/></svg> Monthly Calendar
+              </h3>
+              <span style="font-size:.8rem;color:var(--ink-50)">Showing daily attendance indicators for the selected month</span>
+            </div>
+            <!-- Month Navigator -->
+            <div style="display:flex;align-items:center;gap:10px">
+              <button type="button" class="btn btn-soft btn-sm" id="btnPrevMonth" aria-label="Previous Month" style="padding:6px 10px">
+                <svg class="i i-16"><use href="#ic-chevron-l"/></svg>
+              </button>
+              <b style="min-width:140px;text-align:center;font-size:.95rem;color:var(--navy)" id="calMonthLabel">October 2026</b>
+              <button type="button" class="btn btn-soft btn-sm" id="btnNextMonth" aria-label="Next Month" style="padding:6px 10px">
+                <svg class="i i-16"><use href="#ic-chevron-r"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Calendar Header Days of Week -->
+          <div class="p-cal-grid" style="margin-bottom:6px">
+            <div class="p-cal-day-head" style="color:#DC2626">Sun</div>
+            <div class="p-cal-day-head">Mon</div>
+            <div class="p-cal-day-head">Tue</div>
+            <div class="p-cal-day-head">Wed</div>
+            <div class="p-cal-day-head">Thu</div>
+            <div class="p-cal-day-head">Fri</div>
+            <div class="p-cal-day-head">Sat</div>
+          </div>
+
+          <!-- Calendar Days Grid -->
+          <div class="p-cal-grid" id="calDaysGrid">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Legend -->
+          <div class="cal-legend">
+            <span class="cal-legend-item"><span class="cal-dot" style="background:#16A34A"></span> Present</span>
+            <span class="cal-legend-item"><span class="cal-dot" style="background:#DC2626"></span> Absent</span>
+            <span class="cal-legend-item"><span class="cal-dot" style="background:#D97706"></span> Late</span>
+            <span class="cal-legend-item"><span class="cal-dot" style="background:#94A3B8"></span> Weekend / Holiday</span>
+          </div>
+        </div>
+
+        <!-- Informational Note Callout -->
+        <div style="margin-top:20px;background:#F8FAFC;border:1px solid #CBD5E1;border-radius:14px;padding:16px 20px;display:flex;align-items:flex-start;gap:12px">
+          <svg class="i i-20" style="color:#6D28D9;flex-shrink:0;margin-top:2px"><use href="#ic-sparkle"/></svg>
+          <div style="font-size:.86rem;color:var(--ink-70);line-height:1.5">
+            <b>Live Roll-Call Note:</b> Today's attendance status is officially updated every morning by your child's class teacher during period 1 roll-call. Historical calendar records reflect verified working sessions across the academic year.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PANE 4: HOMEWORK
+           ============================================================ -->
+      <section id="paneHomework" class="p-pane" style="display:none">
+        <div style="background:#ffffff;border:1px solid #E2E8F0;border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+          <div>
+            <h3 style="margin:0 0 3px;font-size:1.25rem;color:var(--navy)">Homework &amp; Classroom Diary</h3>
+            <span style="font-size:.82rem;color:var(--ink-50)">Track daily assigned work, practice exercises, and completion status</span>
+          </div>
+          <!-- Homework Counters Strip -->
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+            <span class="pillx" id="hwCountTotal" style="background:#F1F5F9;color:var(--navy);font-size:.78rem">0 Total</span>
+            <span class="pillx ok" id="hwCountCompleted" style="font-size:.78rem">0 Completed</span>
+            <span class="pillx" id="hwCountPending" style="background:#FFFBEB;color:#D97706;font-size:.78rem">0 Pending</span>
+            <span class="pillx off" id="hwCountLate" style="font-size:.78rem">0 Late</span>
+          </div>
+        </div>
+
+        <!-- Filter Segmented Tabs -->
+        <div class="hw-filter-bar">
+          <button type="button" class="exam-seg-btn active" id="filterHwAll" data-filter="all">All Assignments</button>
+          <button type="button" class="exam-seg-btn" id="filterHwPending" data-filter="pending">Pending ⏳</button>
+          <button type="button" class="exam-seg-btn" id="filterHwCompleted" data-filter="completed">Completed ✅</button>
+          <button type="button" class="exam-seg-btn" id="filterHwLate" data-filter="late">Late ⚠️</button>
+        </div>
+
+        <!-- Homework Cards List -->
+        <div id="homeworkList">
+          <!-- Dynamically populated -->
+        </div>
+      </section>
+
+      <!-- ============================================================
+           PANE 5: REPORT CARD
+           ============================================================ -->
+      <section id="paneReport" class="p-pane" style="display:none">
+        <!-- Actions & Exam Selector Bar -->
+        <div class="report-actions-bar">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:8px;font-size:.88rem;font-weight:700;color:var(--navy)">
+              <span>Select Examination:</span>
+              <select id="reportExamSelect" style="padding:.5rem 1rem;border-radius:10px;border:1px solid #CBD5E1;background:#fff;font-weight:700;color:var(--navy);outline:none;cursor:pointer">
+                <option value="Term 1" selected>Term 1 (Quarterly Assessment)</option>
+                <option value="Term 2">Term 2 (Mid-Term Assessment)</option>
+                <option value="Half Yearly">Half Yearly Examination</option>
+                <option value="Annual">Annual / Final Examination</option>
+              </select>
+            </label>
+            <span style="font-size:.82rem;color:var(--ink-50)">Academic Session: <b>2026–2027</b></span>
+          </div>
+
+          <button type="button" class="btn btn-primary" id="btnPrintReport" style="background:#7C3AED;border-color:#7C3AED;display:inline-flex;align-items:center;gap:8px">
+            <svg class="i i-18"><use href="#ic-printer"/></svg> Download / Print Official Report
+          </button>
+        </div>
+
+        <!-- Report Card Document Sheet (Screen + Print Friendly) -->
+        <div class="report-card-sheet" id="reportCardContainer">
+          <!-- School Official Header -->
+          <div class="rc-head">
+            <div style="width:72px;height:72px;background:#fff;border-radius:12px;border:1px solid #CBD5E1;display:grid;place-items:center;flex-shrink:0">
+              <img src="assets/logo.png" alt="School Emblem" style="width:62px;height:62px" />
+            </div>
+            <div style="flex:1">
+              <h1 class="rc-school-name">CHRISTINA NURSERY AND PRIMARY SCHOOL</h1>
+              <div style="font-size:.82rem;color:#475569;font-weight:600">
+                Recognised by the Government of Tamil Nadu · Reg. No. 0427/EDU/TN/1992
+              </div>
+              <div style="font-size:.78rem;color:#64748B;margin-top:2px">
+                Rasipuram Main Road, Gopalapuram, Attur, Salem – 636102 · Phone: +91 427 225 4053
+              </div>
+            </div>
+          </div>
+
+          <!-- Document Title Banner -->
+          <div class="rc-title-banner" id="rcExamBanner">
+            STUDENT PROGRESS &amp; EVALUATION REPORT — TERM 1
+          </div>
+
+          <!-- Student Profile Grid -->
+          <div class="rc-meta-grid">
+            <div class="rc-meta-row">
+              <span>Pupil Name:</span>
+              <b id="rcStudentName">Aadhya Rajesh</b>
+            </div>
+            <div class="rc-meta-row">
+              <span>Admission No:</span>
+              <b id="rcAdmNo">CS-2026-001</b>
+            </div>
+            <div class="rc-meta-row">
+              <span>Grade &amp; Section:</span>
+              <b id="rcGradeSec">Grade 1 - Section A</b>
+            </div>
+            <div class="rc-meta-row">
+              <span>Roll Number:</span>
+              <b id="rcRollNo">01</b>
+            </div>
+            <div class="rc-meta-row">
+              <span>Class Teacher:</span>
+              <b id="rcClassTeacher">Ms. Deepa Rangarajan</b>
+            </div>
+            <div class="rc-meta-row">
+              <span>Attendance in Term:</span>
+              <b id="rcAttendance">42 / 44 Days (95.5%)</b>
+            </div>
+          </div>
+
+          <!-- Marks Table -->
+          <table class="rc-table">
+            <thead>
+              <tr>
+                <th style="width:40px;text-align:center">#</th>
+                <th>Subject Name</th>
+                <th style="text-align:center;width:90px">Max Marks</th>
+                <th style="text-align:center;width:90px">Pass Marks</th>
+                <th style="text-align:center;width:110px">Marks Scored</th>
+                <th style="text-align:center;width:80px">Grade</th>
+                <th>Subject Remarks</th>
+              </tr>
+            </thead>
+            <tbody id="rcTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="2" style="text-align:right"><b>GRAND TOTAL:</b></td>
+                <td style="text-align:center" id="rcFootMax">600</td>
+                <td style="text-align:center">210</td>
+                <td style="text-align:center;font-size:1.05rem" id="rcFootScored">562</td>
+                <td style="text-align:center" id="rcFootGrade"><span class="grade-badge aplus">A+</span></td>
+                <td id="rcFootResult"><b>Result: PASSED WITH DISTINCTION</b></td>
+              </tr>
+            </tfoot>
+          </table>
+
+          <!-- Performance Aggregate & Remarks -->
+          <div style="background:#F8FAFC;border:1px solid #CBD5E1;border-radius:10px;padding:16px;margin-bottom:22px">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:12px;border-bottom:1px solid #E2E8F0;padding-bottom:10px">
+              <span style="font-size:.9rem;font-weight:700;color:var(--navy)">Overall Percentage: <b id="rcSummaryPercentage" style="color:#059669">93.7%</b></span>
+              <span style="font-size:.9rem;font-weight:700;color:var(--navy)">Overall Grade: <b id="rcSummaryGrade" style="color:#059669">A+ (Outstanding)</b></span>
+              <span style="font-size:.9rem;font-weight:700;color:var(--navy)">Conduct &amp; Discipline: <b>Exemplary</b></span>
+            </div>
+            <div style="font-size:.88rem;color:#1E293B;line-height:1.55">
+              <b>Class Teacher's Remark:</b>
+              <span id="rcTeacherRemark">Aadhya exhibits remarkable curiosity, exceptional reading fluency, and joyful participation in all classroom activities. Highly commended!</span>
+            </div>
+          </div>
+
+          <!-- Signatures Section -->
+          <div class="rc-sign-grid">
+            <div class="rc-sign-box">
+              <div class="rc-sign-line">Class Teacher Signature</div>
+            </div>
+            <div class="rc-sign-box">
+              <div class="rc-sign-line">Headmistress / Principal</div>
+            </div>
+            <div class="rc-sign-box">
+              <div class="rc-sign-line">Parent / Guardian Signature</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/parent.js"></script>
+</body>
+</html>

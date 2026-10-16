@@ -103,6 +103,15 @@
       <button type="button" id="navDiary" data-tab="diary">
         <svg class="i i-18"><use href="#ic-book"/></svg> Classroom Diary
       </button>
+      <button type="button" id="navMarks" data-tab="marks">
+        <svg class="i i-18"><use href="#ic-pencil"/></svg> Marks Entry
+      </button>
+      <button type="button" id="navPerformance" data-tab="performance">
+        <svg class="i i-18"><use href="#ic-sparkle"/></svg> Performance
+      </button>
+      <button type="button" id="navReportCards" data-tab="reportcards">
+        <svg class="i i-18"><use href="#ic-doc"/></svg> Report Cards
+      </button>
     </nav>
 
     <!-- Sidebar Footer -->
@@ -358,6 +367,232 @@
             <div id="diaryList" style="display:grid;gap:12px">
               <!-- Dynamically populated -->
             </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 4: Marks Entry -->
+      <section id="paneMarks" class="t-pane" style="display:none">
+        <div style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:20px;box-shadow:var(--sh-1)">
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:18px;border-bottom:1px solid var(--line);padding-bottom:14px">
+            <div>
+              <h3 style="margin:0;font-size:1.15rem;color:var(--navy)">Academic Marks &amp; Assessment Entry</h3>
+              <span style="font-size:.82rem;color:var(--ink-50)" id="marksExamSubjSubtitle">Record term test scores &amp; evaluate progress</span>
+            </div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+              <button class="btn btn-soft btn-sm" type="button" id="btnClearMarks" style="color:#DC2626;border-color:#FEE2E2">
+                <svg class="i i-16"><use href="#ic-trash"/></svg> Clear All
+              </button>
+              <button class="btn btn-primary btn-sm" type="button" id="btnSaveMarks">
+                <svg class="i i-16"><use href="#ic-check"/></svg> Save All Marks
+              </button>
+            </div>
+          </div>
+
+          <!-- Toolbar: Exam Type and Subject Selectors -->
+          <div class="t-toolbar" style="margin-bottom:16px;padding:12px 16px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <label style="display:flex;align-items:center;gap:6px;font-size:.84rem;font-weight:700;color:var(--navy)">
+                <span>Assessment / Exam:</span>
+                <select id="marksExamSelect" style="padding:.45rem .85rem;border-radius:var(--r-pill);border:1px solid #CBD5E1;background:#fff;font-size:.85rem;font-weight:600;color:var(--navy);outline:none;cursor:pointer">
+                  <!-- Dynamically populated -->
+                </select>
+              </label>
+
+              <label style="display:flex;align-items:center;gap:6px;font-size:.84rem;font-weight:700;color:var(--navy)">
+                <span>Subject:</span>
+                <select id="marksSubjectSelect" style="padding:.45rem .85rem;border-radius:var(--r-pill);border:1px solid #CBD5E1;background:#fff;font-size:.85rem;font-weight:600;color:var(--navy);outline:none;cursor:pointer">
+                  <!-- Dynamically populated from db.subjectsByGrade based on active class -->
+                </select>
+              </label>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--ink-50);flex-wrap:wrap">
+              <span style="font-weight:600">Scale:</span>
+              <span class="pillx ok" style="font-size:.72rem">A+ (90-100)</span>
+              <span class="pillx" style="font-size:.72rem;background:#E0E7FF;color:#3730A3">A (80-89)</span>
+              <span class="pillx" style="font-size:.72rem;background:#EDE9FE;color:#5B21B6">B+ (70-79)</span>
+              <span class="pillx" style="font-size:.72rem;background:#FEF3C7;color:#92400E">C (50-59)</span>
+              <span class="pillx" style="font-size:.72rem;background:#FEE2E2;color:#991B1B">F (&lt;40)</span>
+            </div>
+          </div>
+
+          <!-- Attendance-style Stats Strip for Marks -->
+          <div id="marksStatsStrip" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:12px 18px;margin-bottom:16px">
+            <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+              <span style="font-weight:700;color:var(--navy);font-size:.86rem">Evaluation Stats:</span>
+              <span class="pillx ok" id="marksEnteredStat" style="font-size:.76rem">0 Entered</span>
+              <span class="pillx" id="marksAverageStat" style="font-size:.76rem;background:#EFF6FF;color:#1D4ED8">Average: 0%</span>
+              <span class="pillx" id="marksHighestStat" style="font-size:.76rem;background:#ECFDF5;color:#047857">Highest: 0</span>
+              <span class="pillx" id="marksLowestStat" style="font-size:.76rem;background:#FEF2F2;color:#B91C1C">Lowest: 0</span>
+            </div>
+            <div style="font-weight:700;font-size:.84rem;color:#0A1B3D" id="marksCoverageStat">Completion: 0%</div>
+          </div>
+
+          <!-- Marks Table -->
+          <div style="overflow-x:auto">
+            <table class="att-table marks-table">
+              <thead>
+                <tr>
+                  <th style="width:70px">Roll No</th>
+                  <th>Student Name</th>
+                  <th>Grade &amp; Section</th>
+                  <th style="width:110px">Max Marks</th>
+                  <th style="width:130px">Obtained</th>
+                  <th style="width:140px">Grade</th>
+                  <th>Teacher Remarks</th>
+                </tr>
+              </thead>
+              <tbody id="marksTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 5: Performance Dashboard -->
+      <section id="panePerformance" class="t-pane" style="display:none">
+        <!-- Class performance summary cards -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(210px, 1fr));gap:16px;margin-bottom:20px">
+          <div class="perf-card">
+            <div class="perf-card-info">
+              <span class="perf-card-lbl">Class Average</span>
+              <b class="perf-card-val" id="perfClassAverage">0%</b>
+              <span class="perf-card-sub" id="perfClassAverageSub">Overall score across subjects</span>
+            </div>
+            <span class="perf-card-ic" style="background:#EFF6FF;color:#2563EB"><svg class="i i-20"><use href="#ic-sparkle"/></svg></span>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-card-info">
+              <span class="perf-card-lbl">Pass Rate</span>
+              <b class="perf-card-val" id="perfPassRate">0%</b>
+              <span class="perf-card-sub" style="color:#16A34A;font-weight:700" id="perfPassCount">0 Passing</span>
+            </div>
+            <span class="perf-card-ic" style="background:#DCFCE7;color:#16A34A"><svg class="i i-20"><use href="#ic-check"/></svg></span>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-card-info">
+              <span class="perf-card-lbl">Top Scorer</span>
+              <b class="perf-card-val" style="font-size:1.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis" id="perfTopScorer">—</b>
+              <span class="perf-card-sub" id="perfTopScore">0% aggregate</span>
+            </div>
+            <span class="perf-card-ic" style="background:#FEF3C7;color:#D97706"><svg class="i i-20"><use href="#ic-grad"/></svg></span>
+          </div>
+
+          <div class="perf-card">
+            <div class="perf-card-info">
+              <span class="perf-card-lbl">Graded Students</span>
+              <b class="perf-card-val" id="perfGradedCount">0</b>
+              <span class="perf-card-sub" id="perfTotalInClass">Total enrolled</span>
+            </div>
+            <span class="perf-card-ic" style="background:#EEF2FF;color:#4F46E5"><svg class="i i-20"><use href="#ic-users"/></svg></span>
+          </div>
+        </div>
+
+        <!-- Filter bar for Exam Type in Performance -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:14px 20px;margin-bottom:20px;box-shadow:var(--sh-1);display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:10px">
+            <b style="font-size:.92rem;color:var(--navy)">Performance Assessment Filter:</b>
+            <select id="perfExamSelect" style="padding:.45rem .85rem;border-radius:var(--r-pill);border:1px solid #CBD5E1;background:#fff;font-size:.85rem;font-weight:600;color:var(--navy);outline:none;cursor:pointer">
+              <!-- Dynamically populated with exam types -->
+            </select>
+          </div>
+          <span style="font-size:.82rem;color:var(--ink-50)">Class performance analysis &amp; student standings</span>
+        </div>
+
+        <!-- Two Column Grid: Subject-wise Averages & Needs Attention -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(320px, 1fr));gap:20px;margin-bottom:20px">
+          <!-- Subject-wise Averages (Styled CSS Bars) -->
+          <div style="background:#fff;border:1px solid #E2E8F0;border-radius:18px;padding:22px;box-shadow:0 1px 4px rgba(10,27,61,0.03)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+              <h3 style="margin:0;font-size:1.15rem;color:var(--navy)">Subject Performance Analysis</h3>
+              <span class="pillx" style="font-size:.72rem">Class Averages</span>
+            </div>
+            <p class="small" style="color:var(--ink-50);margin-bottom:16px">Class average marks across all academic subjects.</p>
+            <div id="perfSubjectBars" style="display:grid;gap:14px">
+              <!-- Dynamically generated bars -->
+            </div>
+          </div>
+
+          <!-- Needs Attention Section (Below 50%) -->
+          <div style="background:#fff;border:1px solid #E2E8F0;border-radius:18px;padding:22px;box-shadow:0 1px 4px rgba(10,27,61,0.03)">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+              <h3 style="margin:0;font-size:1.15rem;color:var(--navy)">Students Needing Support</h3>
+              <span class="pillx" id="perfAttentionPill" style="font-size:.72rem;background:#FEE2E2;color:#B91C1C">0 Pupils</span>
+            </div>
+            <p class="small" style="color:var(--ink-50);margin-bottom:16px">Pupils scoring below 50% in any subject requiring extra guidance.</p>
+            <div id="perfAttentionList" style="display:grid;gap:12px">
+              <!-- Dynamically generated student items or empty state -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Per-Student Class Ranking Table -->
+        <div style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;box-shadow:var(--sh-1)">
+          <div style="padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+            <div>
+              <h3 style="margin:0;font-size:1.15rem;color:var(--navy)">Classroom Academic Standings</h3>
+              <span style="font-size:.82rem;color:var(--ink-50)">Complete student performance hierarchy and drill-down</span>
+            </div>
+            <span class="pillx ok" style="font-size:.74rem">Click student to view subject breakdown</span>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="att-table perf-rank-table">
+              <thead>
+                <tr>
+                  <th style="width:70px">Rank</th>
+                  <th>Student Name</th>
+                  <th>Roll No</th>
+                  <th>Total Marks</th>
+                  <th>Average %</th>
+                  <th>Overall Grade</th>
+                  <th style="text-align:right">Action</th>
+                </tr>
+              </thead>
+              <tbody id="perfRankTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- PANE 6: Report Cards -->
+      <section id="paneReportCards" class="t-pane" style="display:none">
+        <div class="report-controls-bar" style="background:#fff;border:1px solid var(--line);border-radius:var(--r-m);padding:18px 22px;margin-bottom:20px;box-shadow:var(--sh-1);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px">
+          <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+            <label style="display:flex;align-items:center;gap:6px;font-size:.86rem;font-weight:700;color:var(--navy)">
+              <span>Select Student:</span>
+              <select id="reportStudentSelect" style="padding:.5rem .9rem;border-radius:var(--r-pill);border:1px solid #CBD5E1;background:#fff;font-size:.86rem;font-weight:600;color:var(--navy);outline:none;cursor:pointer">
+                <!-- Dynamically populated -->
+              </select>
+            </label>
+
+            <label style="display:flex;align-items:center;gap:6px;font-size:.86rem;font-weight:700;color:var(--navy)">
+              <span>Exam / Term:</span>
+              <select id="reportExamSelect" style="padding:.5rem .9rem;border-radius:var(--r-pill);border:1px solid #CBD5E1;background:#fff;font-size:.86rem;font-weight:600;color:var(--navy);outline:none;cursor:pointer">
+                <!-- Dynamically populated -->
+              </select>
+            </label>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-soft btn-sm" type="button" id="btnGenerateAllReports" style="display:inline-flex;align-items:center;gap:6px">
+              <svg class="i i-16"><use href="#ic-doc"/></svg> Generate All Report Cards
+            </button>
+            <button class="btn btn-primary btn-sm" type="button" id="btnPrintReportCard" style="display:inline-flex;align-items:center;gap:6px">
+              <svg class="i i-16"><use href="#ic-upload"/></svg> Print Report Card
+            </button>
+          </div>
+        </div>
+
+        <!-- Formatted Report Card Preview Area -->
+        <div id="reportCardPreviewWrap">
+          <div id="reportCardPreview" class="report-card-container">
+            <!-- Dynamically populated report card HTML -->
           </div>
         </div>
       </section>

@@ -1086,141 +1086,18 @@ document.addEventListener('click', e => {
 });
 
 /* ------------------------------------------------------------
-   LOGIN
+   LOGIN (SINGLE UNIFIED LOGIN WITH ROLE AUTO-DETECTION)
    ------------------------------------------------------------ */
-function setLoginRole(role) {
-  currentLoginRole = role;
-  const isTeacher = role === 'teacher';
-  
-  const tabT = $('#roleTabTeacher'), tabA = $('#roleTabAdmin');
-  if (tabT && tabA) {
-    tabT.style.background = isTeacher ? 'var(--mari)' : 'transparent';
-    tabT.style.color = isTeacher ? '#fff' : 'var(--ink-70)';
-    tabT.classList.toggle('active', isTeacher);
-    tabA.style.background = !isTeacher ? 'var(--mari)' : 'transparent';
-    tabA.style.color = !isTeacher ? '#fff' : 'var(--ink-70)';
-    tabA.classList.toggle('active', !isTeacher);
-  }
-  
-  const sideTitle = $('#loginSideTitle');
-  const sideDesc = $('#loginSideDesc');
-  const sideHint = $('#loginDemoHint');
-  const mainTitle = $('#loginMainTitle');
-  const mainSub = $('#loginMainSub');
-  const userLabel = $('#lUserLabel');
-  const userInput = $('#l-user');
-  const passInput = $('#l-pass');
-  const submitBtn = $('#loginSubmitBtn');
-  const banner = $('#teacherActiveBanner');
-  const alertBox = $('#loginInlineAlert');
-  if (alertBox) { alertBox.style.display = 'none'; alertBox.classList.remove('shake', 'error'); }
-
-  if (isTeacher) {
-    if (sideTitle) sideTitle.textContent = 'Teacher Portal';
-    if (sideDesc) sideDesc.textContent = 'For class teachers to manage student rosters, attendance roll-calls, and daily classroom updates.';
-    if (banner) banner.style.display = 'flex';
-    if (sideHint) {
-      sideHint.innerHTML = `
-        <div style="font-weight:700;margin-bottom:8px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:5px;display:flex;align-items:center;justify-content:space-between">
-          <span>Select Demo Teacher:</span>
-          <span style="font-size:.72rem;color:#FFC24A">1-Click Sign-in</span>
-        </div>
-        <div class="teacher-demo-grid" id="teacherDemoGrid">
-          <button type="button" class="teacher-demo-card active" data-fill-user="deepa.r" data-teacher-name="Ms. Deepa Rangarajan" data-teacher-grade="Grade 1 · Room 102">
-            <div class="tdc-av" style="background:#1D4ED8">DR</div>
-            <div class="tdc-meta">
-              <span class="tdc-name">Ms. Deepa Rangarajan</span>
-              <span class="tdc-desc">Grade 1 · Room 102 · Computing</span>
-            </div>
-            <span class="tdc-tag">G1</span>
-          </button>
-          <button type="button" class="teacher-demo-card" data-fill-user="sharmitha" data-teacher-name="Ms. Sharmitha S" data-teacher-grade="UKG · Sunshine Wing">
-            <div class="tdc-av" style="background:#BE185D">SS</div>
-            <div class="tdc-meta">
-              <span class="tdc-name">Ms. Sharmitha S</span>
-              <span class="tdc-desc">UKG · Sunshine Wing · Phonics</span>
-            </div>
-            <span class="tdc-tag">UKG</span>
-          </button>
-          <button type="button" class="teacher-demo-card" data-fill-user="gayathri" data-teacher-name="Ms. Gayathri N" data-teacher-grade="Grade 2 · Room 201">
-            <div class="tdc-av" style="background:#059669">GN</div>
-            <div class="tdc-meta">
-              <span class="tdc-name">Ms. Gayathri N</span>
-              <span class="tdc-desc">Grade 2 · Room 201 · English</span>
-            </div>
-            <span class="tdc-tag">G2</span>
-          </button>
-          <button type="button" class="teacher-demo-card" data-fill-user="keerthina" data-teacher-name="Ms. Keerthina M" data-teacher-grade="Grade 3 · Room 205">
-            <div class="tdc-av" style="background:#7C3AED">KM</div>
-            <div class="tdc-meta">
-              <span class="tdc-name">Ms. Keerthina M</span>
-              <span class="tdc-desc">Grade 3 · Room 205 · Math</span>
-            </div>
-            <span class="tdc-tag">G3</span>
-          </button>
-        </div>`;
-    }
-    if (mainTitle) mainTitle.textContent = 'Teacher Sign-in';
-    if (mainSub) mainSub.textContent = 'Sign in to manage your students and classroom attendance.';
-    if (userLabel) userLabel.textContent = 'Teacher Username';
-    if (userInput) { userInput.placeholder = 'e.g. deepa.r'; userInput.value = 'deepa.r'; }
-    if (passInput) passInput.value = 'teacher123';
-    if (submitBtn) submitBtn.innerHTML = 'Sign in to Teacher Portal <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg>';
-  } else {
-    if (sideTitle) sideTitle.textContent = 'School Office Sign-in';
-    if (sideDesc) sideDesc.textContent = 'For school principal and administrators to manage website content, staff credentials, and school settings.';
-    if (banner) banner.style.display = 'none';
-    if (sideHint) {
-      sideHint.innerHTML = `
-        <div style="font-weight:700;margin-bottom:6px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px">Demo Administrator</div>
-        <div style="font-size:.84rem;line-height:1.5;background:rgba(255,255,255,.08);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.15)">
-          <div>Username: <b>admin</b></div>
-          <div>Password: <b>christina</b></div>
-          <div style="font-size:.74rem;color:#FFC24A;margin-top:4px">Full administrative access</div>
-        </div>`;
-    }
-    if (mainTitle) mainTitle.textContent = 'Administrator Sign-in';
-    if (mainSub) mainSub.textContent = 'Sign in to access the full school administration dashboard.';
-    if (userLabel) userLabel.textContent = 'Admin Username or Email';
-    if (userInput) { userInput.placeholder = 'admin'; userInput.value = 'admin'; }
-    if (passInput) passInput.value = 'christina';
-    if (submitBtn) submitBtn.innerHTML = 'Sign in to School Admin <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg>';
-  }
-  $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
-}
-
-function openLogin(role) {
+function openLogin() {
   const l = $('#login'); if(!l) return;
   l.classList.add('open'); document.body.classList.add('locked');
-  $('#forgotPane').style.display = 'none'; $('#loginForm').style.display = 'grid';
+  const forgotPane = $('#forgotPane');
+  const loginForm = $('#loginForm');
+  if (forgotPane) forgotPane.style.display = 'none';
+  if (loginForm) loginForm.style.display = 'grid';
   const alertBox = $('#loginInlineAlert');
   if (alertBox) { alertBox.style.display = 'none'; alertBox.classList.remove('shake', 'error'); }
-
-  setLoginRole(role || currentLoginRole || 'teacher');
-
-  // Check remembered teacher from localStorage
-  try {
-    const rem = localStorage.getItem('christina_teacher_remembered');
-    if (rem && currentLoginRole === 'teacher') {
-      const data = JSON.parse(rem);
-      if (data && data.username) {
-        const userInput = $('#l-user');
-        const passInput = $('#l-pass');
-        if (userInput) userInput.value = data.username;
-        if (passInput) passInput.value = 'teacher123';
-        
-        $$('.teacher-demo-card').forEach(c => {
-          c.classList.toggle('active', c.dataset.fillUser === data.username);
-        });
-        const bName = $('#activeTeacherName');
-        const bGrade = $('#activeTeacherGrade');
-        if (bName && data.name) bName.textContent = data.name;
-        if (bGrade && data.grade) bGrade.textContent = `(${data.grade})`;
-      }
-    }
-  } catch (err) {}
-
-  setTimeout(() => $('#l-user').focus(), 80);
+  setTimeout(() => { const u = $('#l-user'); if(u) u.focus(); }, 80);
 }
 
 function closeLogin() {
@@ -1229,7 +1106,6 @@ function closeLogin() {
   const a = $('#admin');
   if (!a || !a.classList.contains('open')) document.body.classList.remove('locked');
 }
-let currentLoginRole = 'teacher';
 
 document.addEventListener('click', e => {
   if (e.target.closest('.login-open') || e.target.closest('.tb-login-js')) { e.preventDefault(); closeDrawer(); openLogin(); }
@@ -1239,37 +1115,19 @@ document.addEventListener('click', e => {
     i.type = show ? 'text' : 'password';
     $('#pwToggle').setAttribute('aria-label', show ? 'Hide password' : 'Show password');
   }
-  const roleTab = e.target.closest('[data-role]');
-  if (roleTab) {
-    setLoginRole(roleTab.dataset.role);
-    return;
-  }
-  const fillBtn = e.target.closest('[data-fill-user]');
-  if (fillBtn) {
-    const uname = fillBtn.dataset.fillUser;
-    const tName = fillBtn.dataset.teacherName || uname;
-    const tGrade = fillBtn.dataset.teacherGrade || '';
+  const demoCard = e.target.closest('.demo-fill-card');
+  if (demoCard) {
+    const u = demoCard.dataset.demoUser;
+    const p = demoCard.dataset.demoPass;
     const userInput = $('#l-user');
     const passInput = $('#l-pass');
-    if (userInput) userInput.value = uname;
-    if (passInput) passInput.value = 'teacher123';
-
-    // Highlight active card
-    $$('.teacher-demo-card').forEach(c => c.classList.remove('active'));
-    fillBtn.classList.add('active');
-
-    // Update banner
-    const bName = $('#activeTeacherName');
-    const bGrade = $('#activeTeacherGrade');
-    if (bName) bName.textContent = tName;
-    if (bGrade) bGrade.textContent = `(${tGrade})`;
-    const banner = $('#teacherActiveBanner');
-    if (banner) banner.style.display = 'flex';
-
+    if (userInput) userInput.value = u || '';
+    if (passInput) passInput.value = p || '';
+    $$('.demo-fill-card').forEach(c => c.style.borderColor = 'rgba(255,255,255,.12)');
+    demoCard.style.borderColor = '#FFC24A';
     const alertBox = $('#loginInlineAlert');
-    if (alertBox) { alertBox.style.display = 'none'; alertBox.classList.remove('shake', 'error'); }
-
-    toast(`Teacher selected|Ready to sign in as ${tName}.`, 'info');
+    if (alertBox) { alertBox.style.display = 'none'; }
+    toast('Credentials filled|Click Sign In to continue.', 'info');
     return;
   }
   if (e.target.closest('#forgotBtn')) { $('#loginForm').style.display = 'none'; $('#forgotPane').style.display = 'block'; }
@@ -1284,7 +1142,8 @@ document.addEventListener('submit', e => {
   }
   else if (e.target.id === 'loginForm') {
     e.preventDefault();
-    const u = $('#l-user').value.trim(), p = $('#l-pass').value;
+    const u = $('#l-user').value.trim();
+    const p = $('#l-pass').value;
     const ok = validate(e.target, [{ sel: '#l-user', test: notEmpty }, { sel: '#l-pass', test: v => v.length > 0 }]);
     const alertBox = $('#loginInlineAlert');
     const alertText = $('#loginAlertText');
@@ -1298,46 +1157,16 @@ document.addEventListener('submit', e => {
       return;
     }
 
-    if (currentLoginRole === 'teacher') {
-      const teacher = (db.staff || []).find(s => 
-        (s.username && s.username.toLowerCase() === u.toLowerCase()) && 
-        (s.password === p || p === 'teacher123')
-      );
-
-      if (!teacher) {
-        $('#l-pass').closest('.field').classList.add('bad');
-        if (alertBox && alertText) {
-          alertText.innerHTML = '<b>Invalid credentials:</b> Username or password did not match. Please choose a demo teacher above or verify your details.';
-          alertBox.className = 'login-inline-alert error shake';
-        }
-        toast('Teacher credentials not found|Try deepa.r, sharmitha, gayathri, or keerthina with password teacher123.', 'warn');
-        return;
-      }
-
-      if (teacher.canLogin === false || teacher.active === false) {
-        if (alertBox && alertText) {
-          alertText.innerHTML = '<b>Account Suspended:</b> This teacher account has been deactivated by the Principal. Please contact the front office.';
-          alertBox.className = 'login-inline-alert error shake';
-        }
-        toast('Teacher account inactive|Please consult the school administrator.', 'warn');
-        return;
-      }
-
-      // Handle Remember Me
-      const rememberCheckbox = $('#l-remember');
-      if (rememberCheckbox && rememberCheckbox.checked) {
-        try {
-          localStorage.setItem('christina_teacher_remembered', JSON.stringify({
-            username: teacher.username,
-            name: teacher.name,
-            grade: teacher.assignedGrade || 'Grade 1'
-          }));
-        } catch (err) {}
-      } else {
-        try { localStorage.removeItem('christina_teacher_remembered'); } catch (err) {}
-      }
-
-      // Record last login & audit report
+    // === AUTO-DETECT ROLE ===
+    
+    // 1. Check TEACHER credentials
+    const teacher = (db.staff || []).find(s => 
+      s.username && s.canLogin !== false && s.active !== false &&
+      s.username.toLowerCase() === u.toLowerCase() && 
+      (s.password === p || p === 'teacher123')
+    );
+    
+    if (teacher) {
       teacher.lastLogin = new Date().toISOString();
       db.teacherReports = db.teacherReports || [];
       db.teacherReports.unshift({
@@ -1347,53 +1176,75 @@ document.addEventListener('submit', e => {
         teacherUsername: teacher.username,
         grade: teacher.assignedGrade || 'Grade 1',
         action: 'login',
-        summary: `Teacher ${teacher.name} signed into the Teacher Portal (${teacher.assignedGrade || 'Grade 1'})`,
-        device: 'Web Portal · Desktop'
+        summary: `Teacher ${teacher.name} signed into the Teacher Portal`,
+        device: 'Web Portal'
       });
-      if (window.App && window.App.saveDb) window.App.saveDb();
-
       const authData = {
-        id: teacher.id,
-        name: teacher.name,
-        username: teacher.username,
+        id: teacher.id, name: teacher.name, username: teacher.username,
         assignedGrade: teacher.assignedGrade || 'Grade 1',
         assignedSection: teacher.assignedSection || 'A',
         roomNo: teacher.roomNo || 'Room 102',
-        email: teacher.email || '',
-        phone: teacher.phone || '',
-        bloodGroup: teacher.bloodGroup || '',
-        desig: teacher.desig
+        email: teacher.email || '', phone: teacher.phone || '',
+        bloodGroup: teacher.bloodGroup || '', desig: teacher.desig
       };
       sessionStorage.setItem('christina_teacher_auth', JSON.stringify(authData));
+      if (window.App && window.App.saveDb) window.App.saveDb();
       closeLogin(); e.target.reset();
-      $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
-      toast('Welcome back, ' + teacher.name + '|Signed in as Class Teacher for ' + (teacher.assignedGrade || 'Grade 1') + '.', 'ok');
+      toast('Welcome back, ' + teacher.name + '|Signed in as Teacher for ' + (teacher.assignedGrade || 'Grade 1') + '.', 'ok');
       setTimeout(() => { window.location.href = 'teacher-dashboard.html'; }, 300);
-
-    } else {
-      const validUsers = ['admin', 'admin@christinaschool.in', 'principal'];
-      const validPass = ['christina', 'admin'];
-      if (validUsers.includes(u.toLowerCase()) && validPass.includes(p)) {
-        sessionStorage.setItem('christina_admin_auth', '1');
-        closeLogin(); e.target.reset();
-        $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
-        toast('Welcome back, Principal|Signed in to School Admin Dashboard.', 'ok');
-        setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 300);
-      } else {
-        $('#l-pass').closest('.field').classList.add('bad');
-        if (alertBox && alertText) {
-          alertText.innerHTML = '<b>Invalid admin credentials:</b> Demo username is <b>admin</b> and password is <b>christina</b>.';
-          alertBox.className = 'login-inline-alert error shake';
-        }
-        toast('Invalid admin credentials|Demo username is "admin" and password is "christina".', 'warn');
-      }
+      return;
     }
+    
+    // 2. Check ADMIN credentials
+    const validAdminUsers = ['admin', 'admin@christinaschool.in', 'principal'];
+    const validAdminPass = ['christina', 'admin'];
+    if (validAdminUsers.includes(u.toLowerCase()) && validAdminPass.includes(p)) {
+      sessionStorage.setItem('christina_admin_auth', '1');
+      closeLogin(); e.target.reset();
+      toast('Welcome back, Principal|Signed in to Admin Dashboard.', 'ok');
+      setTimeout(() => { window.location.href = 'admin-dashboard.html'; }, 300);
+      return;
+    }
+    
+    // 3. Check PARENT credentials
+    const parent = (db.parents || []).find(pr => 
+      (pr.username && pr.username.toLowerCase() === u.toLowerCase()) ||
+      (pr.phone && pr.phone.replace(/\D/g, '').includes(u.replace(/\D/g, '')))
+    );
+    
+    if (parent && parent.password === p && parent.active !== false) {
+      parent.lastLogin = new Date().toISOString();
+      const authData = {
+        id: parent.id, parentName: parent.parentName,
+        username: parent.username, studentIds: parent.studentIds || [],
+        phone: parent.phone, email: parent.email, role: 'parent'
+      };
+      sessionStorage.setItem('christina_parent_auth', JSON.stringify(authData));
+      if (window.App && window.App.saveDb) window.App.saveDb();
+      closeLogin(); e.target.reset();
+      toast('Welcome, ' + parent.parentName.split('&')[0].trim() + '|Signed in to Parent Portal.', 'ok');
+      setTimeout(() => { window.location.href = 'parent-dashboard.html'; }, 300);
+      return;
+    }
+    
+    // 4. No match — show error
+    $('#l-pass').closest('.field').classList.add('bad');
+    if (alertBox && alertText) {
+      alertText.innerHTML = '<b>Invalid credentials.</b> No account found with this username and password. Try one of the demo accounts shown on the left.';
+      alertBox.className = 'login-inline-alert error shake';
+    }
+    toast('Invalid credentials|Username or password not recognized.', 'warn');
   }
 });
 
-// Auto-open teacher login modal if URL indicates teacher portal request
-if (window.location.search.includes('login=teacher') || window.location.hash === '#/login-teacher') {
-  setTimeout(() => openLogin('teacher'), 150);
+// Auto-open login modal if URL indicates portal request
+if (window.location.search.includes('login=teacher') || 
+    window.location.search.includes('login=parent') || 
+    window.location.search.includes('login=admin') ||
+    window.location.hash === '#/login' ||
+    window.location.hash === '#/login-teacher' ||
+    window.location.hash === '#/login-parent') {
+  setTimeout(() => openLogin(), 150);
 }
 
 /* ------------------------------------------------------------

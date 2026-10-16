@@ -1,0 +1,1585 @@
+/* ============================================================
+   CHRISTINA NURSERY AND PRIMARY SCHOOL — Parent Portal Styles
+   Matching Teacher Portal Design Language & Component Patterns
+   Accent Color: #7C3AED (Royal Purple / Violet)
+   ============================================================ */
+
+body.parent-body {
+  background: #F1F5F9;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch;
+  min-height: 100vh;
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+}
+
+.parent-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 270px 1fr;
+  position: relative;
+}
+
+/* ============================================================
+   SIDEBAR (MATCHES TEACHER PORTAL NAVY GRADIENT)
+   ============================================================ */
+.p-aside {
+  background: linear-gradient(180deg, #0A1B3D 0%, #122B5E 50%, #162F63 100%);
+  color: #B6CBEB;
+  padding: 24px 18px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 24px rgba(7, 23, 54, 0.15);
+}
+
+.p-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.p-brand b {
+  color: #ffffff;
+  font-size: 1.08rem;
+  letter-spacing: -0.01em;
+  display: block;
+}
+
+.p-brand span {
+  color: #8FAAD2;
+  font-size: 0.78rem;
+  font-weight: 500;
+  display: block;
+}
+
+/* Parent Profile Card in Sidebar */
+.p-profile-card {
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 14px 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.18s ease, border-color 0.18s ease;
+}
+
+.p-profile-card #pParentAvatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #ffffff;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+/* Active Child Selector Card inside Sidebar */
+.p-child-selector-box {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.p-child-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #8FAAD2;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.p-child-select-input {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.18s ease;
+}
+
+.p-child-select-input:focus {
+  border-color: #A78BFA;
+}
+
+.p-child-select-input option {
+  background: #0A1B3D;
+  color: #ffffff;
+}
+
+.p-child-single-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Navigation items */
+.p-nav {
+  margin-top: 26px;
+  display: grid;
+  gap: 6px;
+}
+
+.p-nav button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: 0;
+  color: #B6CBEB;
+  font-weight: 600;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  min-height: 44px;
+}
+
+.p-nav button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.p-nav button.active {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+}
+
+.p-nav button .badge {
+  margin-left: auto;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+.p-nav button.active .badge {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.p-aside-foot {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  gap: 10px;
+}
+
+/* ============================================================
+   MAIN CONTENT AREA
+   ============================================================ */
+.p-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Sticky Navigation */
+.p-top {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #E2E8F0;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-shadow: 0 1px 4px rgba(10, 27, 61, 0.03);
+}
+
+.p-content {
+  padding: 24px 32px 48px;
+  flex: 1;
+}
+
+/* Classroom Hero Banner (Navy-to-Blue matching Teacher) */
+.p-banner {
+  background: linear-gradient(135deg, #091C3E 0%, #123063 50%, #1A4488 100%);
+  border-radius: 20px;
+  padding: 26px 30px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  box-shadow: 0 14px 32px -10px rgba(10, 27, 61, 0.3);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.p-banner::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -30px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.28) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.p-banner .tag {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFC24A;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   KPI METRIC CARDS (CLEAN MODERN TILES)
+   ============================================================ */
+.p-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.p-kpi {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 18px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.p-kpi::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: background 0.2s ease;
+}
+
+.p-kpi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(10, 27, 61, 0.08);
+  border-color: #CBD5E1;
+}
+
+.p-kpi:nth-child(1):hover::before { background: #16A34A; }
+.p-kpi:nth-child(2):hover::before { background: #2563EB; }
+.p-kpi:nth-child(3):hover::before { background: #7C3AED; }
+.p-kpi:nth-child(4):hover::before { background: #D97706; }
+
+.p-kpi .kpi-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-kpi .kpi-label {
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748B;
+  margin-bottom: 4px;
+}
+
+.p-kpi b {
+  font-family: var(--sans);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #0A1B3D;
+  line-height: 1;
+}
+
+.p-kpi .kpi-sub {
+  font-size: 0.78rem;
+  color: #64748B;
+  margin-top: 4px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.p-kpi .ic {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   STUDENT HERO PROFILE CARD
+   ============================================================ */
+.child-hero-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(10, 27, 61, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.child-hero-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 8px 20px -4px rgba(10, 27, 61, 0.08);
+}
+
+.child-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  flex: 1;
+}
+
+.child-avatar-lg {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #ffffff;
+  font-family: var(--sans);
+  font-size: 1.35rem;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.28);
+  border: 2px solid #ffffff;
+  flex-shrink: 0;
+}
+
+.child-details-meta {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.child-meta-badge {
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: #475569;
+  background: #F1F5F9;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid #E2E8F0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.child-hero-right {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.teacher-contact-pill {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 10px 16px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.18s ease;
+}
+
+.teacher-contact-pill:hover {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+}
+
+/* ============================================================
+   2-COLUMN ACTIVITY GRID (OVERVIEW)
+   ============================================================ */
+.p-activity-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+
+.p-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 2px 8px rgba(10, 27, 61, 0.04);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.p-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(10, 27, 61, 0.08);
+  border-color: #CBD5E1;
+}
+
+.p-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.p-card-head h3 {
+  margin: 0;
+  font-size: 1.12rem;
+  color: #0A1B3D;
+  font-family: var(--sans);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ============================================================
+   SEGMENTS, CONTROLS & BARS
+   ============================================================ */
+.exam-seg-bar {
+  display: inline-flex;
+  background: #F1F5F9;
+  padding: 3px;
+  border-radius: 999px;
+  gap: 2px;
+  border: 1px solid #E2E8F0;
+}
+
+.exam-seg-btn {
+  border: 0;
+  background: transparent;
+  padding: 6px 16px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #64748B;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.exam-seg-btn:hover {
+  color: #0A1B3D;
+}
+
+.exam-seg-btn.active {
+  background: #7C3AED;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
+}
+
+/* Performance Track / Bar Fill (Matches Teacher Portal) */
+.perf-bar-track {
+  height: 8px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.perf-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.perf-bar-fill.high {
+  background: linear-gradient(90deg, #10B981, #059669);
+}
+
+.perf-bar-fill.mid {
+  background: linear-gradient(90deg, #7C3AED, #6D28D9);
+}
+
+.perf-bar-fill.warn {
+  background: linear-gradient(90deg, #F59E0B, #D97706);
+}
+
+.perf-bar-fill.low {
+  background: linear-gradient(90deg, #EF4444, #DC2626);
+}
+
+/* Alias for compatibility */
+.p-prog-bar {
+  height: 8px;
+  background: #E2E8F0;
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.p-prog-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7C3AED, #6D28D9);
+  transition: width 0.3s ease;
+}
+
+/* ============================================================
+   TABLES (MATCHING .att-table FROM TEACHER PORTAL)
+   ============================================================ */
+.marks-table-wrap {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  margin-top: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.p-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 620px;
+}
+
+.p-table th {
+  background: #F8FAFC;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0A1B3D;
+  text-align: left;
+  border-bottom: 2px solid #E2E8F0;
+  white-space: nowrap;
+}
+
+.p-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #F1F5F9;
+  font-size: 0.88rem;
+  vertical-align: middle;
+}
+
+.p-table tr:hover td {
+  background: #F8FAFC;
+}
+
+.p-table tfoot td {
+  background: #F8FAFC;
+  font-weight: 800;
+  border-top: 2px solid #CBD5E1;
+  border-bottom: 0;
+  color: #0A1B3D;
+}
+
+/* Grade Badges */
+.grade-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.02em;
+}
+
+.grade-badge.aplus {
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+
+.grade-badge.a {
+  background: #F0FDF4;
+  color: #10B981;
+  border: 1px solid #BBF7D0;
+}
+
+.grade-badge.bplus {
+  background: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}
+
+.grade-badge.b {
+  background: #F0F9FF;
+  color: #0284C7;
+  border: 1px solid #BAE6FD;
+}
+
+.grade-badge.c {
+  background: #FFFBEB;
+  color: #D97706;
+  border: 1px solid #FDE68A;
+}
+
+.grade-badge.d {
+  background: #FFF7ED;
+  color: #EA580C;
+  border: 1px solid #FFEDD5;
+}
+
+.grade-badge.f {
+  background: #FEF2F2;
+  color: #DC2626;
+  border: 1px solid #FECACA;
+}
+
+/* ============================================================
+   ATTENDANCE CALENDAR & SUMMARY
+   ============================================================ */
+.att-cal-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(10, 27, 61, 0.04);
+}
+
+.att-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.p-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.p-cal-day-head {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748B;
+  padding: 8px 0;
+  text-transform: uppercase;
+}
+
+.p-cal-cell {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  min-height: 64px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: all 0.18s ease;
+}
+
+.p-cal-cell:hover {
+  border-color: #7C3AED;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+}
+
+.p-cal-cell.empty {
+  background: transparent;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+.p-cal-cell.is-today {
+  border: 2px solid #7C3AED;
+  background: #F5F3FF;
+}
+
+.p-cal-cell.status-present {
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+}
+
+.p-cal-cell.status-absent {
+  background: #FEF2F2;
+  border-color: #FECACA;
+}
+
+.p-cal-cell.status-late {
+  background: #FFFBEB;
+  border-color: #FDE68A;
+}
+
+.p-cal-cell.status-holiday {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  color: #64748B;
+}
+
+.p-cal-cell .day-num {
+  font-weight: 800;
+  font-size: 0.88rem;
+  color: #0A1B3D;
+}
+
+.p-cal-cell .day-status-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 6px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 4px;
+}
+
+.cal-legend {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: #64748B;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid #E2E8F0;
+}
+
+.cal-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cal-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ============================================================
+   HOMEWORK LIST & CARDS
+   ============================================================ */
+.hw-filter-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.hw-card {
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 20px 22px;
+  margin-bottom: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hw-card:hover {
+  border-color: #CBD5E1;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px -4px rgba(10, 27, 61, 0.08);
+}
+
+.hw-card.completed {
+  border-left: 4px solid #10B981;
+}
+
+.hw-card.pending {
+  border-left: 4px solid #F59E0B;
+}
+
+.hw-card.late {
+  border-left: 4px solid #EF4444;
+}
+
+.hw-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.hw-status-badge.completed {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.hw-status-badge.pending {
+  background: #FFFBEB;
+  color: #D97706;
+}
+
+.hw-status-badge.late {
+  background: #FEF2F2;
+  color: #DC2626;
+}
+
+.hw-toggle-btn {
+  border: 1px solid #CBD5E1;
+  background: #F8FAFC;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0A1B3D;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+  min-height: 40px;
+}
+
+.hw-toggle-btn:hover {
+  background: #F5F3FF;
+  border-color: #7C3AED;
+  color: #7C3AED;
+}
+
+/* ============================================================
+   REPORT CARD DOCUMENT PREVIEW (MATCHES TEACHER FORMAL LAYOUT)
+   ============================================================ */
+.report-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: #ffffff;
+  border: 1px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 16px 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.report-card-sheet {
+  background: #ffffff;
+  border: 2px solid #071736;
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 860px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(10, 27, 61, 0.06);
+  color: #0A1B3D;
+  position: relative;
+  font-family: var(--sans);
+}
+
+.rc-head {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 2px solid #071736;
+  padding-bottom: 18px;
+  margin-bottom: 20px;
+}
+
+.rc-school-name {
+  font-family: var(--serif);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #071736;
+  margin: 0 0 3px;
+  letter-spacing: -0.01em;
+}
+
+.rc-title-banner {
+  background: #071736;
+  color: #ffffff;
+  text-align: center;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.rc-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 0.82rem;
+}
+
+.rc-meta-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.rc-meta-row span {
+  color: #64748B;
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.rc-meta-row b {
+  color: #0A1B3D;
+  font-size: 0.92rem;
+}
+
+.rc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  margin-bottom: 20px;
+}
+
+.rc-table th {
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: 700;
+  color: #071736;
+}
+
+.rc-table td {
+  border: 1px solid #E2E8F0;
+  padding: 8px 10px;
+}
+
+.rc-table tfoot td {
+  background: #F8FAFC;
+  font-weight: 800;
+  border-top: 2px solid #071736;
+  color: #0A1B3D;
+}
+
+.rc-sign-grid {
+  margin-top: 36px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.rc-sign-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 60px;
+}
+
+.rc-sign-line {
+  border-top: 1px solid #071736;
+  padding-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #0A1B3D;
+}
+
+/* ============================================================
+   BURGER & BACKDROP VEIL (MATCHES TEACHER PORTAL)
+   ============================================================ */
+.burger.p-burger {
+  background: #ffffff;
+  border: 1px solid #CBD5E1;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  min-width: 44px;
+  min-height: 44px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.18s ease;
+}
+
+.burger.p-burger:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+}
+
+.p-burger i {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #0A1B3D;
+  border-radius: 2px;
+}
+
+.p-aside-veil {
+  position: fixed;
+  inset: 0;
+  background: rgba(7, 23, 54, 0.5);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.p-aside-veil.show {
+  opacity: 1;
+  pointer-events: auto;
+  display: block;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ============================================================ */
+
+/* Large Tablets & Medium Screens (<= 1080px) */
+@media (max-width: 1080px) {
+  .p-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Tablets & Mobile Navigation Drawer (<= 860px) */
+@media (max-width: 860px) {
+  .parent-app {
+    grid-template-columns: 1fr;
+  }
+
+  .p-aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    box-shadow: 4px 0 28px rgba(7, 23, 54, 0.4);
+    transform: translateX(-100%);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+    display: flex;
+  }
+
+  .p-aside.show {
+    transform: translateX(0);
+  }
+
+  .p-burger {
+    display: flex !important;
+  }
+
+  .p-content {
+    padding: 20px 18px 40px;
+  }
+
+  .p-top {
+    padding: 12px 18px;
+  }
+
+  .p-activity-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .child-hero-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .child-hero-right {
+    width: 100%;
+  }
+
+  .teacher-contact-pill {
+    width: 100%;
+  }
+
+  .report-card-sheet {
+    padding: 24px 20px;
+  }
+
+  .rc-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}
+
+/* Small Tablets & Large Phones (<= 640px) */
+@media (max-width: 640px) {
+  .p-kpis {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .p-kpi {
+    padding: 14px 16px;
+    min-height: 44px;
+  }
+
+  .p-banner {
+    padding: 20px 18px;
+    border-radius: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .p-banner h2 {
+    font-size: 1.35rem !important;
+  }
+
+  .p-banner p {
+    font-size: 0.84rem;
+  }
+
+  .p-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .p-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  #marksMetricsStrip {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+  }
+
+  .exam-seg-bar {
+    width: 100%;
+    overflow-x: auto;
+    display: flex;
+    -webkit-overflow-scrolling: touch;
+    padding: 3px;
+    scrollbar-width: none;
+  }
+
+  .exam-seg-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .exam-seg-btn {
+    flex: 1 0 auto;
+    text-align: center;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+  }
+
+  .hw-card {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .hw-card > div:last-child {
+    align-items: flex-start !important;
+    flex-direction: row !important;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .hw-toggle-btn {
+    min-height: 44px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .att-cal-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .att-cal-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .att-cal-header > div:last-child {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  #btnPrevMonth, #btnNextMonth {
+    min-width: 44px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+  }
+
+  .p-cal-grid {
+    gap: 4px;
+  }
+
+  .p-cal-cell {
+    min-height: 52px;
+    padding: 4px 6px;
+    border-radius: 8px;
+  }
+
+  .p-cal-cell .day-num {
+    font-size: 0.78rem;
+  }
+
+  .p-cal-cell .day-status-pill {
+    font-size: 0.6rem;
+    padding: 1px 3px;
+    letter-spacing: -0.02em;
+  }
+
+  .rc-head {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .rc-head > div:first-child {
+    margin: 0 auto;
+  }
+
+  .rc-sign-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .report-actions-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+
+  .report-actions-bar label {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 6px;
+  }
+
+  .report-actions-bar select {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .report-actions-bar button {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+}
+
+/* Mobile Phones (<= 480px) */
+@media (max-width: 480px) {
+  .p-top {
+    padding: 10px 14px;
+    gap: 10px;
+  }
+
+  #topTitle {
+    font-size: 1.15rem !important;
+  }
+
+  #topSubtitle {
+    display: none;
+  }
+
+  #topChildBadge {
+    padding: 4px 10px;
+    gap: 6px;
+  }
+
+  #topChildBadge #topChildName {
+    font-size: 0.76rem;
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .p-content {
+    padding: 14px 12px 32px;
+  }
+
+  .child-avatar-lg {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  #overviewChildName {
+    font-size: 1.15rem !important;
+  }
+
+  .child-details-meta {
+    gap: 6px;
+  }
+
+  .child-meta-badge {
+    font-size: 0.7rem;
+    padding: 2px 7px;
+  }
+
+  .p-cal-cell {
+    min-height: 44px;
+    padding: 3px 4px;
+  }
+
+  /* Compact calendar dots on very small screens to avoid overflow */
+  .p-cal-cell .day-status-pill {
+    display: none;
+  }
+
+  .p-cal-cell.status-present::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #16A34A;
+    align-self: center;
+    margin-top: 2px;
+  }
+
+  .p-cal-cell.status-absent::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #DC2626;
+    align-self: center;
+    margin-top: 2px;
+  }
+
+  .p-cal-cell.status-late::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #D97706;
+    align-self: center;
+    margin-top: 2px;
+  }
+
+  .p-cal-cell.status-holiday::after {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #94A3B8;
+    align-self: center;
+    margin-top: 2px;
+  }
+
+  .p-cal-day-head {
+    font-size: 0.7rem;
+    padding: 4px 0;
+  }
+
+  .cal-legend {
+    gap: 10px;
+    font-size: 0.74rem;
+  }
+
+  .p-table th, .p-table td {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+  }
+
+  .rc-table th, .rc-table td {
+    padding: 6px 8px;
+    font-size: 0.76rem;
+  }
+
+  .p-banner .btn {
+    width: 100%;
+    min-height: 44px;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   PRINT MEDIA STYLES FOR OFFICIAL REPORT CARD
+   (Matches Teacher Portal Print Styling Exactly)
+   ============================================================ */
+@media print {
+  body.parent-body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  .p-aside,
+  .p-top,
+  .p-banner,
+  .p-kpis,
+  .p-aside-foot,
+  .p-aside-veil,
+  .p-burger,
+  .report-actions-bar,
+  #toasts,
+  .modal,
+  #paneOverview,
+  #paneMarks,
+  #paneAttendance,
+  #paneHomework,
+  button,
+  .no-print {
+    display: none !important;
+  }
+
+  .parent-app {
+    display: block !important;
+    min-height: auto !important;
+  }
+
+  .p-main,
+  .p-content {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  #paneReport {
+    display: block !important;
+  }
+
+  .report-card-sheet {
+    border: 2px solid #000000 !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 10mm 12mm !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    page-break-after: avoid;
+    page-break-inside: avoid;
+  }
+
+  .rc-head {
+    border-bottom: 2px solid #000000 !important;
+  }
+
+  .rc-school-name {
+    color: #000000 !important;
+  }
+
+  .rc-title-banner {
+    background: #000000 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .rc-meta-grid {
+    background: #FAFAFA !important;
+    border: 1px solid #000000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .rc-meta-row b, .rc-meta-row span {
+    color: #000000 !important;
+  }
+
+  .rc-table th {
+    background: #EEEEEE !important;
+    color: #000000 !important;
+    border: 1px solid #000000 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .rc-table td {
+    border: 1px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  .rc-table tfoot td {
+    border-top: 2px solid #000000 !important;
+    background: #FAFAFA !important;
+  }
+
+  .rc-sign-line {
+    border-top: 1px solid #000000 !important;
+    color: #000000 !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+}

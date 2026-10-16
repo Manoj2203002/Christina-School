@@ -316,90 +316,67 @@
     <div class="login-side">
       <span class="brand-mark" style="width:54px;height:54px" aria-hidden="true"><img src="assets/logo.png" alt="Christina School" class="brand-logo" style="width:52px;height:52px" /></span>
       <div>
-        <h3 id="loginSideTitle">Teacher Portal</h3>
-        <p id="loginSideDesc">For class teachers to manage student rosters, attendance roll-calls, and daily classroom updates.</p>
+        <h3 id="loginSideTitle">School Portal</h3>
+        <p id="loginSideDesc">Sign in to access your personalized dashboard. The system will automatically detect your role and direct you to the right portal.</p>
         <div class="login-demo" id="loginDemoHint">
-          <div style="font-weight:700;margin-bottom:8px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:5px;display:flex;align-items:center;justify-content:space-between">
-            <span>Select Demo Teacher:</span>
-            <span style="font-size:.72rem;color:#FFC24A">1-Click Sign-in</span>
-          </div>
-          <div class="teacher-demo-grid" id="teacherDemoGrid">
-            <button type="button" class="teacher-demo-card active" data-fill-user="deepa.r" data-teacher-name="Ms. Deepa Rangarajan" data-teacher-grade="Grade 1 · Room 102">
-              <div class="tdc-av" style="background:#1D4ED8">DR</div>
-              <div class="tdc-meta">
-                <span class="tdc-name">Ms. Deepa Rangarajan</span>
-                <span class="tdc-desc">Grade 1 · Room 102 · Computing</span>
+          <div style="font-weight:700;margin-bottom:8px;color:#fff;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:5px">Demo Accounts (Quick Access)</div>
+          <div style="display:grid;gap:8px">
+            <div style="background:rgba(255,255,255,.08);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);cursor:pointer" class="demo-fill-card" data-demo-user="deepa.r" data-demo-pass="teacher123">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:32px;height:32px;border-radius:8px;background:#1D4ED8;color:#fff;font-weight:700;display:grid;place-items:center;font-size:.8rem">DR</div>
+                <div style="flex:1;min-width:0">
+                  <b style="color:#fff;font-size:.82rem;display:block">Ms. Deepa Rangarajan</b>
+                  <span style="color:#8FAAD2;font-size:.72rem">Teacher · Grade 1</span>
+                </div>
+                <span style="background:#1D4ED8;color:#fff;font-size:.65rem;padding:2px 6px;border-radius:4px;font-weight:700">TEACHER</span>
               </div>
-              <span class="tdc-tag">G1</span>
-            </button>
-            <button type="button" class="teacher-demo-card" data-fill-user="sharmitha" data-teacher-name="Ms. Sharmitha S" data-teacher-grade="UKG · Sunshine Wing">
-              <div class="tdc-av" style="background:#BE185D">SS</div>
-              <div class="tdc-meta">
-                <span class="tdc-name">Ms. Sharmitha S</span>
-                <span class="tdc-desc">UKG · Sunshine Wing · Phonics</span>
+            </div>
+            <div style="background:rgba(255,255,255,.08);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);cursor:pointer" class="demo-fill-card" data-demo-user="admin" data-demo-pass="christina">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:32px;height:32px;border-radius:8px;background:#059669;color:#fff;font-weight:700;display:grid;place-items:center;font-size:.8rem">AD</div>
+                <div style="flex:1;min-width:0">
+                  <b style="color:#fff;font-size:.82rem;display:block">School Administrator</b>
+                  <span style="color:#8FAAD2;font-size:.72rem">Principal / Office</span>
+                </div>
+                <span style="background:#059669;color:#fff;font-size:.65rem;padding:2px 6px;border-radius:4px;font-weight:700">ADMIN</span>
               </div>
-              <span class="tdc-tag">UKG</span>
-            </button>
-            <button type="button" class="teacher-demo-card" data-fill-user="gayathri" data-teacher-name="Ms. Gayathri N" data-teacher-grade="Grade 2 · Room 201">
-              <div class="tdc-av" style="background:#059669">GN</div>
-              <div class="tdc-meta">
-                <span class="tdc-name">Ms. Gayathri N</span>
-                <span class="tdc-desc">Grade 2 · Room 201 · English</span>
+            </div>
+            <div style="background:rgba(255,255,255,.08);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.12);cursor:pointer" class="demo-fill-card" data-demo-user="parent.aadhya" data-demo-pass="CS2026001">
+              <div style="display:flex;align-items:center;gap:8px">
+                <div style="width:32px;height:32px;border-radius:8px;background:#7C3AED;color:#fff;font-weight:700;display:grid;place-items:center;font-size:.8rem">RK</div>
+                <div style="flex:1;min-width:0">
+                  <b style="color:#fff;font-size:.82rem;display:block">Rajesh Kumar (Parent)</b>
+                  <span style="color:#8FAAD2;font-size:.72rem">Parent of Aadhya · Grade 1</span>
+                </div>
+                <span style="background:#7C3AED;color:#fff;font-size:.65rem;padding:2px 6px;border-radius:4px;font-weight:700">PARENT</span>
               </div>
-              <span class="tdc-tag">G2</span>
-            </button>
-            <button type="button" class="teacher-demo-card" data-fill-user="keerthina" data-teacher-name="Ms. Keerthina M" data-teacher-grade="Grade 3 · Room 205">
-              <div class="tdc-av" style="background:#7C3AED">KM</div>
-              <div class="tdc-meta">
-                <span class="tdc-name">Ms. Keerthina M</span>
-                <span class="tdc-desc">Grade 3 · Room 205 · Math</span>
-              </div>
-              <span class="tdc-tag">G3</span>
-            </button>
+            </div>
           </div>
         </div>
       </div>
       <p class="small" style="color:#8FAAD2">Staff support: Call the office on 0427 225 4053.</p>
     </div>
     <div class="login-main">
-      <div class="role-toggle-bar" id="roleToggleBar" style="display:flex;background:var(--mist);padding:4px;border-radius:var(--r-pill);margin-bottom:1.2rem;border:1px solid var(--line)">
-        <button type="button" class="role-tab active" data-role="teacher" id="roleTabTeacher" style="flex:1;border:0;background:var(--mari);color:#fff;padding:.6rem .8rem;border-radius:var(--r-pill);font-weight:700;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .2s ease">
-          <svg class="i i-16"><use href="#ic-user"/></svg> Teacher Portal
-        </button>
-        <button type="button" class="role-tab" data-role="admin" id="roleTabAdmin" style="flex:1;border:0;background:transparent;color:var(--ink-70);padding:.6rem .8rem;border-radius:var(--r-pill);font-weight:700;font-size:.85rem;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;transition:all .2s ease">
-          <svg class="i i-16"><use href="#ic-shield"/></svg> School Admin
-        </button>
-      </div>
-
-      <!-- Live Teacher Preview Banner -->
-      <div id="teacherActiveBanner" class="teacher-active-banner">
-        <span class="live-dot"></span>
-        <div style="font-size:.82rem;color:#1E40AF;flex:1;min-width:0">
-          Account: <b id="activeTeacherName">Ms. Deepa Rangarajan</b> <span id="activeTeacherGrade" style="color:#3B82F6">(Grade 1 · Room 102)</span>
-        </div>
-        <span style="font-size:.72rem;background:#DBEAFE;color:#1D4ED8;padding:2px 7px;border-radius:6px;font-weight:700">Verified</span>
-      </div>
-
       <!-- Inline Alert Box (for invalid login or inactive accounts) -->
       <div id="loginInlineAlert" class="login-inline-alert" role="alert">
         <svg class="i i-16" style="flex-shrink:0;margin-top:1px"><use href="#ic-close"/></svg>
         <div id="loginAlertText" style="flex:1">Invalid credentials.</div>
       </div>
 
-      <h3 class="d3" id="loginMainTitle">Teacher Sign-in</h3>
-      <p class="small" id="loginMainSub" style="color:var(--ink-50);margin-top:.3rem">Sign in to manage your students and classroom attendance.</p>
+      <h3 class="d3" id="loginMainTitle">School Portal Sign-in</h3>
+      <p class="small" id="loginMainSub" style="color:var(--ink-50);margin-top:.3rem">Enter your credentials. The system will detect your role automatically.</p>
       <form id="loginForm" novalidate style="margin-top:1.2rem;display:grid;gap:14px">
-        <div class="field"><label for="l-user" id="lUserLabel">Teacher Username</label><input id="l-user" autocomplete="username" placeholder="e.g. deepa.r" value="deepa.r" /><span class="err">Enter your username.</span></div>
+        <div class="field"><label for="l-user" id="lUserLabel">Username, Email, or Phone</label><input id="l-user" autocomplete="username" placeholder="e.g. deepa.r, admin, parent.aadhya" /><span class="err">Enter your username.</span></div>
         <div class="field"><label for="l-pass">Password</label>
-          <span class="pw-wrap"><input id="l-pass" type="password" autocomplete="current-password" placeholder="••••••••" value="teacher123" />
+          <span class="pw-wrap"><input id="l-pass" type="password" autocomplete="current-password" placeholder="••••••••" />
           <button type="button" id="pwToggle" aria-label="Show password"><svg class="i i-18"><use href="#ic-eye"/></svg></button></span>
           <span class="err">Enter your password.</span></div>
         <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
-          <label class="check"><input type="checkbox" id="l-remember" checked /> Keep me signed in on this device</label>
+          <label class="check"><input type="checkbox" id="l-remember" /> Keep me signed in on this device</label>
           <button type="button" class="forgot" id="forgotBtn">Need help?</button>
         </div>
-        <button class="btn btn-primary" type="submit" id="loginSubmitBtn" style="width:100%">Sign in to Teacher Portal <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg></button>
-        <p class="small" style="color:var(--ink-50);text-align:center">Pre-loaded with demo teacher credentials for instant testing.</p>
+        <button class="btn btn-primary" type="submit" id="loginSubmitBtn" style="width:100%">Sign In <svg class="i i-18 ico"><use href="#ic-arrow-r"/></svg></button>
+        <p class="small" style="color:var(--ink-50);text-align:center">Click a demo account on the left to auto-fill credentials.</p>
       </form>
       <div id="forgotPane" style="display:none;margin-top:1.4rem">
         <h3 class="d3">Need credentials?</h3>
