@@ -1,0 +1,23 @@
+<section class="aview on" data-pane="account">
+  <div class="apanels even" style="margin-top:0">
+    <div class="panel-card">
+      <div class="ph-head"><h3><svg class="i i-18" style="color:var(--royal)"><use href="#ic-user"/></svg> My details</h3></div>
+      <div id="acDetails"></div>
+      <p class="small-note">To change these details, contact the school office.</p>
+    </div>
+    <div class="panel-card">
+      <div class="ph-head"><h3><svg class="i i-18" style="color:var(--mari)"><use href="#ic-key"/></svg> Change password</h3></div>
+      <form id="pwForm" class="fgrid" novalidate>
+        <div class="field full"><label for="pw-cur">Current password</label><input type="password" id="pw-cur" autocomplete="current-password" /><span class="err">That is not your current password.</span></div>
+        <div class="field full"><label for="pw-new">New password</label><input type="password" id="pw-new" autocomplete="new-password" /><span class="err">Use at least 8 characters, different from your login name.</span></div>
+        <div class="field full"><label for="pw-new2">Type it again</label><input type="password" id="pw-new2" autocomplete="new-password" /><span class="err">The two passwords do not match.</span></div>
+        <div class="field full"><button class="btn btn-primary" type="submit">Change password</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel-card" style="margin-top:16px">
+    <div class="ph-head"><h3><svg class="i i-18"><use href="#ic-refresh"/></svg> Demo data</h3>
+      <span class="push"><button class="btn btn-soft btn-sm" type="button" id="resetDemo">Reset demo data</button></span></div>
+    <p class="muted" style="margin:0;font-size:.88rem">This prototype keeps everything in your browser. Reset puts back the sample students, attendance and marks used by the teacher, parent and admin screens.</p>
+  </div>
+</section>

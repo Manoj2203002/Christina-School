@@ -1,0 +1,19 @@
+<section class="aview on" data-pane="my-leave">
+  <div class="apanels wide-left" style="margin-top:0">
+    <div class="panel-card">
+      <div class="ph-head"><h3><svg class="i i-18" style="color:var(--royal)"><use href="#ic-leave"/></svg> My requests</h3></div>
+      <div id="mlList"></div>
+    </div>
+    <div class="panel-card">
+      <div class="ph-head"><h3><svg class="i i-18" style="color:var(--mari)"><use href="#ic-plus"/></svg> Request leave</h3></div>
+      <form id="mlForm" class="fgrid" novalidate>
+        <div class="field full"><label for="ml-type">Type of leave</label><select id="ml-type"></select></div>
+        <div class="field"><label for="ml-from">From</label><input type="date" id="ml-from" /><span class="err">Choose a start date from today on.</span></div>
+        <div class="field"><label for="ml-to">To</label><input type="date" id="ml-to" /><span class="err">The end date cannot be before the start.</span></div>
+        <div class="field full"><label for="ml-reason">Reason</label><textarea id="ml-reason" maxlength="300" placeholder="A short reason for the office"></textarea><span class="err">Please give a reason.</span></div>
+        <div class="field full"><span class="hint" id="ml-days"></span></div>
+        <div class="field full"><button class="btn btn-primary" type="submit">Send to the office <svg class="i i-18 ico"><use href="#ic-send"/></svg></button></div>
+      </form>
+    </div>
+  </div>
+</section>

@@ -25,3 +25,6 @@
 
 /* 4. Administration dashboard */
 @import url('admin.css');
+
+/* 5. Teacher and parent portals, and the admin "School" screens */
+@import url('portal.css');

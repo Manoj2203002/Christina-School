@@ -1094,16 +1094,27 @@ document.addEventListener('submit', e => {
     e.preventDefault();
     const u = $('#l-user').value.trim(), p = $('#l-pass').value;
     const ok = validate(e.target, [{ sel: '#l-user', test: notEmpty }, { sel: '#l-pass', test: v => v.length > 0 }]);
-    if (!ok) { toast('Enter your username and password|Demo access: admin / christina.', 'warn'); return; }
-    const validUsers = ['admin', 'admin@christinaschool.in'];
-    const validPass = ['christina', 'admin'];
-    if (validUsers.includes(u.toLowerCase()) && validPass.includes(p)) {
+    if (!ok) { toast('Enter your login and password|See the demo logins on the left.', 'warn'); return; }
+    const remember = $('#l-remember') ? $('#l-remember').checked : false;
+    const done = href => {
       closeLogin(); e.target.reset();
       $$('#loginForm .field').forEach(f => f.classList.remove('ok', 'bad'));
-      window.location.href = 'admin-dashboard.html';
+      window.location.href = href;
+    };
+    // The office login stays as before; teachers and parents are checked against the portal demo data.
+    // The account decides where the person lands.
+    const validUsers = ['admin', 'admin@christinaschool.in'];
+    const validPass = ['christina', 'admin'];
+    if (validUsers.includes(u.toLowerCase()) && validPass.includes(p)) { done('admin-dashboard.html'); return; }
+    const res = window.SchoolDB ? window.SchoolDB.login(u, p) : { ok: false, reason: 'bad' };
+    if (res.ok) {
+      window.SchoolDB.setSession(res.user, remember);
+      done(res.user.role === 'teacher' ? 'teacher-portal.html' : 'parent-portal.html');
+    } else if (res.reason === 'off') {
+      toast('This login is switched off|Please contact the school office.', 'warn');
     } else {
       $('#l-pass').closest('.field').classList.add('bad');
-      toast('Invalid credentials|Use admin / christina for this demo.', 'warn');
+      toast('Wrong login or password|Try a demo login: admin, priya.t or 9876543210.', 'warn');
     }
   }
 });
@@ -1668,5 +1679,11 @@ if(yr) yr.textContent = new Date().getFullYear();
 if (sortStores) sortStores();
 renderTicker();
 onScroll();
+
+// A portal sends people here with ?signin=teacher|parent when they are not signed in: open the sign-in pop-up.
+if (/[?&]signin=/.test(window.location.hash)) {
+  setTimeout(() => { openLogin(); toast('Please sign in|Your session has ended or you are not signed in.', 'info'); }, 400);
+  try { history.replaceState(null, '', '#/home'); } catch (err) { /* ignore */ }
+}
 
 })();

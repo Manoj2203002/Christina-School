@@ -38,6 +38,27 @@
   --pad: clamp(18px, 5vw, 56px);
   --sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --serif: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+
+  /* Teacher and parent portals: attendance status colours (text on soft background) */
+  --att-p: #2E7D32;
+  --att-p-bg: #E8F5E9;
+  --att-a: #C62828;
+  --att-a-bg: #FFEBEE;
+  --att-l: #B84300;
+  --att-l-bg: #FFF3E0;
+  --att-h: #5E35B1;
+  --att-h-bg: #EDE7F6;
+  --att-v: #0277BD;
+  --att-v-bg: #E1F5FE;
+  --att-off: #8A99B3;
+  --att-off-bg: #F1F5FB;
+  --ok: #2E7D32;
+  --ok-bg: #E8F5E9;
+  --bad: #C62828;
+  --bad-bg: #FFEBEE;
+  --warn: #B84300;
+  --warn-bg: #FFF3E0;
+  --info-bg: #E7F1FF;
 }
 
 *,

@@ -104,7 +104,7 @@
     <span class="tb-hours"><svg class="i i-16"><use href="#ic-clock"/></svg> <span>Mon–Sat, 9:00 am – 5:00 pm</span></span>
     <div class="push">
       <span class="tb-note"><span class="pulse" aria-hidden="true"></span> Admissions open for <b>2026–27</b></span>
-      <a class="tb-login tb-login-js" href="#" aria-label="Parent and Admin Login"><svg class="i i-16"><use href="#ic-lock"/></svg> <span class="tb-login-text">Parent / Admin login</span></a>
+      <a class="tb-login tb-login-js" href="#" aria-label="Sign in for parents, teachers and the office"><svg class="i i-16"><use href="#ic-lock"/></svg> <span class="tb-login-text">Parent &amp; staff login</span></a>
     </div>
   </div>
 </div>
@@ -131,7 +131,7 @@
       <a href="#/contact">Contact</a>
     </nav>
     <div class="nav-cta">
-      <button class="btn btn-soft btn-sm login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Admin login</button>
+      <button class="btn btn-soft btn-sm login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Login</button>
       <button class="btn btn-primary btn-sm" type="button" data-goto="#/admissions">Enquire now</button>
       <button class="burger" id="burger" aria-expanded="false" aria-controls="drawer" aria-label="Open menu"><i></i><i></i><i></i></button>
     </div>
@@ -168,7 +168,7 @@
     </nav>
     <div class="drawer-foot">
       <button class="btn btn-primary" type="button" data-goto="#/admissions">Start an enquiry</button>
-      <button class="btn btn-ghost login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Admin login</button>
+      <button class="btn btn-ghost login-open" type="button"><svg class="i i-16"><use href="#ic-lock"/></svg> Parent &amp; staff login</button>
       <p class="small" style="color:var(--ink-50)">Rasipuram Main Road, Gopalapuram, Attur Salem – 636102</p>
     </div>
   </div>
@@ -237,7 +237,7 @@
         <a href="javascript:void(0)" class="policy-link" data-policy="privacy">Privacy</a>
         <a href="javascript:void(0)" class="policy-link" data-policy="child">Child protection policy</a>
         <a href="javascript:void(0)" class="policy-link" data-policy="fee">Fee policy</a>
-        <button class="login-open" style="background:none;border:0;color:inherit;cursor:pointer;font-weight:600">Admin login</button>
+        <button class="login-open" style="background:none;border:0;color:inherit;cursor:pointer;font-weight:600">Parent &amp; staff login</button>
       </span>
     </div>
   </div>
@@ -315,17 +315,17 @@
     <div class="login-side">
       <span class="brand-mark" style="width:54px;height:54px" aria-hidden="true"><img src="assets/logo.png" alt="Christina School" class="brand-logo" style="width:52px;height:52px" /></span>
       <div>
-        <h3 id="loginTitle">School office sign-in</h3>
-        <p>For staff and administrators. Parents use the app link sent by the class teacher.</p>
-        <div class="login-demo">Demo access — username <b>admin</b>, password <b>christina</b></div>
+        <h3 id="loginTitle">Sign in to Christina School</h3>
+        <p>For parents, teachers and the school office. One sign-in takes you to your own portal.</p>
+        <div class="login-demo">Demo logins<br>Office — <b>admin</b> / <b>christina</b><br>Teacher — <b>priya.t</b> / <b>teacher123</b><br>Parent — <b>9876543210</b> / <b>parent123</b></div>
       </div>
       <p class="small" style="color:#8FAAD2">Locked out? Call the office on 0427 225 4053.</p>
     </div>
     <div class="login-main">
       <h3 class="d3">Welcome back</h3>
-      <p class="small" style="color:var(--ink-50);margin-top:.3rem">Sign in to manage the school website.</p>
+      <p class="small" style="color:var(--ink-50);margin-top:.3rem">Parents sign in with the mobile number registered with the school.</p>
       <form id="loginForm" novalidate style="margin-top:1.4rem;display:grid;gap:14px">
-        <div class="field"><label for="l-user">Username or email</label><input id="l-user" autocomplete="username" placeholder="admin" /><span class="err">Enter your username.</span></div>
+        <div class="field"><label for="l-user">Login name or mobile number</label><input id="l-user" autocomplete="username" placeholder="priya.t or 98765 43210" /><span class="err">Enter your login name or mobile number.</span></div>
         <div class="field"><label for="l-pass">Password</label>
           <span class="pw-wrap"><input id="l-pass" type="password" autocomplete="current-password" placeholder="••••••••" />
           <button type="button" id="pwToggle" aria-label="Show password"><svg class="i i-18"><use href="#ic-eye"/></svg></button></span>
@@ -350,6 +350,7 @@
   </div>
 </div>
 <script src="js/data.js"></script>
+<script src="js/school-data.js"></script>
 <script src="js/pages-cache.js"></script>
 <script src="js/router.js"></script>
 <script src="js/main.js"></script>

@@ -1,0 +1,19 @@
+<section class="aview on" data-pane="leave">
+  <div class="apanels wide-left" style="margin-top:0">
+    <div class="panel-card">
+      <div class="ph-head"><h3><svg class="i i-18" style="color:var(--royal)"><use href="#ic-leave"/></svg> Leave requests</h3></div>
+      <div id="plList"></div>
+    </div>
+    <div class="panel-card">
+      <div class="ph-head"><h3><svg class="i i-18" style="color:var(--mari)"><use href="#ic-plus"/></svg> Ask for leave</h3></div>
+      <p class="muted" style="font-size:.86rem;margin:-.4rem 0 1rem" id="plTo"></p>
+      <form id="plForm" class="fgrid" novalidate>
+        <div class="field"><label for="pl-from">From</label><input type="date" id="pl-from" /><span class="err">Choose a date from today on.</span></div>
+        <div class="field"><label for="pl-to">To</label><input type="date" id="pl-to" /><span class="err">The end date cannot be before the start.</span></div>
+        <div class="field full"><label for="pl-reason">Reason</label><textarea id="pl-reason" maxlength="300" placeholder="Fever — the doctor has advised two days' rest."></textarea><span class="err">Please give a short reason.</span></div>
+        <div class="field full"><span class="hint" id="pl-days"></span></div>
+        <div class="field full"><button class="btn btn-primary" type="submit">Send to the class teacher <svg class="i i-18 ico"><use href="#ic-send"/></svg></button></div>
+      </form>
+    </div>
+  </div>
+</section>

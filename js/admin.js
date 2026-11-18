@@ -96,7 +96,9 @@ const SCHEMA = {
       { k: 'classes', l: 'Classes handled', t: 'text' },
       { k: 'subjects', l: 'Subjects', t: 'text', full: 1 },
       { k: 'note', l: 'Short profile', t: 'textarea', full: 1 }
-    ], photo: 1, toggle: { k: 'active', l: 'Shown on the public website' } },
+    ], photo: 1, toggle: { k: 'active', l: 'Shown on the public website' },
+    // Phase 2: "Staff type: Teacher" adds the teacher-portal login fields (js/admin-school.js).
+    hook: window.AdminSchool && window.AdminSchool.staffHook },
   ann: { title: 'announcement', fields: [
       { k: 'title', l: 'Title', t: 'text', req: 1, full: 1 },
       { k: 'cat', l: 'Category', t: 'select', opts: Object.keys(CATS) },
@@ -208,6 +210,7 @@ function editor(kind, rec) {
             <button type="button" class="toggle${r[S.toggle.k] !== false && r[S.toggle.k] ? ' on' : (isNew && S.toggle.k === 'active' ? ' on' : '')}" id="entToggle"
               aria-pressed="${!!r[S.toggle.k] || (isNew && S.toggle.k === 'active')}"></button>
             <span style="font-weight:600;font-size:.9rem">${esc(S.toggle.l)}</span></label></div>` : ''}
+        ${S.hook ? S.hook.html(r, isNew) : ''}
         <div class="field full" style="display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn btn-primary" type="submit">${isNew ? 'Add ' + S.title : 'Save changes'}</button>
           <button class="btn btn-soft" type="button" data-close-modal>Cancel</button>
@@ -270,6 +273,7 @@ function editor(kind, rec) {
     t.setAttribute('aria-pressed', String(on));
   });
   if (!isNew) $('#delHere').addEventListener('click', () => { closeModal(); confirmDelete(kind, r.id); });
+  if (S.hook) S.hook.after(r, isNew);
 
   $('#entForm').addEventListener('submit', e => {
     e.preventDefault();
@@ -281,6 +285,7 @@ function editor(kind, rec) {
       if (!good) ok = false;
     });
     if (!ok) { toast('A required field is empty|Fill the highlighted boxes and try again.', 'warn'); return; }
+    if (S.hook && !S.hook.validate(r, isNew)) { toast('Check the login details|Fix the highlighted boxes and try again.', 'warn'); return; }
     const out = isNew ? { id: Date.now() } : r;
     S.fields.forEach(f => {
       const v = $('#f-' + kind + '-' + f.k).value;
@@ -291,15 +296,16 @@ function editor(kind, rec) {
     if (S.file) { out.file = docFile; out.fileName = docFileName; }
     if (kind === 'gal' && !out.h) out.h = 230 + (Date.now() % 5) * 26;
     if (isNew) db[STORE[kind]].unshift(out);
+    const hookNote = S.hook ? S.hook.save(out, isNew) : '';
     if (sortStores) sortStores();
     if (window.App && window.App.saveDb) window.App.saveDb();
     closeModal();
     // Re-render current route data based on hash
     const hash = window.location.hash.slice(2) || 'overview';
-    const activeRoute = adminRouter.routes[hash];
-    if (activeRoute && activeRoute.onLoad) activeRoute.onLoad();
-    
-    toast((isNew ? 'Added' : 'Saved') + '|' + (out.title || out.name || out.cap || out.comp || 'The record') + ' is live on the website.');
+    // The router instance has no "routes" map, so redraw the current screen through the router.
+    if (hash && window.Router.reload) window.Router.reload();
+
+    toast((isNew ? 'Added' : 'Saved') + '|' + (out.title || out.name || out.cap || out.comp || 'The record') + ' is saved.' + (hookNote || ''));
   });
 }
 
@@ -322,8 +328,7 @@ function confirmDelete(kind, id) {
     closeModal(); 
     
     const hash = window.location.hash.slice(2) || 'overview';
-    const activeRoute = adminRouter.routes[hash];
-    if (activeRoute && activeRoute.onLoad) activeRoute.onLoad();
+    if (hash && window.Router.reload) window.Router.reload();
 
     toast('Deleted|' + label + ' is no longer on the website.', 'warn');
   });
@@ -371,7 +376,7 @@ function renderAdminStaff() {
   if (tbody) {
     tbody.innerHTML = list.length ? list.map(s => `
       <tr>
-        <td data-col="Staff"><span class="cellav"><span class="av">${staffPic(s)}</span><span><b>${esc(s.name)}</b><span>${esc(s.subjects || '')}</span></span></span></td>
+        <td data-col="Staff"><span class="cellav"><span class="av">${staffPic(s)}</span><span><b>${esc(s.name)}</b><span>${esc(s.subjects || '')}</span>${s.teacherId ? '<span class="pillx ok" style="margin-top:3px">Teacher portal login</span>' : ''}</span></span></td>
         <td data-col="Designation">${esc(s.desig)}</td>
         <td data-col="Department"><span class="pillx">${esc(s.dept)}</span></td>
         <td data-col="Qualification">${esc(s.qual || '—')}</td>
@@ -593,7 +598,12 @@ function initOverview() {
   refreshAdminCounts();
   renderFeed();
   setTimeout(drawBars, 240);
+  if (window.AdminSchool) window.AdminSchool.overview();
 }
+
+// Phase 2 "School" screens (js/admin-school.js) add their own routes and titles.
+const SCHOOL = window.AdminSchool || { routes: {}, titles: {} };
+Object.assign(TITLES, SCHOOL.titles);
 
 function initAdminStaff() {
   renderAdminStaff();
@@ -916,7 +926,8 @@ const adminRouter = window.Router.init({
     'enq':        { page: 'pages/admin-enquiries.html', onLoad: initAdminEnq },
     'tst':        { page: 'pages/admin-testimonials.html', onLoad: initAdminTst },
     'alumni':     { page: 'pages/admin-alumni.html', onLoad: initAdminAlumni },
-    'set':        { page: 'pages/admin-settings.html', onLoad: initAdminSettings }
+    'set':        { page: 'pages/admin-settings.html', onLoad: initAdminSettings },
+    ...SCHOOL.routes
   },
   onRouteChange: function(hash) {
     const view = $('#admin-app .aview');
